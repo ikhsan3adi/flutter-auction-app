@@ -1,3 +1,4 @@
+import 'package:aplikasi_lelang_online/features/explore/explore.dart';
 import 'package:aplikasi_lelang_online/features/home/home.dart';
 import 'package:aplikasi_lelang_online/shared/shared.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +14,9 @@ class AppRoute {
       case HomePage.routeName:
         return HomePage.route();
 
+      case ExplorePage.routeName:
+        return ExplorePage.route();
+
       default:
         return _errorRoute();
     }
@@ -21,7 +25,12 @@ class AppRoute {
   static Route _errorRoute() {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: '/error'),
-      builder: (_) => const Scaffold(appBar: MyCustomAppbar(title: 'Error')),
+      builder: (_) => Scaffold(
+        appBar: MyCustomAppbar(
+          title: 'Error',
+          textTheme: MyAppTheme.myTextTheme(),
+        ),
+      ),
     );
   }
 }

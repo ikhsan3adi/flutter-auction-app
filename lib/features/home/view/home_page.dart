@@ -1,5 +1,9 @@
+import 'package:aplikasi_lelang_online/features/explore/explore.dart';
+import 'package:aplikasi_lelang_online/features/home/home.dart';
+import 'package:aplikasi_lelang_online/features/home/view/views.dart';
 import 'package:aplikasi_lelang_online/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = '/';
@@ -15,9 +19,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: MyCustomAppbar(title: "E-LELANG"),
-      bottomNavigationBar: BottomAppBar(),
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+      appBar: MyCustomAppbar(title: "E-LELANG", textTheme: textTheme),
+      body: BlocProvider(
+        create: (context) => NavigationCubit()..pageChanged(index: 0),
+        child: MainScreens(),
+      ),
+      drawer: const MyDrawer(),
     );
   }
 }

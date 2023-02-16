@@ -7,6 +7,8 @@ class MyApp extends MaterialApp {
       : super(
           title: "Online Auction App",
           theme: MyAppTheme.theme(),
+          darkTheme: MyAppTheme.darkTheme(),
+          themeMode: ThemeMode.light,
           onGenerateRoute: AppRoute.onGenerateRoute,
           initialRoute: HomePage.routeName,
           home: const HomePage(),
