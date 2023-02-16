@@ -64,7 +64,7 @@ class HeroProductCarousel extends StatelessWidget {
     return latestLelangList.map((element) {
       return Builder(builder: (context) {
         return InkWell(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: element),
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [

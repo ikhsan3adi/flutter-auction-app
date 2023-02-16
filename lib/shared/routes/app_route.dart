@@ -1,5 +1,7 @@
+import 'package:aplikasi_lelang_online/features/auction_detail/auction_detail.dart';
 import 'package:aplikasi_lelang_online/features/explore/explore.dart';
 import 'package:aplikasi_lelang_online/features/home/home.dart';
+import 'package:aplikasi_lelang_online/models/models.dart';
 import 'package:aplikasi_lelang_online/shared/shared.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ class AppRoute {
 
       case ExplorePage.routeName:
         return ExplorePage.route();
+      case AuctionDetailPage.routeName:
+        return AuctionDetailPage.route(lelang: settings.arguments as Lelang);
 
       default:
         return _errorRoute();
