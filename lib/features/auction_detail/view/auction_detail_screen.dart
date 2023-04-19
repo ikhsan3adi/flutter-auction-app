@@ -9,14 +9,13 @@ class AuctionDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const CoolAppBar(),
       body: NotificationListener<ScrollNotification>(
         onNotification: (scroll) {
           if (scroll.metrics.axis != Axis.vertical) return false;
-          if (scroll.metrics.pixels < 520) {
+          if (scroll.metrics.pixels < 1000) {
             context.read<AppbarCubit>().scrolled(scroll.metrics.pixels);
             return true;
           }
@@ -42,7 +41,7 @@ class AuctionDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BidButton(textTheme: textTheme),
+      bottomNavigationBar: const BidButton(),
     );
   }
 }

@@ -10,11 +10,11 @@ abstract class AuctionDetailState extends Equatable {
 class AuctionDetailLoading extends AuctionDetailState {}
 
 class AuctionDetailLoaded extends AuctionDetailState {
-  final Lelang lelang;
-  final List<Penawaran> penawaranList;
+  final Auction auction;
+  final List<Bid> bidList;
 
-  const AuctionDetailLoaded(this.lelang, this.penawaranList);
+  const AuctionDetailLoaded({required this.auction, required this.bidList});
 
   @override
-  List<Object> get props => [lelang];
+  List<Object> get props => [auction, bidList];
 }

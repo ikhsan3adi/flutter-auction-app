@@ -1,8 +1,8 @@
 import 'package:aplikasi_lelang_online/features/explore/explore.dart';
-import 'package:aplikasi_lelang_online/models/models.dart';
 import 'package:flutter/material.dart';
 
 class ExplorePage extends StatelessWidget {
+  /// '/explore'
   static const String routeName = '/explore';
 
   const ExplorePage({super.key});
@@ -16,6 +16,6 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExploreScreen(lelangList: Lelang.dummyLelang);
+    return const ExploreScreen();
   }
 }

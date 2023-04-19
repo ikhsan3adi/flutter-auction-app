@@ -8,10 +8,10 @@ abstract class AuctionDetailEvent extends Equatable {
 }
 
 class AuctionDetailGetAuctionEvent extends AuctionDetailEvent {
-  final Lelang lelang;
+  final Auction auction;
 
-  const AuctionDetailGetAuctionEvent(this.lelang);
+  const AuctionDetailGetAuctionEvent(this.auction);
 
   @override
-  List<Object> get props => [lelang];
+  List<Object> get props => [auction];
 }

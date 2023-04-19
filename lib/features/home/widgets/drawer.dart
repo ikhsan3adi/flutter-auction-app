@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+class MyCustomDrawer extends StatelessWidget {
+  const MyCustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MyDrawer extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("E-LELANG", style: textTheme.labelMedium),
+                  Text("E-AUCTION", style: textTheme.labelMedium),
                   Text("@2023 v0.0.1", style: textTheme.bodySmall),
                 ],
               ),

@@ -1,10 +1,10 @@
-import 'package:aplikasi_lelang_online/models/models.dart';
+import 'package:auction_api/auction_api.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.item});
 
-  final Lelang item;
+  final Auction item;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(6, 4, 6, 5),
-              child: Text(item.namaBarang, style: textTheme.bodyMedium),
+              child: Text(item.itemName, style: textTheme.bodyMedium),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(6, 0, 6, 2),
-              child: Text("Rp${item.hargaAwal}", style: textTheme.headlineSmall),
+              child: Text("Rp${item.initialPrice}", style: textTheme.headlineSmall),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(6, 4, 6, 2),

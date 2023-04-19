@@ -1,51 +1,178 @@
 import 'package:aplikasi_lelang_online/features/explore/explore.dart';
-import 'package:aplikasi_lelang_online/models/models.dart';
+import 'package:auction_api/auction_api.dart';
 import 'package:aplikasi_lelang_online/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExploreScreen extends StatelessWidget {
-  const ExploreScreen({super.key, required this.lelangList});
-
-  final List<Lelang> lelangList;
+  const ExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BlocProvider(
-            create: (context) => CarouselCubit(controller: CarouselController()),
-            child: HeroProductCarousel(latestLelangList: getLatestLelang(lelangList)),
-          ),
-          const SectionTitle(text: "Mungkin kamu suka"),
-          _YouMightLike(randomLelangList: getRandomLelang(lelangList)),
-          const SectionTitle(text: "Jelajahi"),
-          _ExploreListView(otherLelangList: getOtherLelang(lelangList)),
-        ],
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<ExploreBloc>().add(ExploreFetchAuctionEvent());
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // LATEST AUCTION CAROUSEL
+            BlocBuilder<ExploreBloc, ExploreState>(
+              builder: (context, state) {
+                if (state is ExploreLoading || state is ExploreInitial) {
+                  return _loadingHeroWidget();
+                } else if (state is ExploreError) {
+                  return _errorHeroWidget(msg: state.msg);
+                }
+
+                state as ExploreLoaded;
+
+                return BlocProvider(
+                  create: (context) => CarouselCubit(controller: CarouselController()),
+                  child: HeroProductCarousel(latestLelangList: state.latestAuctionList),
+                );
+              },
+            ),
+            // RANDOM AUCTION (YOU MIGHT LIKE)
+            BlocBuilder<ExploreBloc, ExploreState>(
+              buildWhen: (previous, current) {
+                if (previous is ExploreLoaded && current is ExploreLoaded) {
+                  return current.randomAuctionList != previous.randomAuctionList;
+                }
+                return current != previous;
+              },
+              builder: (context, state) {
+                if (state is ExploreLoading || state is ExploreInitial) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SectionTitle(text: "Mungkin kamu suka"),
+                      Center(
+                        child: SizedBox(
+                          height: 330,
+                          child: Center(child: CircularProgressIndicator.adaptive()),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (state is ExploreError) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          height: 365,
+                          child: Text(state.msg),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                state as ExploreLoaded;
+
+                return state.randomAuctionList.isNotEmpty
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SectionTitle(text: "Mungkin kamu suka"),
+                          _YouMightLike(randomAuctionList: state.randomAuctionList),
+                        ],
+                      )
+                    : const SizedBox();
+              },
+            ),
+            // OTHER AUCTION
+            BlocBuilder<ExploreBloc, ExploreState>(
+              buildWhen: (previous, current) {
+                if (previous is ExploreLoaded && current is ExploreLoaded) {
+                  return current.otherAuctionList != previous.otherAuctionList;
+                }
+                return current != previous;
+              },
+              builder: (context, state) {
+                if (state is ExploreLoading || state is ExploreInitial) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      SectionTitle(text: "Jelajahi"),
+                      Center(
+                        child: SizedBox(
+                          height: 330,
+                          child: Center(child: CircularProgressIndicator.adaptive()),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (state is ExploreError) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          height: 365,
+                          child: Text(state.msg),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                state as ExploreLoaded;
+
+                return state.otherAuctionList.isNotEmpty
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SectionTitle(text: "Jelajahi"),
+                          _ExploreListView(otherAuctionList: state.otherAuctionList),
+                        ],
+                      )
+                    : const SizedBox();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  List<Lelang> getLatestLelang(List<Lelang> listLelang) {
-    return listLelang;
-  }
+  Widget _loadingHeroWidget() => const _UnloadedHeroWidget(child: CircularProgressIndicator.adaptive());
 
-  List<Lelang> getRandomLelang(List<Lelang> listLelang) {
-    return listLelang;
-  }
+  Widget _errorHeroWidget({required String msg}) => _UnloadedHeroWidget(child: Text(msg));
+}
 
-  List<Lelang> getOtherLelang(List<Lelang> listLelang) {
-    return listLelang;
+class _UnloadedHeroWidget extends StatelessWidget {
+  const _UnloadedHeroWidget({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 5 / 4,
+      child: Container(
+        color: Theme.of(context).disabledColor,
+        child: Center(
+          child: child,
+        ),
+      ),
+    );
   }
 }
 
 class _YouMightLike extends StatelessWidget {
-  const _YouMightLike({required this.randomLelangList});
+  const _YouMightLike({required this.randomAuctionList});
 
-  final List<Lelang> randomLelangList;
+  final List<Auction> randomAuctionList;
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +181,11 @@ class _YouMightLike extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: randomLelangList.length,
+        itemCount: randomAuctionList.length,
         itemBuilder: (_, index) {
           return Padding(
             padding: index == 0 ? const EdgeInsets.only(left: 16, right: 8) : const EdgeInsets.symmetric(horizontal: 8),
-            child: ProductCard(item: randomLelangList[index]),
+            child: ProductCard(item: randomAuctionList[index]),
           );
         },
       ),
@@ -67,9 +194,9 @@ class _YouMightLike extends StatelessWidget {
 }
 
 class _ExploreListView extends StatelessWidget {
-  const _ExploreListView({required this.otherLelangList});
+  const _ExploreListView({required this.otherAuctionList});
 
-  final List<Lelang> otherLelangList;
+  final List<Auction> otherAuctionList;
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +204,11 @@ class _ExploreListView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: otherLelangList.length,
+      itemCount: otherAuctionList.length,
       itemBuilder: (_, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: ExploreListTile(item: otherLelangList[index]),
+          child: ExploreListTile(item: otherAuctionList[index]),
         );
       },
     );

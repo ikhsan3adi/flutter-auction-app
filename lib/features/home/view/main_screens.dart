@@ -1,5 +1,7 @@
+import 'package:aplikasi_lelang_online/features/auction_history/auction_history.dart';
 import 'package:aplikasi_lelang_online/features/explore/explore.dart';
 import 'package:aplikasi_lelang_online/features/home/home.dart';
+import 'package:aplikasi_lelang_online/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,13 +10,14 @@ class MainScreens extends StatelessWidget {
 
   final List<Widget> screens = [
     const ExplorePage(),
-    // history page
-    // profile page
+    const AuctionHistoryPage(),
+    const ExplorePage(), // profile page
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _AppBar(),
       body: BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) {
           if (state is NavigationLoaded) {
@@ -23,14 +26,40 @@ class MainScreens extends StatelessWidget {
           return screens[0];
         },
       ),
+      drawer: const MyCustomDrawer(),
       bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) {
           if (state is NavigationLoaded) {
-            return UserBottomNavBar(pageIndex: state.pageIndex);
+            return MyCustomBottomNavBar(pageIndex: state.pageIndex);
           }
-          return const UserBottomNavBar(pageIndex: 0);
+          return const MyCustomBottomNavBar(pageIndex: 0);
         },
       ),
     );
   }
+}
+
+class _AppBar extends StatelessWidget with PreferredSizeWidget {
+  _AppBar();
+
+  final List<String> titles = [
+    "E-AUCTION",
+    "History",
+    "Profil",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NavigationCubit, NavigationState>(
+      builder: (context, state) {
+        if (state is NavigationLoaded) {
+          return MyCustomAppbar(title: titles[state.pageIndex]);
+        }
+        return MyCustomAppbar(title: titles[0]);
+      },
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
 }

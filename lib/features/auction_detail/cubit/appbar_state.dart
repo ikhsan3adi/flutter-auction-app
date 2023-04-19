@@ -23,5 +23,5 @@ class AppbarChanged extends AppbarState {
   final Color shadowText;
 
   @override
-  List<Object> get props => [backgroundColor, foregroundColor];
+  List<Object> get props => [backgroundColor, foregroundColor, elevation, shadowText];
 }

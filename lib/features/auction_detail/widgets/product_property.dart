@@ -17,7 +17,7 @@ class AuctionProductProperty extends StatelessWidget {
           builder: (context, state) {
             TextTheme textTheme = Theme.of(context).textTheme;
             if (state is AuctionDetailLoaded) {
-              return Text(state.lelang.namaBarang, style: textTheme.headlineMedium?.copyWith(color: Colors.black87));
+              return Text(state.auction.itemName, style: textTheme.headlineMedium?.copyWith(color: Colors.black87));
             } else if (state is AuctionDetailLoading) {
               return const CircularProgressIndicator.adaptive();
             }
@@ -33,14 +33,14 @@ class AuctionProductProperty extends StatelessWidget {
             builder: (context, state) {
               TextTheme textTheme = Theme.of(context).textTheme;
               if (state is AuctionDetailLoaded) {
-                DateTime waktuMulai = state.lelang.waktuMulai;
-                DateTime waktuSelesai = state.lelang.waktuSelesai;
+                DateTime waktuMulai = state.auction.dateCreated;
+                DateTime waktuSelesai = state.auction.dateCompleted;
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Deskripsi: ${state.lelang.deskripsiBarang}", style: textTheme.bodyMedium),
+                      Text("Deskripsi: ${state.auction.description}", style: textTheme.bodyMedium),
                       const SizedBox(height: 20),
                       Text(
                         "Tanggal dibuat: ${DateFormat("dd MMMM yyyy").format(waktuMulai)}",

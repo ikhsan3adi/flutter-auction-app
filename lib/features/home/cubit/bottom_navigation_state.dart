@@ -1,4 +1,4 @@
-part of 'navigation_cubit_cubit.dart';
+part of 'bottom_navigation_cubit.dart';
 
 abstract class NavigationState extends Equatable {
   const NavigationState();

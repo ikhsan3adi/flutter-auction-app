@@ -18,7 +18,7 @@ abstract class CarouselState extends Equatable {
   final int currentCarouselIndex;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [currentCarouselIndex];
 }
 
 class CarouselInitial extends CarouselState {

@@ -1,10 +1,10 @@
-import 'package:aplikasi_lelang_online/models/models.dart';
+import 'package:auction_api/auction_api.dart';
 import 'package:flutter/material.dart';
 
 class ExploreListTile extends StatelessWidget {
   const ExploreListTile({super.key, required this.item});
 
-  final Lelang item;
+  final Auction item;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ExploreListTile extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 6, 6, 5),
-                    child: Text(item.namaBarang, style: textTheme.bodyMedium),
+                    child: Text(item.itemName, style: textTheme.bodyMedium),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 6, 6, 6),
@@ -44,7 +44,7 @@ class ExploreListTile extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 6, 2),
-                    child: Text("Rp${item.hargaAwal}", style: textTheme.headlineSmall),
+                    child: Text("Rp${item.initialPrice}", style: textTheme.headlineSmall),
                   ),
                 ],
               ),

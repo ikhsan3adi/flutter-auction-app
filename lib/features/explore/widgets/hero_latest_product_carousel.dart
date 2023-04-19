@@ -1,5 +1,5 @@
 import 'package:aplikasi_lelang_online/features/auction_detail/auction_detail.dart';
-import 'package:aplikasi_lelang_online/models/models.dart';
+import 'package:auction_api/auction_api.dart';
 import 'package:aplikasi_lelang_online/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HeroProductCarousel extends StatelessWidget {
   const HeroProductCarousel({super.key, required this.latestLelangList});
 
-  final List<Lelang> latestLelangList;
+  final List<Auction> latestLelangList;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HeroProductCarousel extends StatelessWidget {
             return CarouselSlider(
               carouselController: controller,
               options: CarouselOptions(
-                aspectRatio: 15 / 12,
+                aspectRatio: 5 / 4,
                 viewportFraction: 1,
                 autoPlay: true,
                 autoPlayInterval: const Duration(seconds: 6),
@@ -47,7 +47,7 @@ class HeroProductCarousel extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black54, width: 2),
+                      border: Border.all(color: Colors.black87, width: 2),
                       color: state.currentCarouselIndex == entry.key ? Colors.purpleAccent : Colors.white,
                     ),
                   ),
@@ -81,12 +81,12 @@ class HeroProductCarousel extends StatelessWidget {
 class _HeroImage extends StatelessWidget {
   const _HeroImage({required this.item});
 
-  final Lelang item;
+  final Auction item;
 
   @override
   Widget build(BuildContext context) {
     return const AspectRatio(
-      aspectRatio: 15 / 12,
+      aspectRatio: 5 / 4,
       child: Placeholder(),
     );
   }
@@ -95,7 +95,7 @@ class _HeroImage extends StatelessWidget {
 class _HeroBottomText extends StatelessWidget {
   const _HeroBottomText({required this.item});
 
-  final Lelang item;
+  final Auction item;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class _HeroBottomText extends StatelessWidget {
 class _HeroTitle extends StatelessWidget {
   const _HeroTitle({required this.item});
 
-  final Lelang item;
+  final Auction item;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +140,7 @@ class _HeroTitle extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             color: Colors.black87,
             child: Text(
-              item.namaBarang,
+              item.itemName,
               style: textTheme.headlineMedium!.copyWith(color: Colors.white),
             ),
           ),

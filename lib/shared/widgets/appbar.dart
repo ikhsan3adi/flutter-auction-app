@@ -4,7 +4,6 @@ class MyCustomAppbar extends StatelessWidget with PreferredSizeWidget {
   const MyCustomAppbar({
     super.key,
     this.textStyle,
-    required this.textTheme,
     required this.title,
     this.centerTitle = true,
     this.flexibleSpace,
@@ -15,11 +14,11 @@ class MyCustomAppbar extends StatelessWidget with PreferredSizeWidget {
   final Widget? flexibleSpace;
   final bool? centerTitle;
   final TextStyle? textStyle;
-  final TextTheme textTheme;
   final String title;
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return AppBar(
       // iconTheme: MyAppTheme.appBarIconTheme(),
       flexibleSpace: flexibleSpace,
