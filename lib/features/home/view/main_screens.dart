@@ -1,7 +1,7 @@
-import 'package:aplikasi_lelang_online/features/auction_history/auction_history.dart';
-import 'package:aplikasi_lelang_online/features/explore/explore.dart';
-import 'package:aplikasi_lelang_online/features/home/home.dart';
-import 'package:aplikasi_lelang_online/shared/shared.dart';
+import 'package:flutter_online_auction_app/features/auction_history/auction_history.dart';
+import 'package:flutter_online_auction_app/features/explore/explore.dart';
+import 'package:flutter_online_auction_app/features/home/home.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

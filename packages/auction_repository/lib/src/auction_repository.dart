@@ -6,4 +6,6 @@ class AuctionRepository {
   }) : _auctionApi = auctionApi;
 
   final AuctionApi _auctionApi;
+
+  // TODO: implements respository
 }

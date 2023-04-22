@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -23,13 +24,13 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="aplikasi_lelang_online">
+  <meta name="apple-mobile-web-app-title" content="online_auction_app">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>aplikasi_lelang_online</title>
+  <title>Online Auction App</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
@@ -39,20 +40,22 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         }
-      }).then(function(engineInitializer) {
+      }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
+      }).then(function (appRunner) {
         return appRunner.runApp();
       });
     });
   </script>
 </body>
+
 </html>

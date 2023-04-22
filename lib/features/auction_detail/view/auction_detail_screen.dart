@@ -1,5 +1,5 @@
-import 'package:aplikasi_lelang_online/features/auction_detail/auction_detail.dart';
-import 'package:aplikasi_lelang_online/shared/shared.dart';
+import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,4 +1,4 @@
-import 'package:aplikasi_lelang_online/features/auction_detail/auction_detail.dart';
+import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

@@ -1,4 +1,4 @@
-package com.example.aplikasi_lelang_online
+package com.x4nn.online_auction_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:aplikasi_lelang_online/features/home/home.dart';
-import 'package:aplikasi_lelang_online/shared/shared.dart';
+import 'package:flutter_online_auction_app/features/home/home.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class MyApp extends MaterialApp {
   MyApp({super.key})
