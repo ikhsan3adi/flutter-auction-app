@@ -308,6 +308,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.1.2"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      sha256: d9283d92059a22e9834bc0a31336658ffba77089fb6f3cc36751f1fc7c6661a3
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -598,14 +606,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  mock_data:
-    dependency: "direct main"
-    description:
-      name: mock_data
-      sha256: e566ed46074c787ccf07522d8a5ef92c3e694907e5254e308f5a5e55199ea707
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   nested:
     dependency: transitive
     description:

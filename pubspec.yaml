@@ -43,10 +43,10 @@ dependencies:
   intl: ^0.18.0
   carousel_slider: ^4.2.1
   assorted_layout_widgets: ^8.0.0
-  mock_data: ^2.0.0
   uuid: ^3.0.7
   image_picker: ^0.8.7
   image_cropper: ^3.0.1
+  flutter_dotenv: ^5.0.2
 
   # Local packages
   auction_repository:
