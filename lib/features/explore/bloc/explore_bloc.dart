@@ -15,10 +15,10 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
 
     // TODO: fetch data from repository
 
-    emit(ExploreLoaded(
-      latestAuctionList: Auction.dummyAuction.take(3).toList(),
-      randomAuctionList: Auction.dummyAuction.take(5).toList(),
-      otherAuctionList: Auction.dummyAuction.take(5).toList(),
+    emit(const ExploreLoaded(
+      latestAuctionList: [],
+      randomAuctionList: [],
+      otherAuctionList: [],
     ));
   }
 }

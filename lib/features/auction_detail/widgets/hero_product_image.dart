@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,14 +21,14 @@ class HeroProductImage extends StatelessWidget {
             return _NoImageWidget(bottomImageMargin: bottomImageMargin, msg: "Gambar tidak tersedia");
           } else if (state.auction.imageUrls.length == 1) {
             return _SingleImageWidget(
-              imageUrl: state.auction.imageUrls[0],
+              imageUrl: state.auction.imageUrls[0].url,
               bottomImageMargin: bottomImageMargin,
             );
           } else {
             return BlocProvider(
               create: (context) => CarouselCubit(controller: CarouselController()),
               child: _MultipleCarouselImage(
-                imageUrls: state.auction.imageUrls,
+                images: state.auction.imageUrls,
                 bottomImageMargin: bottomImageMargin,
               ),
             );
@@ -88,11 +89,11 @@ class _SingleImageWidget extends StatelessWidget {
 
 class _MultipleCarouselImage extends StatelessWidget {
   const _MultipleCarouselImage({
-    required this.imageUrls,
+    required this.images,
     required this.bottomImageMargin,
   });
 
-  final List<String> imageUrls;
+  final List<ItemImage> images;
 
   final double bottomImageMargin;
 
@@ -112,7 +113,7 @@ class _MultipleCarouselImage extends StatelessWidget {
                   context.read<CarouselCubit>().changeCarouselPage(index);
                 },
               ),
-              items: getCarouselItem(imageUrls),
+              items: getCarouselItem(images),
             );
           },
         ),
@@ -142,8 +143,8 @@ class _MultipleCarouselImage extends StatelessWidget {
     );
   }
 
-  List<Widget> getCarouselItem(List<String> imageUrls) {
-    return imageUrls.map((element) {
+  List<Widget> getCarouselItem(List<ItemImage> images) {
+    return images.map((element) {
       return Builder(
         builder: (context) {
           return _ImageWithBackground(

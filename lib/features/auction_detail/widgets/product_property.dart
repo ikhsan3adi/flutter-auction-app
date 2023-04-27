@@ -23,7 +23,7 @@ class AuctionProductProperty extends StatelessWidget {
             }
 
             return Text(
-              "Sepertinya terdapat masalah :(",
+              "Error occurred",
               style: textTheme.headlineMedium?.copyWith(color: Colors.red),
             );
           },
@@ -33,21 +33,21 @@ class AuctionProductProperty extends StatelessWidget {
             builder: (context, state) {
               TextTheme textTheme = Theme.of(context).textTheme;
               if (state is AuctionDetailLoaded) {
-                DateTime waktuMulai = state.auction.dateCreated;
-                DateTime waktuSelesai = state.auction.dateCompleted;
+                DateTime dateCreated = state.auction.createdAt;
+                DateTime dateCompleted = state.auction.dateCompleted;
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Deskripsi: ${state.auction.description}", style: textTheme.bodyMedium),
+                      Text("Description: ${state.auction.description}", style: textTheme.bodyMedium),
                       const SizedBox(height: 20),
                       Text(
-                        "Tanggal dibuat: ${DateFormat("dd MMMM yyyy").format(waktuMulai)}",
+                        "Date created: ${DateFormat("dd MMMM yyyy").format(dateCreated)}",
                         style: textTheme.bodyMedium,
                       ),
                       Text(
-                        "Tanggal berakhir: ${DateFormat("dd MMMM yyyy").format(waktuSelesai)}",
+                        "Date completed: ${DateFormat("dd MMMM yyyy").format(dateCompleted)}",
                         style: textTheme.bodyMedium,
                       ),
                     ],
@@ -58,7 +58,7 @@ class AuctionProductProperty extends StatelessWidget {
               }
 
               return Text(
-                "Sepertinya terdapat masalah :(",
+                "Error occurred",
                 style: textTheme.headlineMedium?.copyWith(color: Colors.red),
               );
             },

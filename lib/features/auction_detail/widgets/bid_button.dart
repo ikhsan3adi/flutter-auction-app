@@ -23,7 +23,7 @@ class BidButton extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  "Tempatkan penawaran",
+                  "Place bid",
                   style: textTheme.headlineSmall!.copyWith(color: Colors.white),
                 ),
               ),
@@ -51,7 +51,7 @@ class PlaceBidBottomSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(
-              "Tempatkan penawaran",
+              "Place bid",
               style: textTheme.headlineMedium?.copyWith(color: Colors.black87),
             ),
             Padding(

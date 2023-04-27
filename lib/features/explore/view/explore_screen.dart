@@ -49,7 +49,7 @@ class ExploreScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: const [
-                      SectionTitle(text: "Mungkin kamu suka"),
+                      SectionTitle(text: "You might like"),
                       Center(
                         child: SizedBox(
                           height: 330,
@@ -80,7 +80,7 @@ class ExploreScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SectionTitle(text: "Mungkin kamu suka"),
+                          const SectionTitle(text: "You might like"),
                           _YouMightLike(randomAuctionList: state.randomAuctionList),
                         ],
                       )
@@ -101,7 +101,7 @@ class ExploreScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: const [
-                      SectionTitle(text: "Jelajahi"),
+                      SectionTitle(text: "Explore"),
                       Center(
                         child: SizedBox(
                           height: 330,
@@ -132,7 +132,7 @@ class ExploreScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SectionTitle(text: "Jelajahi"),
+                          const SectionTitle(text: "Explore"),
                           _ExploreListView(otherAuctionList: state.otherAuctionList),
                         ],
                       )

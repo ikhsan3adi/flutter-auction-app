@@ -131,7 +131,7 @@ class _HeroTitle extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
             color: Colors.purpleAccent,
             child: Text(
-              "Terbaru",
+              "New",
               style: textTheme.titleMedium!.copyWith(color: Colors.white),
             ),
           ),

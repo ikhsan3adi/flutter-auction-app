@@ -19,18 +19,18 @@ class MyCustomBottomNavBar extends StatelessWidget {
       unselectedLabelStyle: textTheme.titleSmall,
       items: const [
         BottomNavigationBarItem(
-          label: "Jelajahi",
-          tooltip: "Jelajahi",
+          label: "Explore",
+          tooltip: "Explore",
           icon: Icon(Icons.explore),
         ),
         BottomNavigationBarItem(
-          label: "Riwayat",
-          tooltip: "Riwayat",
+          label: "History",
+          tooltip: "History",
           icon: Icon(Icons.history),
         ),
         BottomNavigationBarItem(
-          label: "Profil",
-          tooltip: "Profil",
+          label: "Profile",
+          tooltip: "Profile",
           icon: Icon(Icons.person),
         ),
       ],

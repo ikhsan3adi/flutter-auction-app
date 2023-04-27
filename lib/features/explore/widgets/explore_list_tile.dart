@@ -34,13 +34,13 @@ class ExploreListTile extends StatelessWidget {
                       children: [
                         const Icon(Icons.people, size: 18),
                         const SizedBox(width: 5),
-                        Text("3 Penawar", style: textTheme.bodyMedium),
+                        Text("3 Bidder", style: textTheme.bodyMedium),
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 4, 6, 0),
-                    child: Text("Mulai dari:", style: textTheme.bodySmall),
+                    child: Text("Starts from:", style: textTheme.bodySmall),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 6, 2),
