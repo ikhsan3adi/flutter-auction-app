@@ -13,6 +13,9 @@ dependencies:
   equatable: ^2.0.3
   json_annotation: ^4.7.0
   dio: ^5.1.0
+  
+  user_repository:
+    path: ../user_repository
 
 
 dev_dependencies:

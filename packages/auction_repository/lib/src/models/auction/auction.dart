@@ -1,5 +1,7 @@
+import 'package:auction_repository/src/models/item_image/item_image.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'auction.g.dart';
 
@@ -11,43 +13,35 @@ enum AuctionStatus {
 @JsonSerializable()
 class Auction extends Equatable {
   final int id;
-
-  final int ownerUserId;
-  final String ownerUsername;
-  final String ownerName;
-
   final int itemId;
+
+  final User author;
+
   final String itemName;
   final String description;
 
-  final DateTime dateCreated;
+  final DateTime createdAt;
   final DateTime dateCompleted;
 
   final int initialPrice;
   final int? finalPrice;
 
-  final int? winnerUserId;
-  final String? winnerUsername;
-  final String? winnerName;
+  final User? winner;
 
   final AuctionStatus status;
-  final List<String> imageUrls;
+  final List<ItemImage> imageUrls;
 
   const Auction({
     required this.id,
     required this.itemId,
-    required this.ownerUserId,
-    required this.ownerUsername,
-    required this.ownerName,
+    required this.author,
     required this.itemName,
     required this.description,
-    required this.dateCreated,
+    required this.createdAt,
     required this.dateCompleted,
     required this.initialPrice,
     required this.finalPrice,
-    this.winnerUserId,
-    this.winnerName,
-    this.winnerUsername,
+    this.winner,
     required this.status,
     required this.imageUrls,
   });
@@ -59,22 +53,16 @@ class Auction extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        ownerUserId,
-        ownerUsername,
-        ownerName,
+        author,
         itemId,
         itemName,
         description,
-        dateCreated,
+        createdAt,
         dateCompleted,
         initialPrice,
         finalPrice,
-        winnerUserId,
-        winnerUsername,
-        winnerName,
+        winner,
         status,
         imageUrls,
       ];
-
-  static List<Auction> dummyAuction = [];
 }

@@ -9,22 +9,29 @@ class User extends Equatable {
   final String username;
   final String name;
   final String email;
-  final String phone;
-  final String profileImageUrl;
+  final String? phone;
+  final String? profileImageUrl;
 
-  const User(
-    this.id,
-    this.username,
-    this.email,
-    this.name,
-    this.phone,
-    this.profileImageUrl,
-  );
+  const User({
+    required this.id,
+    required this.username,
+    required this.email,
+    required this.name,
+    required this.phone,
+    required this.profileImageUrl,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        id,
+        username,
+        email,
+        name,
+        phone,
+        profileImageUrl,
+      ];
 }

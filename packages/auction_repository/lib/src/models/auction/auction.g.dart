@@ -9,38 +9,33 @@ part of 'auction.dart';
 Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
       id: json['id'] as int,
       itemId: json['itemId'] as int,
-      ownerUserId: json['ownerUserId'] as int,
-      ownerUsername: json['ownerUsername'] as String,
-      ownerName: json['ownerName'] as String,
+      author: User.fromJson(json['author'] as Map<String, dynamic>),
       itemName: json['itemName'] as String,
       description: json['description'] as String,
-      dateCreated: DateTime.parse(json['dateCreated'] as String),
+      createdAt: DateTime.parse(json['createdAt'] as String),
       dateCompleted: DateTime.parse(json['dateCompleted'] as String),
       initialPrice: json['initialPrice'] as int,
       finalPrice: json['finalPrice'] as int?,
-      winnerUserId: json['winnerUserId'] as int?,
-      winnerName: json['winnerName'] as String?,
-      winnerUsername: json['winnerUsername'] as String?,
+      winner: json['winner'] == null
+          ? null
+          : User.fromJson(json['winner'] as Map<String, dynamic>),
       status: $enumDecode(_$AuctionStatusEnumMap, json['status']),
-      imageUrls:
-          (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
+      imageUrls: (json['imageUrls'] as List<dynamic>)
+          .map((e) => ItemImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
       'id': instance.id,
-      'ownerUserId': instance.ownerUserId,
-      'ownerUsername': instance.ownerUsername,
-      'ownerName': instance.ownerName,
       'itemId': instance.itemId,
+      'author': instance.author,
       'itemName': instance.itemName,
       'description': instance.description,
-      'dateCreated': instance.dateCreated.toIso8601String(),
+      'createdAt': instance.createdAt.toIso8601String(),
       'dateCompleted': instance.dateCompleted.toIso8601String(),
       'initialPrice': instance.initialPrice,
       'finalPrice': instance.finalPrice,
-      'winnerUserId': instance.winnerUserId,
-      'winnerUsername': instance.winnerUsername,
-      'winnerName': instance.winnerName,
+      'winner': instance.winner,
       'status': _$AuctionStatusEnumMap[instance.status]!,
       'imageUrls': instance.imageUrls,
     };

@@ -1,3 +1,4 @@
+import 'package:auction_repository/src/models/item_image/item_image.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -6,30 +7,19 @@ part 'item.g.dart';
 @JsonSerializable()
 class Item extends Equatable {
   final int id;
-
-  final int ownerUserId;
-  final String ownerUsername;
-  final String ownerName;
-
-  final int itemId;
+  final int userId;
   final String itemName;
   final String description;
-
-  final DateTime dateCreated;
-
+  final DateTime createdAt;
   final int initialPrice;
-
   final List<ItemImage> images;
 
   const Item({
     required this.id,
-    required this.itemId,
-    required this.ownerUserId,
-    required this.ownerUsername,
-    required this.ownerName,
+    required this.userId,
     required this.itemName,
     required this.description,
-    required this.dateCreated,
+    required this.createdAt,
     required this.initialPrice,
     required this.images,
   });
@@ -41,29 +31,11 @@ class Item extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        ownerUserId,
-        ownerUsername,
-        ownerName,
-        itemId,
+        userId,
         itemName,
         description,
-        dateCreated,
+        createdAt,
         initialPrice,
         images,
       ];
-}
-
-@JsonSerializable()
-class ItemImage extends Equatable {
-  const ItemImage({required this.id, required this.url});
-
-  final int id;
-  final String url;
-
-  factory ItemImage.fromJson(Map<String, dynamic> json) => _$ItemImageFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ItemImageToJson(this);
-
-  @override
-  List<Object?> get props => [id, url];
 }
