@@ -1,8 +1,8 @@
+import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter_online_auction_app/features/auction_history/auction_history.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
-import 'package:auction_api/auction_api.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class AppRoute {
         return ExplorePage.route();
 
       case AuctionDetailPage.routeName:
-        return AuctionDetailPage.route(lelang: settings.arguments as Auction);
+        return AuctionDetailPage.route(auction: settings.arguments as Auction);
 
       case AuctionHistoryPage.routeName:
         return AuctionHistoryPage.route();

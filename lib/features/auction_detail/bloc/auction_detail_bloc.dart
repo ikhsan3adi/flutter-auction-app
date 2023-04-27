@@ -1,4 +1,4 @@
-import 'package:auction_api/auction_api.dart';
+import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

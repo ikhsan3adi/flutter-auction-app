@@ -1,14 +1,14 @@
+import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
-import 'package:auction_api/auction_api.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HeroProductCarousel extends StatelessWidget {
-  const HeroProductCarousel({super.key, required this.latestLelangList});
+  const HeroProductCarousel({super.key, required this.latestAuctionList});
 
-  final List<Auction> latestLelangList;
+  final List<Auction> latestAuctionList;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class HeroProductCarousel extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: latestLelangList.asMap().entries.map((entry) {
+          children: latestAuctionList.asMap().entries.map((entry) {
             return BlocBuilder<CarouselCubit, CarouselState>(
               builder: (context, state) {
                 CarouselController controller = context.read<CarouselCubit>().controller;
@@ -61,7 +61,7 @@ class HeroProductCarousel extends StatelessWidget {
   }
 
   List<Widget> getCarouselItem() {
-    return latestLelangList.map((element) {
+    return latestAuctionList.map((element) {
       return Builder(builder: (context) {
         return InkWell(
           onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: element),

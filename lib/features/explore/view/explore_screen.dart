@@ -1,5 +1,5 @@
+import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
-import 'package:auction_api/auction_api.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class ExploreScreen extends StatelessWidget {
 
                 return BlocProvider(
                   create: (context) => CarouselCubit(controller: CarouselController()),
-                  child: HeroProductCarousel(latestLelangList: state.latestAuctionList),
+                  child: HeroProductCarousel(latestAuctionList: state.latestAuctionList),
                 );
               },
             ),

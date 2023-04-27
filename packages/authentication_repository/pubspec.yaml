@@ -1,4 +1,4 @@
-name: auction_repository
+name: authentication_repository
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -10,10 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dio: ^5.1.0
   equatable: ^2.0.3
   json_annotation: ^4.7.0
-  dio: ^5.1.0
-
+  user_repository:
+    path: ../user_repository
 
 dev_dependencies:
   flutter_test:

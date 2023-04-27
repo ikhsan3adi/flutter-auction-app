@@ -1,5 +1,5 @@
+import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
-import 'package:auction_api/auction_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,14 +8,14 @@ class AuctionDetailPage extends StatelessWidget {
   /// '/auction_detail'
   static const String routeName = '/auction_detail';
 
-  const AuctionDetailPage({super.key, required this.lelang});
+  const AuctionDetailPage({super.key, required this.auction});
 
-  final Auction lelang;
+  final Auction auction;
 
-  static Route<void> route({required Auction lelang}) {
+  static Route<void> route({required Auction auction}) {
     return MaterialPageRoute<void>(
       settings: const RouteSettings(name: routeName),
-      builder: (_) => AuctionDetailPage(lelang: lelang),
+      builder: (_) => AuctionDetailPage(auction: auction),
     );
   }
 
@@ -30,7 +30,7 @@ class AuctionDetailPage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) {
-            return AuctionDetailBloc()..add(AuctionDetailGetAuctionEvent(lelang));
+            return AuctionDetailBloc()..add(AuctionDetailGetAuctionEvent(auction));
           },
         ),
         BlocProvider(
