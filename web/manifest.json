@@ -1,6 +1,6 @@
 {
-    "name": "aplikasi_lelang_online",
-    "short_name": "aplikasi_lelang_online",
+    "name": "online_auction_app",
+    "short_name": "online_auction_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "aplikasi_lelang_online" "\0"
+            VALUE "FileDescription", "online_auction_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "aplikasi_lelang_online" "\0"
+            VALUE "InternalName", "online_auction_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "aplikasi_lelang_online.exe" "\0"
-            VALUE "ProductName", "aplikasi_lelang_online" "\0"
+            VALUE "OriginalFilename", "online_auction_app.exe" "\0"
+            VALUE "ProductName", "online_auction_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
