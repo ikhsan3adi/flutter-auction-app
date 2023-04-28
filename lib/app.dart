@@ -9,7 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: const [],
+      providers: [
+        BlocProvider(create: (_) => AppThemeCubit()),
+      ],
       child: const _MyApp(),
     );
   }
@@ -20,14 +22,18 @@ class _MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Online Auction App",
-      theme: MyAppTheme.theme(),
-      darkTheme: MyAppTheme.darkTheme(),
-      themeMode: ThemeMode.light,
-      onGenerateRoute: AppRoute.onGenerateRoute,
-      initialRoute: HomePage.routeName,
-      home: const HomePage(),
+    return BlocBuilder<AppThemeCubit, AppThemeState>(
+      builder: (context, state) {
+        return MaterialApp(
+          title: "Online Auction App",
+          theme: MyAppTheme.theme(),
+          darkTheme: MyAppTheme.darkTheme(),
+          themeMode: state.themeMode,
+          onGenerateRoute: AppRoute.onGenerateRoute,
+          initialRoute: HomePage.routeName,
+          home: const HomePage(),
+        );
+      },
     );
   }
 }
