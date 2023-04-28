@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:user_repository/user_repository.dart';
 
 abstract class AuthenticationApiClient extends Equatable {
+  Future<void> authenticationCheck();
   Future<void> register(User user);
   Future<String> login(String username, String password);
   Future<void> logout();
@@ -18,6 +19,14 @@ class AuthenticationApiClientImpl extends AuthenticationApiClient {
 
   @override
   List<Object?> get props => [_dio];
+
+  @override
+  Future<void> authenticationCheck() async {
+    await _dio.get(
+      '/item',
+      data: {},
+    );
+  }
 
   @override
   Future<void> register(User user) async {

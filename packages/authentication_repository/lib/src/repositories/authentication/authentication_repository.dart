@@ -1,12 +1,9 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
-import 'authentication_api.dart';
 import 'package:equatable/equatable.dart';
-
-enum AuthStatus { unknown, unauthenticated, authenticated }
 
 class AuthenticationRepository extends Equatable {
   AuthenticationRepository({required AuthenticationApiClient apiClient}) : _apiClient = apiClient;
@@ -16,37 +13,34 @@ class AuthenticationRepository extends Equatable {
   final _controller = StreamController<AuthStatus>();
 
   Stream<AuthStatus> get authStatus async* {
-    await Future.delayed(const Duration(seconds: 1));
-    yield AuthStatus.unknown;
+    yield AuthUnknown(messages: []);
     yield* _controller.stream;
   }
 
   @override
   List<Object?> get props => [_apiClient, _controller, authStatus];
 
+  void changeAuthStatus({required AuthStatus status}) {
+    _controller.add(status);
+  }
+
+  Future<void> authenticationCheck() async {
+    await _apiClient.authenticationCheck();
+  }
+
   Future<void> register({required User user}) async {
     await _apiClient.register(user);
   }
 
   Future<String?> login({required String username, required String password}) async {
-    try {
-      final token = await _apiClient.login(username, password);
+    final token = await _apiClient.login(username, password);
 
-      _controller.add(AuthStatus.authenticated);
-
-      return token;
-    } on DioError catch (_) {
-      _controller.add(AuthStatus.unauthenticated);
-      rethrow;
-    } catch (e) {
-      _controller.add(AuthStatus.unauthenticated);
-      rethrow;
-    }
+    return token;
   }
 
-  /// logout or token expired
+  /// logout requested!
   Future<void> logout() async {
-    _controller.add(AuthStatus.unauthenticated);
+    _controller.add(Unauthenticated(messages: ['Logout requested']));
     await _apiClient.logout();
   }
 }
