@@ -11,20 +11,16 @@ abstract class AuctionApiClient extends Equatable {
 }
 
 class OnlineAuctionApiClient extends AuctionApiClient {
-  OnlineAuctionApiClient({required Dio dio, required String baseUrl})
-      : _dio = dio,
-        _baseUrl = baseUrl;
+  OnlineAuctionApiClient({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
 
-  final String _baseUrl;
-
   @override
-  List<Object?> get props => [_dio, _baseUrl];
+  List<Object?> get props => [_dio];
 
   @override
   Future<List<Auction>> getAuctions() async {
-    final response = await _dio.get('$_baseUrl/auction');
+    final response = await _dio.get('/auction');
 
     final List<dynamic> data = response.data['data'];
     final List<Auction> products = data.map((json) => Auction.fromJson(json)).toList();
@@ -33,7 +29,7 @@ class OnlineAuctionApiClient extends AuctionApiClient {
 
   @override
   Future<Auction> getAuction(String id) async {
-    final response = await _dio.get('$_baseUrl/auction/$id');
+    final response = await _dio.get('/auction/$id');
 
     final Auction product = Auction.fromJson(response.data['data']);
     return product;
@@ -42,7 +38,7 @@ class OnlineAuctionApiClient extends AuctionApiClient {
   @override
   Future<void> createAuction(Auction auction) async {
     await _dio.post(
-      '$_baseUrl/auction',
+      '/auction',
       data: auction.toJson(),
     );
   }
@@ -50,13 +46,13 @@ class OnlineAuctionApiClient extends AuctionApiClient {
   @override
   Future<void> updateAuction(Auction auction) async {
     await _dio.patch(
-      '$_baseUrl/auction/${auction.id}',
+      '/auction/${auction.id}',
       data: auction.toJson(),
     );
   }
 
   @override
   Future<void> deleteAuction(String id) async {
-    await _dio.delete('$_baseUrl/auction/$id');
+    await _dio.delete('/auction/$id');
   }
 }
