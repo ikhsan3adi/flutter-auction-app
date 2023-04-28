@@ -14,7 +14,7 @@ class AuthenticationApiClientImpl extends AuthenticationApiClient {
   final Dio _dio;
 
   final String _secretKey =
-      'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY1MTAyOTU5MSwiaWF0IjoxNjUxMDI5NTkxfQ.GEqEGG2K-AQwjGEwDRzChXRIQVm5GtJPbTfcXHrgX5w';
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNzIjoib25saW5lX2F1Y3Rpb25fYXBpIiwiaWF0IjoxNjgxODk1MzkxLCJleHAiOjE2ODE5ODE3OTEsIm5iZiI6MTY4MTg5NTM5MSwianRpIjoxNjgxODk1MzkxfQ.qTCBNs6xddi3idkHSqxc4qBWEzNf5H6rWt7K7LgpzIU';
 
   @override
   List<Object?> get props => [_dio];
