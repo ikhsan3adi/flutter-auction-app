@@ -20,8 +20,12 @@ class TokenRepository {
     return null;
   }
 
-  Future<void> setToken({required Token token}) async {
-    this.token = token;
-    await _box.put('apiToken', token);
+  Future<void> setToken({required String accessToken}) async {
+    try {
+      token = Token.fromEncodedToken(token: accessToken);
+      await _box.put('apiToken', token!);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
