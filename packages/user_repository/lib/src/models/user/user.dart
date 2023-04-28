@@ -1,15 +1,23 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
 @JsonSerializable()
+@HiveType(typeId: 1)
 class User extends Equatable {
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final String username;
+  @HiveField(2)
   final String name;
+  @HiveField(3)
   final String email;
+  @HiveField(4)
   final String? phone;
+  @HiveField(5)
   final String? profileImageUrl;
 
   const User({
