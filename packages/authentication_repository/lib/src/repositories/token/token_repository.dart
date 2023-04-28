@@ -28,4 +28,8 @@ class TokenRepository {
       throw Exception(e);
     }
   }
+
+  Future<void> removeToken() async {
+    await _box.delete('apiToken');
+  }
 }
