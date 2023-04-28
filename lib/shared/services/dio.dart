@@ -5,7 +5,7 @@ import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class DioServices {
   static Dio createDio({required TokenRepository tokenRepository}) {
-    final Token? token = tokenRepository.getToken();
+    final Token? token = tokenRepository.token;
 
     final String accessToken = token != null ? token.accessToken : 'Unknown';
 

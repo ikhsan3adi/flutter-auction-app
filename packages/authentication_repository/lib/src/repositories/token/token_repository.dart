@@ -2,7 +2,9 @@ import 'package:authentication_repository/src/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class TokenRepository {
-  TokenRepository({this.token, required Box<Token> box}) : _box = box;
+  TokenRepository({this.token, required Box<Token> box}) : _box = box {
+    token = getToken();
+  }
 
   final Box<Token> _box;
 
