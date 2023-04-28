@@ -21,7 +21,7 @@ class User extends Equatable {
   final String? profileImageUrl;
 
   const User({
-    required this.id,
+    this.id = 'user',
     required this.username,
     required this.email,
     required this.name,
