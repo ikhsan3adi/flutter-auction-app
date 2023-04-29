@@ -33,7 +33,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(AuthStateLoading());
       await _authenticationRepository.authenticationCheck();
-      _authenticationRepository.changeAuthStatus(status: Authenticated());
+      _authenticationRepository.changeAuthStatus(
+        status: Authenticated(accessToken: _tokenRepository.token!.accessToken),
+      );
     } on UnauthorizedException catch (e) {
       _authenticationRepository.changeAuthStatus(
         status: Unauthenticated(messages: e.errorsMessages, forced: true),
@@ -53,8 +55,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onAuthStatusChanged(_AuthStatusChangedEvent event, Emitter<AuthState> emit) {
     switch (event.status.runtimeType) {
       case Authenticated:
+        _tokenRepository.setToken(accessToken: (event.status as Authenticated).accessToken);
         return emit(AuthStateAuthorized());
       case Unauthenticated:
+        _tokenRepository.removeToken();
         return emit(AuthStateUnauthorized(
           messages: (event.status as Unauthenticated).messages,
           forced: (event.status as Unauthenticated).forced,

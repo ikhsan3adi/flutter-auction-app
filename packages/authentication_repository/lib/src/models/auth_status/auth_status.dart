@@ -1,7 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 abstract class AuthStatus {}
 
-class Authenticated extends AuthStatus {}
+class Authenticated extends AuthStatus {
+  Authenticated({required this.accessToken});
+
+  final String accessToken;
+}
 
 class Unauthenticated extends AuthStatus {
   Unauthenticated({required this.messages, this.forced = false});

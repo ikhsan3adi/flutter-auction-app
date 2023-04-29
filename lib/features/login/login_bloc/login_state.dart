@@ -11,11 +11,7 @@ class LoginInitial extends LoginState {}
 
 class LoginLoading extends LoginState {}
 
-class LoginSuccess extends LoginState {
-  const LoginSuccess({required this.token});
-
-  final String token;
-}
+class LoginSuccess extends LoginState {}
 
 class LoginFailure extends LoginState {
   final List<String> errors;

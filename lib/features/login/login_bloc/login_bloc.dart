@@ -26,7 +26,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
 
       if (token != null) {
-        emit(LoginSuccess(token: token));
+        _authenticationRepository.changeAuthStatus(status: Authenticated(accessToken: token));
+        emit(LoginSuccess());
       } else {
         emit(const LoginFailure(errors: ['Failed to retrieve token']));
       }
