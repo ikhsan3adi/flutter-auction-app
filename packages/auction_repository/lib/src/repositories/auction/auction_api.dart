@@ -23,16 +23,16 @@ class OnlineAuctionApiClient extends AuctionApiClient {
     final response = await _dio.get('/auction');
 
     final List<dynamic> data = response.data['data'];
-    final List<Auction> products = data.map((json) => Auction.fromJson(json)).toList();
-    return products;
+    final List<Auction> auctions = data.map((json) => Auction.fromJson(json)).toList();
+    return auctions;
   }
 
   @override
   Future<Auction> getAuction(String id) async {
     final response = await _dio.get('/auction/$id');
 
-    final Auction product = Auction.fromJson(response.data['data']);
-    return product;
+    final Auction auction = Auction.fromJson(response.data['data']);
+    return auction;
   }
 
   @override
