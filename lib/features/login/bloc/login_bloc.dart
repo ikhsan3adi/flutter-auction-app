@@ -27,16 +27,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       if (token != null) {
         _authenticationRepository.changeAuthStatus(status: Authenticated(accessToken: token));
-        emit(LoginSuccess());
-      } else {
-        emit(const LoginFailure(errors: ['Failed to retrieve token']));
+        return emit(LoginSuccess());
       }
+      return emit(const LoginFailure(errors: ['Failed to retrieve token']));
     } on DioError catch (e) {
-      if (e is CustomDioException) {
-        emit(LoginFailure(errors: e.errorsMessages));
-      }
-
       emit(LoginFailure(errors: e.errorsMessages));
+    } catch (e) {
+      emit(LoginFailure(errors: [e.toString()]));
     }
   }
 }

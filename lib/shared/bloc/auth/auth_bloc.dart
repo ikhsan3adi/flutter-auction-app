@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
@@ -41,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         status: Unauthenticated(messages: e.errorsMessages, forced: true),
       );
       _tokenRepository.removeToken();
-    } on CustomDioException catch (e) {
+    } on DioError catch (e) {
       _authenticationRepository.changeAuthStatus(
         status: AuthUnknown(messages: e.errorsMessages),
       );
