@@ -36,12 +36,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _authenticationRepository.changeAuthStatus(status: Authenticated());
     } on UnauthorizedException catch (e) {
       _authenticationRepository.changeAuthStatus(
-        status: Unauthenticated(messages: e.errorsMessages(), forced: true),
+        status: Unauthenticated(messages: e.errorsMessages, forced: true),
       );
       _tokenRepository.removeToken();
     } on CustomDioException catch (e) {
       _authenticationRepository.changeAuthStatus(
-        status: AuthUnknown(messages: e.errorsMessages()),
+        status: AuthUnknown(messages: e.errorsMessages),
       );
     } catch (e) {
       _authenticationRepository.changeAuthStatus(

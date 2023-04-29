@@ -32,10 +32,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } on DioError catch (e) {
       if (e is CustomDioException) {
-        emit(LoginFailure(errors: e.errors()));
+        emit(LoginFailure(errors: e.errorsMessages));
       }
 
-      emit(LoginFailure(errors: [e.toString()]));
+      emit(LoginFailure(errors: e.errorsMessages));
     }
   }
 }

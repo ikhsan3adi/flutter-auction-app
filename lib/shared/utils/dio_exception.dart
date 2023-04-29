@@ -1,15 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class CustomDioException extends DioError {
   CustomDioException(RequestOptions r) : super(requestOptions: r);
-
-  List<String> errors() {
-    if (errorsMessages().isEmpty) {
-      return errorsMessages()..insert(0, toString());
-    }
-    return errorsMessages();
-  }
 }
 
 class BadRequestException extends CustomDioException {
