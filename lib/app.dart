@@ -1,6 +1,8 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_online_auction_app/features/home/home.dart';
+import 'package:flutter_online_auction_app/features/auth/auth.dart';
+import 'package:flutter_online_auction_app/features/splash/splash.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,9 +10,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+    final TokenRepository tokenRepository = context.read<TokenRepository>();
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AppThemeCubit()),
+        BlocProvider(
+          create: (_) => AuthBloc(
+            authenticationRepository: authenticationRepository,
+            tokenRepository: tokenRepository,
+          )..add(AuthAppStartedEvent()),
+        )
       ],
       child: const _MyApp(),
     );
@@ -30,8 +41,8 @@ class _MyApp extends StatelessWidget {
           darkTheme: MyAppTheme.darkTheme(),
           themeMode: state.themeMode,
           onGenerateRoute: AppRoute.onGenerateRoute,
-          initialRoute: HomePage.routeName,
-          home: const HomePage(),
+          initialRoute: SplashPage.routeName,
+          home: const SplashPage(),
         );
       },
     );
