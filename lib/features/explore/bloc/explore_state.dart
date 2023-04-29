@@ -31,10 +31,10 @@ class ExploreLoaded extends ExploreState {
 }
 
 class ExploreError extends ExploreState {
-  const ExploreError({required this.msg});
+  const ExploreError({required this.messages});
 
-  final String msg;
+  final List<String> messages;
 
   @override
-  List<Object> get props => [msg];
+  List<Object> get props => [messages];
 }

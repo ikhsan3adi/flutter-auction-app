@@ -24,7 +24,7 @@ class ExploreScreen extends StatelessWidget {
                 if (state is ExploreLoading || state is ExploreInitial) {
                   return _loadingHeroWidget();
                 } else if (state is ExploreError) {
-                  return _errorHeroWidget(msg: state.msg);
+                  return _errorHeroWidget(msg: state.messages[0]);
                 }
 
                 state as ExploreLoaded;
@@ -66,7 +66,7 @@ class ExploreScreen extends StatelessWidget {
                       Center(
                         child: SizedBox(
                           height: 365,
-                          child: Text(state.msg),
+                          child: Text(state.messages[0]),
                         ),
                       ),
                     ],
@@ -118,7 +118,7 @@ class ExploreScreen extends StatelessWidget {
                       Center(
                         child: SizedBox(
                           height: 365,
-                          child: Text(state.msg),
+                          child: Text(state.messages[0]),
                         ),
                       ),
                     ],

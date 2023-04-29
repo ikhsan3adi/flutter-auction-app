@@ -1,17 +1,20 @@
 import 'package:auction_repository/src/models/models.dart';
 import 'auction_api.dart';
-import 'package:equatable/equatable.dart';
 
-class AuctionRepository extends Equatable {
-  const AuctionRepository({
+class AuctionRepository {
+  AuctionRepository({
     required AuctionApiClient apiClient,
   }) : _apiClient = apiClient;
 
   final AuctionApiClient _apiClient;
 
+  List<Auction>? _auctions;
+  List<int>? _randomAuctionsIds;
+
   Future<List<Auction>> getAuctions() async {
-    final auctions = await _apiClient.getAuctions();
-    return auctions;
+    _auctions = await _apiClient.getAuctions()
+      ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    return _auctions ?? [];
   }
 
   Future<Auction> getAuction(String id) async {
@@ -31,6 +34,40 @@ class AuctionRepository extends Equatable {
     await _apiClient.deleteAuction(id);
   }
 
-  @override
-  List<Object?> get props => [_apiClient];
+  List<Auction> getLatestAuction() {
+    List<Auction> auctions = List.from(_auctions ?? []);
+
+    if (auctions.isEmpty) {
+      return [];
+    } else if (auctions.length <= 3) {
+      return auctions;
+    }
+
+    return auctions..take(3);
+  }
+
+  List<Auction> getRandomAuction() {
+    List<Auction> auctions = List.from(_auctions ?? []);
+
+    if (auctions.isEmpty || auctions.length <= 3) return [];
+
+    List<Auction> randomAuctions = auctions
+      ..removeRange(0, 3)
+      ..shuffle()
+      ..take(5);
+
+    _randomAuctionsIds = randomAuctions.map((e) => e.id).toList();
+
+    return randomAuctions;
+  }
+
+  List<Auction> getOtherAuction() {
+    List<Auction> auctions = List.from(_auctions ?? []);
+
+    if (auctions.isEmpty || auctions.length <= 8) return [];
+
+    return auctions
+      ..removeRange(0, 3)
+      ..removeWhere((element) => (_randomAuctionsIds ?? []).contains(element.id));
+  }
 }

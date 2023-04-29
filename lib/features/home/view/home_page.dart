@@ -1,3 +1,5 @@
+import 'package:auction_repository/auction_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
 import 'package:flutter_online_auction_app/features/home/view/views.dart';
@@ -19,13 +21,21 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuctionRepository auctionRepository = context.read<AuctionRepository>();
+    final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => NavigationCubit()..pageChanged(index: 0),
         ),
         BlocProvider(
-          create: (context) => ExploreBloc()..add(ExploreFetchAuctionEvent()),
+          create: (_) {
+            return ExploreBloc(
+              auctionRepository: auctionRepository,
+              authenticationRepository: authenticationRepository,
+            )..add(ExploreFetchAuctionEvent());
+          },
         ),
       ],
       child: MainScreens(),
