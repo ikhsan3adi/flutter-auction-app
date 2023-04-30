@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
+import 'package:flutter_online_auction_app/features/splash/splash.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -31,7 +32,7 @@ class SplashPage extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, AuthPage.routeName);
               }
             },
-            child: const SplashScreen(),
+            child: const SplashLoading(),
           );
         }
 

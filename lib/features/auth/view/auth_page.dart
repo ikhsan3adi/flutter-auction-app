@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
 import 'package:flutter_online_auction_app/features/login/login.dart';
-import 'package:flutter_online_auction_app/features/splash/view/splash_screen.dart';
+import 'package:flutter_online_auction_app/features/splash/splash.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -37,7 +37,7 @@ class AuthPage extends StatelessWidget {
           Navigator.pushNamed(context, AuthErrorPage.routeName);
         }
       },
-      child: const SplashScreen(),
+      child: const SplashLoading(),
     );
   }
 }
