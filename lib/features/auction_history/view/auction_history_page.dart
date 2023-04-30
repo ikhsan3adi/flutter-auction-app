@@ -2,6 +2,7 @@ import 'package:flutter_online_auction_app/features/auction_history/auction_hist
 import 'package:flutter/material.dart';
 
 class AuctionHistoryPage extends StatelessWidget {
+  /// '/auction_history'
   static const String routeName = '/auction_history';
 
   const AuctionHistoryPage({super.key});
