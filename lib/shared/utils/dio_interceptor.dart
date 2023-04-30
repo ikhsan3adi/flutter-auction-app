@@ -34,10 +34,11 @@ class AppInterceptors extends Interceptor {
             throw InternalServerErrorException(err.requestOptions);
         }
         break;
-      case DioErrorType.badCertificate:
       case DioErrorType.connectionError:
-      case DioErrorType.unknown:
         throw NoInternetConnectionException(err.requestOptions);
+      case DioErrorType.badCertificate:
+      case DioErrorType.unknown:
+        throw DioError;
       case DioErrorType.cancel:
         break;
     }
