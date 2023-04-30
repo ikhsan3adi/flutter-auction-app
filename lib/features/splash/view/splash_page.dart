@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
-
-import 'splash_screen.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -16,11 +15,28 @@ class SplashPage extends StatelessWidget {
     );
   }
 
-  Future<void> _splash() async => await Future.delayed(const Duration(seconds: 3));
+  // splash duration
+  Future<bool> _splash() async => await Future.delayed(const Duration(seconds: 3), () => true);
 
   @override
   Widget build(BuildContext context) {
-    _splash().then((value) => Navigator.pushReplacementNamed(context, AuthPage.routeName));
-    return const SplashScreen();
+    return FutureBuilder<bool>(
+      future: _splash(),
+      initialData: false,
+      builder: (context, snapshot) {
+        if (snapshot.data ?? false) {
+          return BlocListener<AuthBloc, AuthState>(
+            listener: (_, state) {
+              if (state is AuthStateAuthorized || state is AuthStateUnauthorized || state is AuthStateUnknown) {
+                Navigator.pushReplacementNamed(context, AuthPage.routeName);
+              }
+            },
+            child: const SplashScreen(),
+          );
+        }
+
+        return const SplashScreen();
+      },
+    );
   }
 }
