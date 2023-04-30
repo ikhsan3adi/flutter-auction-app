@@ -7,13 +7,6 @@ class AppInterceptors extends Interceptor {
   AppInterceptors({required Dio dio}) : _dio = dio;
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    super.onRequest(options, handler);
-
-    return handler.next(options);
-  }
-
-  @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     switch (err.type) {
       case DioErrorType.connectionTimeout:
