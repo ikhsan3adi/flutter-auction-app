@@ -4,6 +4,7 @@ import 'package:flutter_online_auction_app/features/auction_history/auction_hist
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
+import 'package:flutter_online_auction_app/features/login/login.dart';
 import 'package:flutter_online_auction_app/features/splash/splash.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +22,12 @@ class AppRoute {
 
       case AuthPage.routeName:
         return AuthPage.route();
+
+      case AuthErrorPage.routeName:
+        return AuthErrorPage.route();
+
+      case LoginPage.routeName:
+        return LoginPage.route();
 
       case HomePage.routeName:
         return HomePage.route();
