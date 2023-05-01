@@ -17,7 +17,7 @@ class AppThemeCubit extends HydratedCubit<AppThemeState> {
 }
 
 class AppThemeState extends Equatable {
-  const AppThemeState({this.themeMode = ThemeMode.system});
+  const AppThemeState({this.themeMode = ThemeMode.light});
 
   final ThemeMode themeMode;
 

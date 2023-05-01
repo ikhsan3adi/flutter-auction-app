@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class MyCustomDrawer extends StatelessWidget {
   const MyCustomDrawer({super.key});
@@ -14,7 +16,16 @@ class MyCustomDrawer extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.dark_mode),
                 title: const Text("Dark theme"),
-                trailing: Switch.adaptive(value: false, onChanged: (value) {}),
+                trailing: BlocBuilder<AppThemeCubit, AppThemeState>(
+                  builder: (context, state) {
+                    return Switch.adaptive(
+                      value: state.themeMode == ThemeMode.dark,
+                      onChanged: (value) {
+                        context.read<AppThemeCubit>().themeChanged(value ? ThemeMode.dark : ThemeMode.light);
+                      },
+                    );
+                  },
+                ),
               ),
               ListTile(
                 leading: const Icon(Icons.settings),
