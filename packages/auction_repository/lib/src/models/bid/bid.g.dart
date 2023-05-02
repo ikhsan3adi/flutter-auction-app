@@ -10,7 +10,9 @@ Bid _$BidFromJson(Map<String, dynamic> json) => Bid(
       id: json['id'] as int,
       auctionId: json['auctionId'] as int,
       bidPrice: json['bidPrice'] as int,
-      bidder: User.fromJson(json['bidder'] as Map<String, dynamic>),
+      bidder: json['bidder'] == null
+          ? null
+          : User.fromJson(json['bidder'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       profileImageUrl: json['profileImageUrl'] as String,
       mine: json['mine'] as bool,

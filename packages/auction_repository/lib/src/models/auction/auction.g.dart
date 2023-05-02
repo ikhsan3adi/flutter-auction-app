@@ -9,11 +9,15 @@ part of 'auction.dart';
 Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
       id: json['id'] as int,
       itemId: json['itemId'] as int,
-      author: User.fromJson(json['author'] as Map<String, dynamic>),
+      author: json['author'] == null
+          ? const User(id: '-', username: '', email: '', name: '')
+          : User.fromJson(json['author'] as Map<String, dynamic>),
       itemName: json['itemName'] as String,
       description: json['description'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
-      dateCompleted: DateTime.parse(json['dateCompleted'] as String),
+      dateCompleted: json['dateCompleted'] == null
+          ? null
+          : DateTime.parse(json['dateCompleted'] as String),
       initialPrice: json['initialPrice'] as int,
       finalPrice: json['finalPrice'] as int?,
       winner: json['winner'] == null
@@ -32,7 +36,7 @@ Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
       'itemName': instance.itemName,
       'description': instance.description,
       'createdAt': instance.createdAt.toIso8601String(),
-      'dateCompleted': instance.dateCompleted.toIso8601String(),
+      'dateCompleted': instance.dateCompleted?.toIso8601String(),
       'initialPrice': instance.initialPrice,
       'finalPrice': instance.finalPrice,
       'winner': instance.winner,

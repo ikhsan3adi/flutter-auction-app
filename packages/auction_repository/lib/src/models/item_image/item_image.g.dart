@@ -7,7 +7,7 @@ part of 'item_image.dart';
 // **************************************************************************
 
 ItemImage _$ItemImageFromJson(Map<String, dynamic> json) => ItemImage(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       url: json['url'] as String,
     );
 

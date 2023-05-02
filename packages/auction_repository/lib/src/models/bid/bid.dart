@@ -9,7 +9,7 @@ class Bid extends Equatable {
   final int id;
   final int auctionId;
   final int bidPrice;
-  final User bidder;
+  final User? bidder;
   final DateTime createdAt;
   final String profileImageUrl;
   final bool mine;
@@ -18,7 +18,7 @@ class Bid extends Equatable {
     required this.id,
     required this.auctionId,
     required this.bidPrice,
-    required this.bidder,
+    this.bidder,
     required this.createdAt,
     required this.profileImageUrl,
     required this.mine,

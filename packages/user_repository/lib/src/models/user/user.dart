@@ -25,8 +25,8 @@ class User extends Equatable {
     required this.username,
     required this.email,
     required this.name,
-    required this.phone,
-    required this.profileImageUrl,
+    this.phone,
+    this.profileImageUrl,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

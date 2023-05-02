@@ -5,9 +5,9 @@ part 'item_image.g.dart';
 
 @JsonSerializable()
 class ItemImage extends Equatable {
-  const ItemImage({required this.id, required this.url});
+  const ItemImage({this.id, required this.url});
 
-  final int id;
+  final int? id;
   final String url;
 
   factory ItemImage.fromJson(Map<String, dynamic> json) => _$ItemImageFromJson(json);

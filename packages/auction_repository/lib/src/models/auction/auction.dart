@@ -21,7 +21,7 @@ class Auction extends Equatable {
   final String description;
 
   final DateTime createdAt;
-  final DateTime dateCompleted;
+  final DateTime? dateCompleted;
 
   final int initialPrice;
   final int? finalPrice;
@@ -34,7 +34,7 @@ class Auction extends Equatable {
   const Auction({
     required this.id,
     required this.itemId,
-    required this.author,
+    this.author = const User(id: '-', username: '', email: '', name: ''),
     required this.itemName,
     required this.description,
     required this.createdAt,
