@@ -7,8 +7,8 @@ part of 'auction.dart';
 // **************************************************************************
 
 Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
-      id: json['id'] as int,
-      itemId: json['itemId'] as int,
+      id: json['id'] as String,
+      itemId: json['itemId'] as String,
       author: json['author'] == null
           ? const User(id: '-', username: '', email: '', name: '')
           : User.fromJson(json['author'] as Map<String, dynamic>),
@@ -24,9 +24,10 @@ Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
           ? null
           : User.fromJson(json['winner'] as Map<String, dynamic>),
       status: $enumDecode(_$AuctionStatusEnumMap, json['status']),
-      imageUrls: (json['imageUrls'] as List<dynamic>)
-          .map((e) => ItemImage.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      images: (json['images'] as List<dynamic>?)
+              ?.map((e) => ItemImage.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
@@ -41,7 +42,7 @@ Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
       'finalPrice': instance.finalPrice,
       'winner': instance.winner,
       'status': _$AuctionStatusEnumMap[instance.status]!,
-      'imageUrls': instance.imageUrls,
+      'images': instance.images,
     };
 
 const _$AuctionStatusEnumMap = {

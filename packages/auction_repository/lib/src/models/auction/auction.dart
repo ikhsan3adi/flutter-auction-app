@@ -12,8 +12,8 @@ enum AuctionStatus {
 
 @JsonSerializable()
 class Auction extends Equatable {
-  final int id;
-  final int itemId;
+  final String id;
+  final String itemId;
 
   final User author;
 
@@ -29,7 +29,7 @@ class Auction extends Equatable {
   final User? winner;
 
   final AuctionStatus status;
-  final List<ItemImage> imageUrls;
+  final List<ItemImage> images;
 
   const Auction({
     required this.id,
@@ -43,7 +43,7 @@ class Auction extends Equatable {
     required this.finalPrice,
     this.winner,
     required this.status,
-    required this.imageUrls,
+    this.images = const [],
   });
 
   factory Auction.fromJson(Map<String, dynamic> json) => _$AuctionFromJson(json);
@@ -63,6 +63,6 @@ class Auction extends Equatable {
         finalPrice,
         winner,
         status,
-        imageUrls,
+        images,
       ];
 }

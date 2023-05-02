@@ -9,7 +9,7 @@ class AuctionRepository {
   final AuctionApiClient _apiClient;
 
   List<Auction>? _auctions;
-  List<int>? _randomAuctionsIds;
+  List<String>? _randomAuctionsIds;
 
   Future<List<Auction>> getAuctions() async {
     _auctions = await _apiClient.getAuctions()

@@ -17,18 +17,18 @@ class HeroProductImage extends StatelessWidget {
     return BlocBuilder<AuctionDetailBloc, AuctionDetailState>(
       builder: (context, state) {
         if (state is AuctionDetailLoaded) {
-          if (state.auction.imageUrls.isEmpty) {
+          if (state.auction.images.isEmpty) {
             return _NoImageWidget(bottomImageMargin: bottomImageMargin, msg: "Gambar tidak tersedia");
-          } else if (state.auction.imageUrls.length == 1) {
+          } else if (state.auction.images.length == 1) {
             return _SingleImageWidget(
-              imageUrl: state.auction.imageUrls[0].url,
+              imageUrl: state.auction.images[0].url,
               bottomImageMargin: bottomImageMargin,
             );
           } else {
             return BlocProvider(
               create: (context) => CarouselCubit(controller: CarouselController()),
               child: _MultipleCarouselImage(
-                images: state.auction.imageUrls,
+                images: state.auction.images,
                 bottomImageMargin: bottomImageMargin,
               ),
             );
