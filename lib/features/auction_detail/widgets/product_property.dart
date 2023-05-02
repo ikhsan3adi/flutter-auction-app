@@ -34,7 +34,7 @@ class AuctionProductProperty extends StatelessWidget {
               TextTheme textTheme = Theme.of(context).textTheme;
               if (state is AuctionDetailLoaded) {
                 DateTime dateCreated = state.auction.createdAt;
-                DateTime dateCompleted = state.auction.dateCompleted;
+                DateTime? dateCompleted = state.auction.dateCompleted;
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: Column(
@@ -47,7 +47,7 @@ class AuctionProductProperty extends StatelessWidget {
                         style: textTheme.bodyMedium,
                       ),
                       Text(
-                        "Date completed: ${DateFormat("dd MMMM yyyy").format(dateCompleted)}",
+                        "Date completed: ${dateCompleted != null ? DateFormat("dd MMMM yyyy").format(dateCompleted) : '-'}",
                         style: textTheme.bodyMedium,
                       ),
                     ],

@@ -55,14 +55,17 @@ class _NoImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        _ImageWithBackground(
-          bottomImageMargin: bottomImageMargin,
-        ),
-        Text(msg),
-      ],
+    return AspectRatio(
+      aspectRatio: 0.75,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          _ImageWithBackground(
+            bottomImageMargin: bottomImageMargin,
+          ),
+          Text(msg),
+        ],
+      ),
     );
   }
 }
@@ -79,10 +82,13 @@ class _SingleImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ImageWithBackground(
-      bottomImageMargin: bottomImageMargin,
-      imageProvider: const AssetImage("assets/images/bg.jpg"),
-      // imageProvider: NetworkImage(imageUrl),
+    return AspectRatio(
+      aspectRatio: 0.75,
+      child: _ImageWithBackground(
+        bottomImageMargin: bottomImageMargin,
+        imageProvider: const AssetImage("assets/images/bg.jpg"),
+        // imageProvider: NetworkImage(imageUrl),
+      ),
     );
   }
 }
