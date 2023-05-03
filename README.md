@@ -53,7 +53,7 @@ cd ../../
 ```
 ## Authors
 
-- [@x4nn](https://www.github.com/x4nn)
+- [@ikhsan3adi](https://www.github.com/ikhsan3adi)
 
 ## Contributors
 
