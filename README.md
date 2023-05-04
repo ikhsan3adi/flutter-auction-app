@@ -51,6 +51,9 @@ cd ../user_repository
 flutter pub run build_runner build --delete-conflicting-outputs
 cd ../../
 ```
+
+4. Install and connect [REST API](https://www.github.com/ikhsan3adi/ci4_online_auction_api) to use the app.
+
 ## Authors
 
 - [@ikhsan3adi](https://www.github.com/ikhsan3adi)
