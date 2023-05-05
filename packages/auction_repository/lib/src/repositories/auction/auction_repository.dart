@@ -34,6 +34,18 @@ class AuctionRepository {
     await _apiClient.deleteAuction(id);
   }
 
+  Future<List<Auction>> getMyAuctions() async {
+    return await _apiClient.getMyAuctions();
+  }
+
+  Future<void> setAuctionWinner({required String auctionId, required Bid bid}) async {
+    return await _apiClient.setAuctionWinner(auctionId, bid);
+  }
+
+  Future<void> closeAuction(String auctionId) async {
+    return await _apiClient.closeAuction(auctionId);
+  }
+
   List<Auction> getLatestAuction() {
     List<Auction> auctions = List.from(_auctions ?? []);
 
