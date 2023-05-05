@@ -10,8 +10,8 @@ abstract class AuctionApiClient extends Equatable {
   Future<void> deleteAuction(String id);
 }
 
-class OnlineAuctionApiClient extends AuctionApiClient {
-  OnlineAuctionApiClient({required Dio dio}) : _dio = dio;
+class AuctionApiClientImpl extends AuctionApiClient {
+  AuctionApiClientImpl({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
 

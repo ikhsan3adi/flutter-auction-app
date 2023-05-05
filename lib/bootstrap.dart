@@ -21,7 +21,7 @@ Future<void> bootstrap() async {
 
   final Dio dio = DioServices.createDio(tokenRepository: tokenRepository);
 
-  final auctionApiClient = OnlineAuctionApiClient(dio: dio);
+  final auctionApiClient = AuctionApiClientImpl(dio: dio);
   final authApiClient = AuthenticationApiClientImpl(dio: dio);
 
   final AuctionRepository auctionRepository = AuctionRepository(apiClient: auctionApiClient);
