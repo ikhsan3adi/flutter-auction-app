@@ -14,8 +14,8 @@ Bid _$BidFromJson(Map<String, dynamic> json) => Bid(
           ? null
           : User.fromJson(json['bidder'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      profileImageUrl: json['profileImageUrl'] as String,
-      mine: json['mine'] as bool,
+      profileImageUrl: json['profileImageUrl'] as String?,
+      mine: json['mine'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$BidToJson(Bid instance) => <String, dynamic>{
@@ -26,4 +26,18 @@ Map<String, dynamic> _$BidToJson(Bid instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'profileImageUrl': instance.profileImageUrl,
       'mine': instance.mine,
+    };
+
+BidWithAuction _$BidWithAuctionFromJson(Map<String, dynamic> json) =>
+    BidWithAuction(
+      auction: Auction.fromJson(json['auction'] as Map<String, dynamic>),
+      bids: (json['bids'] as List<dynamic>)
+          .map((e) => Bid.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$BidWithAuctionToJson(BidWithAuction instance) =>
+    <String, dynamic>{
+      'auction': instance.auction,
+      'bids': instance.bids,
     };

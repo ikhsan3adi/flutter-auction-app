@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:auction_repository/auction_repository.dart';
 
 part 'bid.g.dart';
+part 'bid_with_auction.dart';
 
 @JsonSerializable()
 class Bid extends Equatable {
@@ -11,7 +13,7 @@ class Bid extends Equatable {
   final int bidPrice;
   final User? bidder;
   final DateTime createdAt;
-  final String profileImageUrl;
+  final String? profileImageUrl;
   final bool mine;
 
   const Bid({
@@ -21,7 +23,7 @@ class Bid extends Equatable {
     this.bidder,
     required this.createdAt,
     required this.profileImageUrl,
-    required this.mine,
+    this.mine = false,
   });
 
   factory Bid.fromJson(Map<String, dynamic> json) => _$BidFromJson(json);
