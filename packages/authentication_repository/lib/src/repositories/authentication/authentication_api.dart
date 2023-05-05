@@ -30,6 +30,7 @@ class AuthenticationApiClientImpl extends AuthenticationApiClient {
 
   @override
   Future<void> register(User user) async {
+    // TODO image upload
     await _dio.post(
       '/user',
       data: user.toJson(),

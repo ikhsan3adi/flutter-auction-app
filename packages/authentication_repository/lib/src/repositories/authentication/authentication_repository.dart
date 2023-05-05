@@ -29,6 +29,7 @@ class AuthenticationRepository extends Equatable {
   }
 
   Future<void> register({required User user}) async {
+    // TODO image upload
     await _apiClient.register(user);
   }
 

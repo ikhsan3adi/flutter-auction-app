@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:uuid/uuid.dart';
 
 part 'token.g.dart';
 
@@ -34,7 +35,7 @@ class Token {
       accessToken: token,
       expiresIn: JwtDecoder.getExpirationDate(token),
       tokenTime: JwtDecoder.getTokenTime(token),
-      userData: User.fromJson(decodedToken),
+      userData: User.fromJson(decodedToken..addEntries({'id': Uuid().v4()}.entries)),
     );
   }
 }
