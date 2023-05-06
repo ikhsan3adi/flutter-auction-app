@@ -84,7 +84,7 @@ class ExploreScreen extends StatelessWidget {
                           _YouMightLike(randomAuctionList: state.randomAuctionList),
                         ],
                       )
-                    : const SizedBox();
+                    : const SizedBox.expand();
               },
             ),
             // OTHER AUCTION
