@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auction_repository/src/models/models.dart';
 import 'auction_api.dart';
 
@@ -11,10 +13,9 @@ class AuctionRepository {
   List<Auction>? _auctions;
   List<String>? _randomAuctionsIds;
 
-  Future<List<Auction>> getAuctions() async {
+  Future<void> getAuctions() async {
     _auctions = await _apiClient.getAuctions()
       ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
-    return _auctions ?? [];
   }
 
   Future<Auction> getAuction(String id) async {
@@ -49,13 +50,7 @@ class AuctionRepository {
   List<Auction> getLatestAuction() {
     List<Auction> auctions = List.from(_auctions ?? []);
 
-    if (auctions.isEmpty) {
-      return [];
-    } else if (auctions.length <= 3) {
-      return auctions;
-    }
-
-    return auctions..take(3);
+    return auctions.take(3).toList();
   }
 
   List<Auction> getRandomAuction() {
@@ -63,14 +58,19 @@ class AuctionRepository {
 
     if (auctions.isEmpty || auctions.length <= 3) return [];
 
-    List<Auction> randomAuctions = auctions
-      ..removeRange(0, 3)
-      ..shuffle()
-      ..take(5);
+    Random r = Random(4321);
 
-    _randomAuctionsIds = randomAuctions.map((e) => e.id).toList();
+    _randomAuctionsIds = [
+      ...auctions.map((e) => e.id).toList()
+        ..removeRange(0, 3)
+        ..shuffle(r)
+    ].take(5).toList();
 
-    return randomAuctions;
+    return [
+      ...auctions
+        ..removeRange(0, 3)
+        ..shuffle(r)
+    ].take(5).toList();
   }
 
   List<Auction> getOtherAuction() {
