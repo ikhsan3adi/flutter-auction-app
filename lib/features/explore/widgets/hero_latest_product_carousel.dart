@@ -85,9 +85,16 @@ class _HeroImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AspectRatio(
+    return AspectRatio(
       aspectRatio: 5 / 4,
-      child: Placeholder(),
+      child: item.images.isNotEmpty
+          ? Image.network(
+              item.images[0].url,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => const Center(child: Text('Image error')),
+            )
+          : const Placeholder(),
+      // TODO image placeholder
     );
   }
 }

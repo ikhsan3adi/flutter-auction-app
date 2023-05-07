@@ -15,9 +15,16 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AspectRatio(
+            AspectRatio(
               aspectRatio: 1,
-              child: Placeholder(),
+              child: item.images.isNotEmpty
+                  ? Image.network(
+                      item.images[0].url,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Center(child: Text('Image error')),
+                    )
+                  : const Placeholder(),
+              // TODO image placeholder,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(6, 4, 6, 5),
