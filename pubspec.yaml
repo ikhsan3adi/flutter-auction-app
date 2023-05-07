@@ -50,6 +50,7 @@ dependencies:
   assorted_layout_widgets: ^8.0.0
   image_picker: ^0.8.7
   image_cropper: ^3.0.1
+  blur: ^3.1.0
 
   # Local packages
   auction_repository:

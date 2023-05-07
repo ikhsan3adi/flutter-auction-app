@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:auction_repository/auction_repository.dart';
+import 'package:blur/blur.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,27 +9,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HeroProductImage extends StatelessWidget {
   const HeroProductImage({super.key});
 
-  final double bottomImageMargin = 60;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuctionDetailBloc, AuctionDetailState>(
       builder: (context, state) {
         if (state is AuctionDetailLoaded) {
           if (state.auction.images.isEmpty) {
-            return _NoImageWidget(bottomImageMargin: bottomImageMargin, msg: "Gambar tidak tersedia");
+            return const _NoImageWidget(msg: "No images");
           } else if (state.auction.images.length == 1) {
-            return _SingleImageWidget(
-              imageUrl: state.auction.images[0].url,
-              bottomImageMargin: bottomImageMargin,
-            );
+            return _SingleImageWidget(imageUrl: state.auction.images[0].url);
           } else {
             return BlocProvider(
               create: (context) => CarouselCubit(controller: CarouselController()),
-              child: _MultipleCarouselImage(
-                images: state.auction.images,
-                bottomImageMargin: bottomImageMargin,
-              ),
+              child: _MultipleCarouselImage(images: state.auction.images),
             );
           }
         } else if (state is AuctionDetailLoading) {
@@ -40,16 +31,14 @@ class HeroProductImage extends StatelessWidget {
           );
         }
 
-        return _NoImageWidget(bottomImageMargin: bottomImageMargin, msg: "Gagal memuat gambar");
+        return const _NoImageWidget(msg: "Error");
       },
     );
   }
 }
 
 class _NoImageWidget extends StatelessWidget {
-  const _NoImageWidget({required this.bottomImageMargin, required this.msg});
-
-  final double bottomImageMargin;
+  const _NoImageWidget({required this.msg});
 
   final String msg;
 
@@ -60,9 +49,7 @@ class _NoImageWidget extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          _ImageWithBackground(
-            bottomImageMargin: bottomImageMargin,
-          ),
+          const _ImageWithBackground(),
           Text(msg),
         ],
       ),
@@ -71,12 +58,7 @@ class _NoImageWidget extends StatelessWidget {
 }
 
 class _SingleImageWidget extends StatelessWidget {
-  const _SingleImageWidget({
-    required this.imageUrl,
-    required this.bottomImageMargin,
-  });
-
-  final double bottomImageMargin;
+  const _SingleImageWidget({required this.imageUrl});
 
   final String imageUrl;
 
@@ -84,24 +66,15 @@ class _SingleImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 0.75,
-      child: _ImageWithBackground(
-        bottomImageMargin: bottomImageMargin,
-        imageProvider: const AssetImage("assets/images/bg.jpg"),
-        // imageProvider: NetworkImage(imageUrl),
-      ),
+      child: _ImageWithBackground(imageUrl: imageUrl),
     );
   }
 }
 
 class _MultipleCarouselImage extends StatelessWidget {
-  const _MultipleCarouselImage({
-    required this.images,
-    required this.bottomImageMargin,
-  });
+  const _MultipleCarouselImage({required this.images});
 
   final List<ItemImage> images;
-
-  final double bottomImageMargin;
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +92,15 @@ class _MultipleCarouselImage extends StatelessWidget {
                   context.read<CarouselCubit>().changeCarouselPage(index);
                 },
               ),
-              items: getCarouselItem(images),
+              items: _buildCarouselItem(images),
             );
           },
         ),
         Padding(
-          padding: EdgeInsets.only(top: kToolbarHeight, bottom: bottomImageMargin / 2),
+          padding: EdgeInsets.only(
+            top: kToolbarHeight,
+            bottom: AuctionDetailConstant.bottomImageMargin / 2,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -149,65 +125,69 @@ class _MultipleCarouselImage extends StatelessWidget {
     );
   }
 
-  List<Widget> getCarouselItem(List<ItemImage> images) {
+  List<Widget> _buildCarouselItem(List<ItemImage> images) {
     return images.map((element) {
       return Builder(
-        builder: (context) {
-          return _ImageWithBackground(
-            bottomImageMargin: bottomImageMargin,
-            imageProvider: const AssetImage("assets/images/bg.jpg"),
-            // imageProvider: NetworkImage(element),
-          );
-        },
+        builder: (context) => _ImageWithBackground(imageUrl: element.url),
       );
     }).toList();
   }
 }
 
 class _ImageWithBackground extends StatelessWidget {
-  const _ImageWithBackground({
-    required this.bottomImageMargin,
-    this.imageProvider,
-  });
+  const _ImageWithBackground({this.imageUrl});
 
-  final double bottomImageMargin;
-
-  final ImageProvider? imageProvider;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: imageProvider == null ? Colors.black54 : null,
-            image: imageProvider != null
-                ? DecorationImage(
-                    image: imageProvider!,
-                    fit: BoxFit.cover,
-                  )
-                : null,
-          ),
-          child: imageProvider != null
-              ? BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(decoration: const BoxDecoration(color: Colors.black38)),
-                )
-              : null,
-        ),
+        imageUrl != null
+            ? SizedBox.expand(
+                child: Image.network(
+                  imageUrl!,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(color: theme.colorScheme.error);
+                  },
+                ).blurred(
+                  blur: 10,
+                  blurColor: Colors.black26,
+                ),
+              )
+            : Container(color: theme.colorScheme.surfaceVariant),
         Padding(
-          padding: EdgeInsets.only(top: 75, bottom: bottomImageMargin),
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: imageProvider == null ? Colors.black38 : null,
-              borderRadius: BorderRadius.circular(12),
-              image: imageProvider != null
-                  ? DecorationImage(
-                      image: imageProvider!,
-                      fit: BoxFit.cover,
-                    )
-                  : null,
+          padding: EdgeInsets.only(top: 75, bottom: AuctionDetailConstant.bottomImageMargin),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: imageUrl != null
+                    ? Image.network(
+                        imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: theme.colorScheme.onError,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  const Text('Failed to load images'),
+                                  Text(error.toString()),
+                                  Text(stackTrace.toString()),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : Container(color: theme.colorScheme.background),
+              ),
             ),
           ),
         ),
