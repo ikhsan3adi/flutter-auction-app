@@ -22,7 +22,7 @@ class ExploreScreen extends StatelessWidget {
             BlocBuilder<ExploreBloc, ExploreState>(
               builder: (context, state) {
                 if (state is ExploreLoading || state is ExploreInitial) {
-                  return _loadingHeroWidget();
+                  return const ShimmerCarousel();
                 } else if (state is ExploreError) {
                   return _errorHeroWidget(msg: state.messages[0]);
                 }
@@ -50,12 +50,7 @@ class ExploreScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       SectionTitle(text: "You might like"),
-                      Center(
-                        child: SizedBox(
-                          height: 330,
-                          child: Center(child: CircularProgressIndicator.adaptive()),
-                        ),
-                      ),
+                      _YouMightLikeLoading(),
                     ],
                   );
                 } else if (state is ExploreError) {
@@ -102,12 +97,7 @@ class ExploreScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       SectionTitle(text: "Explore"),
-                      Center(
-                        child: SizedBox(
-                          height: 330,
-                          child: Center(child: CircularProgressIndicator.adaptive()),
-                        ),
-                      ),
+                      _ExploreListViewLoading(),
                     ],
                   );
                 } else if (state is ExploreError) {
@@ -144,8 +134,6 @@ class ExploreScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _loadingHeroWidget() => const _UnloadedHeroWidget(child: CircularProgressIndicator.adaptive());
 
   Widget _errorHeroWidget({required String msg}) => _UnloadedHeroWidget(child: Text(msg));
 }
@@ -193,6 +181,28 @@ class _YouMightLike extends StatelessWidget {
   }
 }
 
+class _YouMightLikeLoading extends StatelessWidget {
+  const _YouMightLikeLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 330,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: 2,
+        itemBuilder: (_, index) {
+          return Padding(
+            padding: index == 0 ? const EdgeInsets.only(left: 16, right: 8) : const EdgeInsets.symmetric(horizontal: 8),
+            child: const ShimmerProductCard(),
+          );
+        },
+      ),
+    );
+  }
+}
+
 class _ExploreListView extends StatelessWidget {
   const _ExploreListView({required this.otherAuctionList});
 
@@ -209,6 +219,26 @@ class _ExploreListView extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: ExploreListTile(item: otherAuctionList[index]),
+        );
+      },
+    );
+  }
+}
+
+class _ExploreListViewLoading extends StatelessWidget {
+  const _ExploreListViewLoading();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: 2,
+      itemBuilder: (_, index) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: ShimmerProductListTile(),
         );
       },
     );
