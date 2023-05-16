@@ -45,10 +45,10 @@ class ExploreScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is ExploreLoading || state is ExploreInitial) {
-                  return Column(
+                  return const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       SectionTitle(text: "You might like"),
                       _YouMightLikeLoading(),
                     ],
@@ -92,10 +92,10 @@ class ExploreScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is ExploreLoading || state is ExploreInitial) {
-                  return Column(
+                  return const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       SectionTitle(text: "Explore"),
                       _ExploreListViewLoading(),
                     ],

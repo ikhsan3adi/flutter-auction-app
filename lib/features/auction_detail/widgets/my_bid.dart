@@ -15,11 +15,11 @@ class MyBid extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(4, 2, 16, 0),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(4, 2, 16, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
+                  children: [
                     CircleAvatar(radius: 24),
                   ],
                 ),
@@ -51,11 +51,11 @@ class MyBid extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 12, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8, 8, 12, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
+              children: [
                 Icon(Icons.edit, size: 30),
               ],
             ),

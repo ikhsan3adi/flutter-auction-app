@@ -39,7 +39,7 @@ class MainScreens extends StatelessWidget {
   }
 }
 
-class _AppBar extends StatelessWidget with PreferredSizeWidget {
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   _AppBar();
 
   final List<String> titles = [

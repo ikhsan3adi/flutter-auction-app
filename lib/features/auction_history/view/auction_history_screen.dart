@@ -16,9 +16,9 @@ class AuctionHistoryScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 5,
               itemBuilder: (context, index) {
-                return Card(
+                return const Card(
                   child: Row(
-                    children: const [Text("data")],
+                    children: [Text("data")],
                   ),
                 );
               },

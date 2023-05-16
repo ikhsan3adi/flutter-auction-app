@@ -2,7 +2,7 @@ import 'package:flutter_online_auction_app/features/auction_detail/auction_detai
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CoolAppBar extends StatelessWidget with PreferredSizeWidget {
+class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CoolAppBar({super.key});
 
   @override

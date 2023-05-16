@@ -5,11 +5,11 @@ class SplashLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             Text('This is splash screen'),
             Padding(
               padding: EdgeInsets.all(8.0),
