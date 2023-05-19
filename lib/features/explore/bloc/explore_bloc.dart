@@ -16,6 +16,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
         _authenticationRepository = authenticationRepository,
         super(ExploreInitial()) {
     on<ExploreFetchAuctionEvent>(_fetchAuction);
+    on<ExploreFetchMoreAuctionEvent>(_fetchMoreAuction);
   }
 
   final AuctionRepository _auctionRepository;
@@ -35,6 +36,7 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
         latestAuctionList: latestAuctions,
         randomAuctionList: randomAuctions,
         otherAuctionList: otherAuctions,
+        currentPage: 1,
       ));
     } on UnauthorizedException catch (e) {
       _authenticationRepository.changeAuthStatus(
@@ -45,6 +47,30 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
       emit(ExploreError(messages: e.errorsMessages));
     } catch (e) {
       emit(ExploreError(messages: [e.toString()]));
+    }
+  }
+
+  Future<void> _fetchMoreAuction(ExploreFetchMoreAuctionEvent event, Emitter<ExploreState> emit) async {
+    final currentState = state as ExploreLoaded;
+    final int newPage = currentState.currentPage + 1;
+
+    try {
+      List<Auction> otherAuctions = await _auctionRepository.getMoreAuctions(newPage);
+
+      emit(currentState.copyWith(
+        otherAuctionList: [
+          ...currentState.otherAuctionList,
+          ...otherAuctions,
+        ],
+        currentPage: newPage,
+      ));
+    } on UnauthorizedException catch (e) {
+      _authenticationRepository.changeAuthStatus(
+        status: Unauthenticated(messages: e.errorsMessages, forced: true),
+      );
+      emit(currentState.copyWith(hasReachedMax: true));
+    } on NotFoundException catch (_) {
+      emit(currentState.copyWith(hasReachedMax: true));
     }
   }
 }

@@ -203,24 +203,58 @@ class _YouMightLikeLoading extends StatelessWidget {
   }
 }
 
-class _ExploreListView extends StatelessWidget {
+class _ExploreListView extends StatefulWidget {
   const _ExploreListView({required this.otherAuctionList});
 
   final List<Auction> otherAuctionList;
 
   @override
+  State<_ExploreListView> createState() => _ExploreListViewState();
+}
+
+class _ExploreListViewState extends State<_ExploreListView> {
+  final ScrollController _controller = ScrollController();
+
+  onScroll(BuildContext ctx) {
+    double maxScroll = _controller.position.maxScrollExtent;
+    double currentScroll = _controller.position.pixels;
+
+    if (currentScroll >= maxScroll) ctx.read<ExploreBloc>().add(ExploreFetchMoreAuctionEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _controller.addListener(onScroll(context));
+
     return ListView.builder(
+      controller: _controller,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: otherAuctionList.length,
+      itemCount: widget.otherAuctionList.length + 1,
       itemBuilder: (_, index) {
+        final state = context.read<ExploreBloc>().state as ExploreLoaded;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: ExploreListTile(item: otherAuctionList[index]),
+          child: index < widget.otherAuctionList.length
+              ? ExploreListTile(item: widget.otherAuctionList[index])
+              : _loading(reachedMax: state.hasReachedMax),
         );
       },
+    );
+  }
+
+  Widget _loading({required bool reachedMax}) {
+    return Center(
+      child: SizedBox(
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            reachedMax ? const Text("No more data available") : const CircularProgressIndicator.adaptive(),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -15,7 +15,13 @@ class AuctionRepository {
 
   Future<void> getAuctions() async {
     _auctions = [
-      ...await _apiClient.getAuctions(),
+      ...await _apiClient.getAuctions(1),
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  }
+
+  Future<List<Auction>> getMoreAuctions(int page) async {
+    return [
+      ...await _apiClient.getAuctions(page),
     ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 

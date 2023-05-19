@@ -8,3 +8,5 @@ abstract class ExploreEvent extends Equatable {
 }
 
 class ExploreFetchAuctionEvent extends ExploreEvent {}
+
+class ExploreFetchMoreAuctionEvent extends ExploreEvent {}

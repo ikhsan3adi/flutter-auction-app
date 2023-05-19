@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AuctionApiClient extends Equatable {
-  Future<List<Auction>> getAuctions();
+  Future<List<Auction>> getAuctions(int page);
   Future<Auction> getAuction(String id);
   Future<void> createAuction(Auction auction);
   Future<void> updateAuction(Auction auction);
@@ -23,8 +23,8 @@ class AuctionApiClientImpl extends AuctionApiClient {
   List<Object?> get props => [_dio];
 
   @override
-  Future<List<Auction>> getAuctions() async {
-    final response = await _dio.get('/auction');
+  Future<List<Auction>> getAuctions(int page) async {
+    final response = await _dio.get('/auction', queryParameters: {'page': page});
 
     final List<dynamic> data = response.data['data'];
     final List<Auction> auctions = data.map((json) => Auction.fromJson(json)).toList();
