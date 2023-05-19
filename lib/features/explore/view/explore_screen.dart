@@ -6,15 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExploreScreen extends StatelessWidget {
-  const ExploreScreen({super.key});
+  ExploreScreen({super.key});
+
+  final ScrollController _controller = ScrollController();
+
+  void onScroll(BuildContext ctx) {
+    if (_controller.hasClients) {
+      double maxScroll = _controller.position.maxScrollExtent;
+      double currentScroll = _controller.position.pixels;
+
+      if (currentScroll >= maxScroll) ctx.read<ExploreBloc>().add(ExploreFetchMoreAuctionEvent());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _controller.addListener(() => onScroll(context));
     return RefreshIndicator(
       onRefresh: () async {
         context.read<ExploreBloc>().add(ExploreFetchAuctionEvent());
       },
       child: SingleChildScrollView(
+        controller: _controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -86,7 +99,7 @@ class ExploreScreen extends StatelessWidget {
             BlocBuilder<ExploreBloc, ExploreState>(
               buildWhen: (previous, current) {
                 if (previous is ExploreLoaded && current is ExploreLoaded) {
-                  return current.otherAuctionList != previous.otherAuctionList;
+                  return current.otherAuctionList != previous.otherAuctionList || current.hasReachedMax != previous.hasReachedMax;
                 }
                 return current != previous;
               },
@@ -203,42 +216,24 @@ class _YouMightLikeLoading extends StatelessWidget {
   }
 }
 
-class _ExploreListView extends StatefulWidget {
+class _ExploreListView extends StatelessWidget {
   const _ExploreListView({required this.otherAuctionList});
 
   final List<Auction> otherAuctionList;
 
   @override
-  State<_ExploreListView> createState() => _ExploreListViewState();
-}
-
-class _ExploreListViewState extends State<_ExploreListView> {
-  final ScrollController _controller = ScrollController();
-
-  onScroll(BuildContext ctx) {
-    double maxScroll = _controller.position.maxScrollExtent;
-    double currentScroll = _controller.position.pixels;
-
-    if (currentScroll >= maxScroll) ctx.read<ExploreBloc>().add(ExploreFetchMoreAuctionEvent());
-  }
-
-  @override
   Widget build(BuildContext context) {
-    _controller.addListener(onScroll(context));
+    final state = context.read<ExploreBloc>().state as ExploreLoaded;
 
     return ListView.builder(
-      controller: _controller,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: widget.otherAuctionList.length + 1,
+      itemCount: otherAuctionList.length + 1,
       itemBuilder: (_, index) {
-        final state = context.read<ExploreBloc>().state as ExploreLoaded;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: index < widget.otherAuctionList.length
-              ? ExploreListTile(item: widget.otherAuctionList[index])
-              : _loading(reachedMax: state.hasReachedMax),
+          child: index < otherAuctionList.length ? ExploreListTile(item: otherAuctionList[index]) : _loading(reachedMax: state.hasReachedMax),
         );
       },
     );
