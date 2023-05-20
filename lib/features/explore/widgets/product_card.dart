@@ -1,6 +1,7 @@
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.item});
@@ -27,8 +28,7 @@ class ProductCard extends StatelessWidget {
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) => const Center(child: Text('Image error')),
                         )
-                      : const Placeholder(),
-                  // TODO image placeholder,
+                      : const ErrorNoImage(),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(6, 4, 6, 5),

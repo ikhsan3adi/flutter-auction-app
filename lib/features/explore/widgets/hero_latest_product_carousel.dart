@@ -99,10 +99,9 @@ class _HeroImage extends StatelessWidget {
           ? Image.network(
               item.images[0].url,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const Center(child: Text('Image error')),
+              errorBuilder: (context, error, stackTrace) => const ErrorNoImage(message: 'Image error'),
             )
-          : const Placeholder(),
-      // TODO image placeholder
+          : const ErrorNoImage(),
     );
   }
 }

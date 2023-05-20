@@ -1,6 +1,7 @@
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class ExploreListTile extends StatelessWidget {
   const ExploreListTile({super.key, required this.item});
@@ -29,8 +30,7 @@ class ExploreListTile extends StatelessWidget {
                             child: Text('Image error'),
                           ),
                         )
-                      : const Placeholder(),
-                  // TODO image placeholder,
+                      : const ErrorNoImage(),
                 ),
                 Flexible(
                   child: Column(
