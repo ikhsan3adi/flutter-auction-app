@@ -69,6 +69,14 @@ class HeroProductCarousel extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               _HeroImage(item: element),
+              Positioned.fill(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: element),
+                  ),
+                ),
+              ),
               _HeroBottomText(item: element),
             ],
           ),
