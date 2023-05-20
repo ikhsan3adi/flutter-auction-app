@@ -7,10 +7,8 @@ class MyCustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.centerTitle = true,
     this.flexibleSpace,
-    this.foregroundColor,
   });
 
-  final Color? foregroundColor;
   final Widget? flexibleSpace;
   final bool? centerTitle;
   final TextStyle? textStyle;
@@ -18,17 +16,16 @@ class MyCustomAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    ThemeData theme = Theme.of(context);
     return AppBar(
       // iconTheme: MyAppTheme.appBarIconTheme(),
       flexibleSpace: flexibleSpace,
-      backgroundColor: Colors.white.withOpacity(0),
-      foregroundColor: foregroundColor,
+      backgroundColor: theme.colorScheme.background,
       elevation: 0,
       centerTitle: centerTitle,
       title: Text(
         title,
-        style: textStyle ?? textTheme.headlineMedium!.copyWith(color: Colors.black87),
+        style: textStyle ?? theme.textTheme.headlineMedium,
       ),
     );
   }
