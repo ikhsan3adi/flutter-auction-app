@@ -8,8 +8,8 @@ part 'bid_with_auction.dart';
 
 @JsonSerializable()
 class Bid extends Equatable {
-  final int id;
-  final int auctionId;
+  final String id;
+  final String auctionId;
   final int bidPrice;
   final User? bidder;
   final DateTime createdAt;

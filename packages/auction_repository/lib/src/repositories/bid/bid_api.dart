@@ -16,7 +16,7 @@ class BidApiClientImpl extends BidApiClient {
 
   @override
   Future<List<Bid>> getAuctionBids(String auctionId) async {
-    final response = await _dio.get('auction/$auctionId/bid');
+    final response = await _dio.get('/auction/$auctionId/bid');
 
     final List<dynamic> data = response.data['data'];
     final List<Bid> bids = data.map((json) => Bid.fromJson(json)).toList();
