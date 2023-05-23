@@ -12,7 +12,7 @@ class ShimmerCarousel extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         AspectRatio(
-          aspectRatio: 5 / 4,
+          aspectRatio: 6 / 4,
           child: Shimmer.fromColors(
             baseColor: ColorPalettes.shimmerBg,
             highlightColor: ColorPalettes.shimmer,
