@@ -10,7 +10,9 @@ class BidRepository {
   final BidApiClient _apiClient;
 
   Future<List<Bid>> getBids({required String auctionId}) async {
-    return await _apiClient.getAuctionBids(auctionId);
+    return [
+      ...await _apiClient.getAuctionBids(auctionId),
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 
   Future<Bid> getBid(String id) async {
