@@ -19,14 +19,20 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shadows: [
                   Shadow(
                     blurRadius: 1,
-                    offset: const Offset(2, 2),
+                    offset: const Offset(1, 1),
                     color: state.shadowText,
                   ),
                 ],
               ),
             ),
+            leading: IconButton(
+              onPressed: () => Navigator.maybePop(context),
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                color: state.foregroundColor,
+              ),
+            ),
             centerTitle: false,
-            foregroundColor: state.foregroundColor,
             backgroundColor: state.backgroundColor,
             elevation: state.elevation,
           );
@@ -34,8 +40,6 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
           return AppBar(
             title: Text("Detail", style: textTheme.labelLarge?.copyWith(color: Colors.black87)),
             centerTitle: false,
-            foregroundColor: Colors.black87,
-            backgroundColor: Colors.white,
             elevation: 0,
           );
         }
