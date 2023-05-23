@@ -21,7 +21,7 @@ class HeroProductCarousel extends StatelessWidget {
             return CarouselSlider(
               carouselController: controller,
               options: CarouselOptions(
-                aspectRatio: 5 / 4,
+                aspectRatio: 6 / 4,
                 viewportFraction: 1,
                 autoPlay: true,
                 autoPlayInterval: const Duration(seconds: 6),
@@ -94,7 +94,7 @@ class _HeroImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 5 / 4,
+      aspectRatio: 6 / 4,
       child: item.images.isNotEmpty
           ? Image.network(
               item.images[0].url,
