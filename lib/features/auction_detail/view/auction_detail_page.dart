@@ -1,8 +1,10 @@
 import 'package:auction_repository/auction_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class AuctionDetailPage extends StatelessWidget {
   /// '/auction_detail'
@@ -21,6 +23,10 @@ class AuctionDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuctionRepository auctionRepository = context.read<AuctionRepository>();
+    final BidRepository bidRepository = context.read<BidRepository>();
+    final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -30,14 +36,21 @@ class AuctionDetailPage extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) {
-            return AuctionDetailBloc()..add(AuctionDetailGetAuctionEvent(auction));
+            return AuctionDetailBloc(
+              auctionRepository: auctionRepository,
+              bidRepository: bidRepository,
+              authenticationRepository: authenticationRepository,
+            )..add(AuctionDetailGetAuctionEvent(auction));
           },
         ),
         BlocProvider(
-          create: (context) => AppbarCubit()..scrolled(0),
+          create: (_) => AppbarCubit(
+            theme: Theme.of(context),
+            themeMode: context.read<AppThemeCubit>().state.themeMode,
+          )..scrolled(0),
         ),
       ],
-      child: const AuctionDetailScreen(),
+      child: AuctionDetailScreen(auction: auction),
     );
   }
 }

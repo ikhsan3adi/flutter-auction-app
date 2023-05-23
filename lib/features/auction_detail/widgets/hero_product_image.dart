@@ -13,60 +13,25 @@ class HeroProductImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuctionDetailBloc, AuctionDetailState>(
       builder: (context, state) {
-        if (state is AuctionDetailLoaded) {
-          if (state.auction.images.isEmpty) {
-            return const _NoImageWidget(msg: "No images");
-          } else if (state.auction.images.length == 1) {
-            return _SingleImageWidget(imageUrl: state.auction.images[0].url);
-          } else {
-            return BlocProvider(
-              create: (context) => CarouselCubit(controller: CarouselController()),
-              child: _MultipleCarouselImage(images: state.auction.images),
-            );
-          }
-        } else if (state is AuctionDetailLoading) {
-          return Container(
-            color: Colors.grey,
-            child: const CircularProgressIndicator.adaptive(),
-          );
+        if (state is AuctionDetailLoading) {
+          return const ShimmerDetailCarousel();
+        } else if (state is AuctionDetailError) {
+          return _ImageWithBackground(errorMessage: state.messages.join('\n'));
         }
 
-        return const _NoImageWidget(msg: "Error");
+        state as AuctionDetailLoaded;
+
+        if (state.auction.images.isEmpty) {
+          return const _ImageWithBackground();
+        } else if (state.auction.images.length == 1) {
+          return _ImageWithBackground(imageUrl: state.auction.images[0].url);
+        } else {
+          return BlocProvider(
+            create: (context) => CarouselCubit(controller: CarouselController()),
+            child: _MultipleCarouselImage(images: state.auction.images),
+          );
+        }
       },
-    );
-  }
-}
-
-class _NoImageWidget extends StatelessWidget {
-  const _NoImageWidget({required this.msg});
-
-  final String msg;
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 0.75,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          const _ImageWithBackground(),
-          Text(msg),
-        ],
-      ),
-    );
-  }
-}
-
-class _SingleImageWidget extends StatelessWidget {
-  const _SingleImageWidget({required this.imageUrl});
-
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 0.75,
-      child: _ImageWithBackground(imageUrl: imageUrl),
     );
   }
 }
@@ -135,63 +100,56 @@ class _MultipleCarouselImage extends StatelessWidget {
 }
 
 class _ImageWithBackground extends StatelessWidget {
-  const _ImageWithBackground({this.imageUrl});
+  const _ImageWithBackground({this.imageUrl, this.errorMessage});
 
   final String? imageUrl;
+  final String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
-    return Stack(
-      children: [
-        imageUrl != null
-            ? SizedBox.expand(
-                child: Image.network(
-                  imageUrl!,
+    return AspectRatio(
+      aspectRatio: 0.75,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          imageUrl != null
+              ? FittedBox(
+                  clipBehavior: Clip.hardEdge,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(color: theme.colorScheme.error);
-                  },
-                ).blurred(
-                  blur: 10,
-                  blurColor: Colors.black26,
+                  child: Image.network(
+                    imageUrl!,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(color: theme.colorScheme.error);
+                    },
+                  ).blurred(
+                    blur: 10,
+                    blurColor: Colors.black12,
+                  ),
+                )
+              : Container(color: theme.colorScheme.error),
+          Padding(
+            padding: EdgeInsets.only(top: 75, bottom: AuctionDetailConstant.bottomImageMargin),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: imageUrl != null
+                      ? Image.network(
+                          imageUrl!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, _) => ErrorNoImage(message: error.toString()),
+                        )
+                      : ErrorNoImage(message: errorMessage),
                 ),
-              )
-            : Container(color: theme.colorScheme.surfaceVariant),
-        Padding(
-          padding: EdgeInsets.only(top: 75, bottom: AuctionDetailConstant.bottomImageMargin),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: imageUrl != null
-                    ? Image.network(
-                        imageUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: theme.colorScheme.onError,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  const Text('Failed to load images'),
-                                  Text(error.toString()),
-                                  Text(stackTrace.toString()),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    : Container(color: theme.colorScheme.background),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

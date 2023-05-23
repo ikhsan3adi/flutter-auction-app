@@ -10,11 +10,20 @@ abstract class AuctionDetailState extends Equatable {
 class AuctionDetailLoading extends AuctionDetailState {}
 
 class AuctionDetailLoaded extends AuctionDetailState {
+  const AuctionDetailLoaded({required this.auction, required this.bidList});
+
   final Auction auction;
   final List<Bid> bidList;
 
-  const AuctionDetailLoaded({required this.auction, required this.bidList});
-
   @override
   List<Object> get props => [auction, bidList];
+}
+
+class AuctionDetailError extends AuctionDetailState {
+  const AuctionDetailError({required this.messages});
+
+  final List<String> messages;
+
+  @override
+  List<Object> get props => [messages];
 }
