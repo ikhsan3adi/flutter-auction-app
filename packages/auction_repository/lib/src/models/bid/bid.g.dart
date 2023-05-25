@@ -7,24 +7,24 @@ part of 'bid.dart';
 // **************************************************************************
 
 Bid _$BidFromJson(Map<String, dynamic> json) => Bid(
-      id: json['id'] as String,
-      auctionId: json['auctionId'] as String,
-      bidPrice: json['bidPrice'] as int,
+      id: json['bid_id'] as String,
+      auctionId: json['auction_id'] as String,
+      bidPrice: json['bid_price'] as int,
       bidder: json['bidder'] == null
           ? null
           : User.fromJson(json['bidder'] as Map<String, dynamic>),
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      profileImageUrl: json['profileImageUrl'] as String?,
+      createdAt: DateTime.parse(json['created_at'] as String),
+      profileImageUrl: json['profile_image'] as String?,
       mine: json['mine'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$BidToJson(Bid instance) => <String, dynamic>{
-      'id': instance.id,
-      'auctionId': instance.auctionId,
-      'bidPrice': instance.bidPrice,
+      'bid_id': instance.id,
+      'auction_id': instance.auctionId,
+      'bid_price': instance.bidPrice,
       'bidder': instance.bidder,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'profileImageUrl': instance.profileImageUrl,
+      'created_at': instance.createdAt.toIso8601String(),
+      'profile_image': instance.profileImageUrl,
       'mine': instance.mine,
     };
 

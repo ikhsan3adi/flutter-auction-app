@@ -18,6 +18,7 @@ class User extends Equatable {
   @HiveField(4)
   final String? phone;
   @HiveField(5)
+  @JsonKey(name: 'profile_image')
   final String? profileImageUrl;
 
   const User({

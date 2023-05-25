@@ -7,7 +7,9 @@ part 'item_image.g.dart';
 class ItemImage extends Equatable {
   const ItemImage({this.id, required this.url});
 
-  final int? id;
+  @JsonKey(name: 'image_id')
+  final String? id;
+  @JsonKey(name: 'image')
   final String url;
 
   factory ItemImage.fromJson(Map<String, dynamic> json) => _$ItemImageFromJson(json);

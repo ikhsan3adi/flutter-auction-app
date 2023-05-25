@@ -7,19 +7,19 @@ part of 'auction.dart';
 // **************************************************************************
 
 Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
-      id: json['id'] as String,
-      itemId: json['itemId'] as String,
+      id: json['auction_id'] as String,
+      itemId: json['item_id'] as String,
       author: json['author'] == null
           ? const User(id: '-', username: '', email: '', name: '')
           : User.fromJson(json['author'] as Map<String, dynamic>),
-      itemName: json['itemName'] as String,
+      itemName: json['item_name'] as String,
       description: json['description'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      dateCompleted: json['dateCompleted'] == null
+      createdAt: DateTime.parse(json['created_at'] as String),
+      dateCompleted: json['date_completed'] == null
           ? null
-          : DateTime.parse(json['dateCompleted'] as String),
-      initialPrice: json['initialPrice'] as int,
-      finalPrice: json['finalPrice'] as int?,
+          : DateTime.parse(json['date_completed'] as String),
+      initialPrice: json['initial_price'] as int,
+      finalPrice: json['final_price'] as int?,
       winner: json['winner'] == null
           ? null
           : User.fromJson(json['winner'] as Map<String, dynamic>),
@@ -31,15 +31,15 @@ Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
     );
 
 Map<String, dynamic> _$AuctionToJson(Auction instance) => <String, dynamic>{
-      'id': instance.id,
-      'itemId': instance.itemId,
+      'auction_id': instance.id,
+      'item_id': instance.itemId,
       'author': instance.author,
-      'itemName': instance.itemName,
+      'item_name': instance.itemName,
       'description': instance.description,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'dateCompleted': instance.dateCompleted?.toIso8601String(),
-      'initialPrice': instance.initialPrice,
-      'finalPrice': instance.finalPrice,
+      'created_at': instance.createdAt.toIso8601String(),
+      'date_completed': instance.dateCompleted?.toIso8601String(),
+      'initial_price': instance.initialPrice,
+      'final_price': instance.finalPrice,
       'winner': instance.winner,
       'status': _$AuctionStatusEnumMap[instance.status]!,
       'images': instance.images,

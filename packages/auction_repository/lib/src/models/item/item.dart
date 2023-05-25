@@ -6,12 +6,19 @@ part 'item.g.dart';
 
 @JsonSerializable()
 class Item extends Equatable {
-  final int id;
-  final int userId;
+  @JsonKey(name: 'item_id')
+  final String id;
+  @JsonKey(name: 'user_id')
+  final String userId;
+  @JsonKey(name: 'item_name')
   final String itemName;
+  @JsonKey(name: 'description')
   final String description;
+  @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @JsonKey(name: 'initial_price')
   final int initialPrice;
+  @JsonKey(name: 'images')
   final List<ItemImage> images;
 
   const Item({

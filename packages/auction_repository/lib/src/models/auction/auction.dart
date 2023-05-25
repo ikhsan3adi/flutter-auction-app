@@ -12,23 +12,29 @@ enum AuctionStatus {
 
 @JsonSerializable()
 class Auction extends Equatable {
+  @JsonKey(name: 'auction_id')
   final String id;
+  @JsonKey(name: 'item_id')
   final String itemId;
-
+  @JsonKey(name: 'author')
   final User author;
-
+  @JsonKey(name: 'item_name')
   final String itemName;
+  @JsonKey(name: 'description')
   final String description;
-
+  @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @JsonKey(name: 'date_completed')
   final DateTime? dateCompleted;
-
+  @JsonKey(name: 'initial_price')
   final int initialPrice;
+  @JsonKey(name: 'final_price')
   final int? finalPrice;
-
+  @JsonKey(name: 'winner')
   final User? winner;
-
+  @JsonKey(name: 'status')
   final AuctionStatus status;
+  @JsonKey(name: 'images')
   final List<ItemImage> images;
 
   const Auction({

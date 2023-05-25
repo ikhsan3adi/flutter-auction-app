@@ -8,12 +8,19 @@ part 'bid_with_auction.dart';
 
 @JsonSerializable()
 class Bid extends Equatable {
+  @JsonKey(name: 'bid_id')
   final String id;
+  @JsonKey(name: 'auction_id')
   final String auctionId;
+  @JsonKey(name: 'bid_price')
   final int bidPrice;
+  @JsonKey(name: 'bidder')
   final User? bidder;
+  @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @JsonKey(name: 'profile_image')
   final String? profileImageUrl;
+  @JsonKey(name: 'mine', defaultValue: false)
   final bool mine;
 
   const Bid({
