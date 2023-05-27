@@ -1,8 +1,8 @@
 
 # Online Auction App
 
-![GitHub forks](https://img.shields.io/github/forks/ikhsan3adi/AuctionApp?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/ikhsan3adi/AuctionApp?style=social)
+![GitHub forks](https://img.shields.io/github/forks/ikhsan3adi/Flutter-Auction-App?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/ikhsan3adi/Flutter-Auction-App?style=social)
 
 
 ## Features
