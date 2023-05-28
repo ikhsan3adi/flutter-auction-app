@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
           },
         ),
       ],
-      child: MainScreens(),
+      child: const MainScreens(),
     );
   }
 }
