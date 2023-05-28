@@ -2,9 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class AppInterceptors extends Interceptor {
-  final Dio _dio;
-
-  AppInterceptors({required Dio dio}) : _dio = dio;
+  AppInterceptors({required Dio dio});
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
