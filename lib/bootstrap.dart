@@ -21,19 +21,25 @@ Future<void> bootstrap() async {
 
   final Dio dio = DioServices.createDio(tokenRepository: tokenRepository);
 
-  final auctionApiClient = AuctionApiClientImpl(dio: dio);
   final authApiClient = AuthenticationApiClientImpl(dio: dio);
+  final auctionApiClient = AuctionApiClientImpl(dio: dio);
+  final bidApiClient = BidApiClientImpl(dio: dio);
+  final itemApiClient = ItemApiClientImpl(dio: dio);
 
-  final AuctionRepository auctionRepository = AuctionRepository(apiClient: auctionApiClient);
   final AuthenticationRepository authenticationRepository = AuthenticationRepository(apiClient: authApiClient);
+  final AuctionRepository auctionRepository = AuctionRepository(apiClient: auctionApiClient);
+  final BidRepository bidRepository = BidRepository(apiClient: bidApiClient);
+  final ItemRepository itemRepository = ItemRepository(apiClient: itemApiClient);
 
   runZonedGuarded(
     () => runApp(
       MultiRepositoryProvider(
         providers: [
+          RepositoryProvider(create: (_) => authenticationRepository),
           RepositoryProvider(create: (_) => tokenRepository),
           RepositoryProvider(create: (_) => auctionRepository),
-          RepositoryProvider(create: (_) => authenticationRepository),
+          RepositoryProvider(create: (_) => bidRepository),
+          RepositoryProvider(create: (_) => itemRepository),
         ],
         child: const MyApp(),
       ),
