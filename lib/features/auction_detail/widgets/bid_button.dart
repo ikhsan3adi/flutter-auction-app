@@ -1,112 +1,64 @@
+import 'package:auction_repository/auction_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/auction_detail/bloc/auction_detail_bloc.dart';
+import 'package:flutter_online_auction_app/features/place_bid/place_bid.dart';
+import 'package:flutter_online_auction_app/shared/shared.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BidButton extends StatelessWidget {
   const BidButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-                  builder: (context) => const PlaceBidBottomSheet(),
+            child: BlocBuilder<AuctionDetailBloc, AuctionDetailState>(
+              builder: (context, state) {
+                return CustomButton(
+                  text: state is AuctionDetailLoading ? "Loading..." : "Place bid",
+                  onPressed: () {
+                    if (state is AuctionDetailLoaded) {
+                      final BidRepository bidRepository = context.read<BidRepository>();
+                      final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+
+                      showModalBottomSheet<bool>(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        isScrollControlled: true,
+                        builder: (_) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider(
+                              create: (context) => PlaceBidBloc(
+                                bidRepository: bidRepository,
+                                authenticationRepository: authenticationRepository,
+                              ),
+                            ),
+                            BlocProvider.value(value: context.read<AuctionDetailBloc>()),
+                          ],
+                          child: const PlaceBidView(),
+                        ),
+                      ).then((changed) {
+                        if (changed ?? false) {
+                          Fluttertoast.showToast(msg: 'Place bid successful');
+                          context.read<AuctionDetailBloc>().add(AuctionDetailGetAuctionEvent(state.auction));
+                        }
+                      });
+                    }
+                  },
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  "Place bid",
-                  style: textTheme.headlineSmall,
-                ),
-              ),
             ),
           ),
         ),
       ],
-    );
-  }
-}
-
-class PlaceBidBottomSheet extends StatelessWidget {
-  const PlaceBidBottomSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-          top: 16,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              "Place bid",
-              style: textTheme.headlineMedium,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      "Rp",
-                      style: textTheme.headlineMedium?.copyWith(color: Colors.black87),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isNotEmpty) {
-                              return "Sussy @!!!!!!!!!!";
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: Text(
-                          "Konfirmasi",
-                          style: textTheme.headlineSmall,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
     );
   }
 }
