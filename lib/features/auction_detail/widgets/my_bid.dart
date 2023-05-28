@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class MyBid extends StatelessWidget {
@@ -72,9 +75,51 @@ class MyBid extends StatelessWidget {
                 ),
               ],
             ),
+            IconButton(
+              onPressed: () async {
+                await _deleteBid(context: context).then((delete) {
+                  if (delete ?? false) {
+                    Fluttertoast.showToast(msg: 'Deleting bid...');
+                    context.read<AuctionDetailBloc>().add(AuctionDetailDeleteBidEvent(bid));
+                  }
+                });
+              },
+              icon: const Icon(Icons.delete),
+              tooltip: 'delete bid',
+            ),
           ],
         );
       }).toList()),
+    );
+  }
+
+  Future<bool?> _deleteBid({required BuildContext context}) {
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirm'),
+          content: const Text('Are you sure?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(
+                'Cancel',
+                style: textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(
+                'Yes',
+                style: textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

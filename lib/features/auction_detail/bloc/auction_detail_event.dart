@@ -15,3 +15,12 @@ class AuctionDetailGetAuctionEvent extends AuctionDetailEvent {
   @override
   List<Object> get props => [auction];
 }
+
+class AuctionDetailDeleteBidEvent extends AuctionDetailEvent {
+  final Bid bid;
+
+  const AuctionDetailDeleteBidEvent(this.bid);
+
+  @override
+  List<Object> get props => [bid];
+}
