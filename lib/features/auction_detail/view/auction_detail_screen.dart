@@ -61,7 +61,9 @@ class AuctionDetailScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SectionTitle(text: "Bidder list"),
-                              state.bidList.isNotEmpty ? BidderList(bidList: state.bidList, auction: state.auction) : const ErrorNoBid(),
+                              state.bidList.isNotEmpty
+                                  ? BidderList(bidList: state.bidList, auction: state.auction)
+                                  : const SizedBox(height: 300, child: ErrorNoBid()),
                             ],
                           ),
                         ],
