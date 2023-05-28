@@ -39,7 +39,6 @@ class MyBid extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        radius: 24,
                         backgroundColor: theme.colorScheme.primary,
                         backgroundImage: bid.bidder?.profileImageUrl != null ? NetworkImage(bid.bidder!.profileImageUrl!) : null,
                       ),
@@ -60,7 +59,7 @@ class MyBid extends StatelessWidget {
                           ),
                           child: Text(
                             "Rp${bid.bidPrice}",
-                            style: textTheme.headlineMedium?.copyWith(color: Colors.blue.shade900),
+                            style: textTheme.headlineSmall?.copyWith(color: Colors.blue.shade900),
                           ),
                         ),
                       ],

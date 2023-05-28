@@ -30,7 +30,7 @@ class AuctionProductProperty extends StatelessWidget {
 
             return Text(
               "Error occurred",
-              style: textTheme.headlineMedium?.copyWith(color: theme.colorScheme.onError),
+              style: textTheme.headlineMedium?.copyWith(color: theme.colorScheme.error),
             );
           },
         ),

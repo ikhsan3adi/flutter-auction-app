@@ -39,7 +39,7 @@ class BidderList extends StatelessWidget {
             backgroundImage: bid.profileImageUrl != null ? NetworkImage(bid.profileImageUrl!) : null,
           ),
           title: Text("${bid.bidder?.username ?? 'Anonymous'}${bid.mine ? '(You)' : ''}", style: textTheme.headlineSmall),
-          subtitle: Text(DateFormat("dd MMMM yyyy").format(bid.createdAt).toString(), style: textTheme.bodyLarge),
+          subtitle: Text(DateFormat("dd MMMM yyyy").format(bid.createdAt).toString(), style: textTheme.bodyMedium),
           trailing: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
             decoration: BoxDecoration(
