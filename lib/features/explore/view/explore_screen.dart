@@ -27,6 +27,7 @@ class ExploreScreen extends StatelessWidget {
         context.read<ExploreBloc>().add(ExploreFetchAuctionEvent());
       },
       child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         controller: _controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +38,7 @@ class ExploreScreen extends StatelessWidget {
                 if (state is ExploreLoading || state is ExploreInitial) {
                   return const ShimmerCarousel();
                 } else if (state is ExploreError) {
-                  return _errorHeroWidget(msg: state.messages[0]);
+                  return ErrorExploreCarousel(message: state.messages[0]);
                 }
 
                 state as ExploreLoaded;
@@ -67,17 +68,9 @@ class ExploreScreen extends StatelessWidget {
                     ],
                   );
                 } else if (state is ExploreError) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          height: 365,
-                          child: Text(state.messages[0]),
-                        ),
-                      ),
-                    ],
+                  return SizedBox(
+                    height: 365,
+                    child: ErrorCommon(message: state.messages[0]),
                   );
                 }
 
@@ -114,18 +107,7 @@ class ExploreScreen extends StatelessWidget {
                     ],
                   );
                 } else if (state is ExploreError) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          height: 365,
-                          child: Text(state.messages[0]),
-                        ),
-                      ),
-                    ],
-                  );
+                  return const SizedBox();
                 }
 
                 state as ExploreLoaded;
@@ -143,27 +125,6 @@ class ExploreScreen extends StatelessWidget {
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _errorHeroWidget({required String msg}) => _UnloadedHeroWidget(child: Text(msg));
-}
-
-class _UnloadedHeroWidget extends StatelessWidget {
-  const _UnloadedHeroWidget({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 5 / 4,
-      child: Container(
-        color: Theme.of(context).disabledColor,
-        child: Center(
-          child: child,
         ),
       ),
     );

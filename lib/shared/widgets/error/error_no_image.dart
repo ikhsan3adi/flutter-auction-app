@@ -16,12 +16,12 @@ class ErrorNoImage extends StatelessWidget {
           children: [
             Icon(
               Icons.warning_amber,
-              color: theme.colorScheme.onErrorContainer,
+              color: theme.colorScheme.error,
               size: MediaQuery.of(context).size.width / 8,
             ),
             Text(
               message ?? "No image",
-              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onErrorContainer),
+              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
             ),
           ],
         ),

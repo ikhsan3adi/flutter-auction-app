@@ -51,6 +51,8 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
   }
 
   Future<void> _fetchMoreAuction(ExploreFetchMoreAuctionEvent event, Emitter<ExploreState> emit) async {
+    if (state is! ExploreLoaded) return;
+
     final currentState = state as ExploreLoaded;
     final int newPage = currentState.currentPage + 1;
 

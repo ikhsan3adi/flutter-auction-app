@@ -6,7 +6,7 @@ class MyAppTheme {
       primarySwatch: Colors.purple,
       textTheme: myTextTheme(),
       fontFamily: "Open Sans",
-      useMaterial3:  true,
+      useMaterial3: true,
     );
   }
 
@@ -16,7 +16,7 @@ class MyAppTheme {
       brightness: Brightness.dark,
       textTheme: myTextTheme(),
       fontFamily: "Open Sans",
-      useMaterial3:  true,
+      useMaterial3: true,
     );
   }
 
