@@ -12,7 +12,7 @@ class Bid extends Equatable {
   final String id;
   @JsonKey(name: 'auction_id')
   final String auctionId;
-  @JsonKey(name: 'bid_price')
+  @JsonKey(name: 'bid_price', fromJson: int.parse, defaultValue: 0)
   final int bidPrice;
   @JsonKey(name: 'bidder')
   final User? bidder;

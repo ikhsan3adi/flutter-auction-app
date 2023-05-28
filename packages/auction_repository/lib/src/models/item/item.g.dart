@@ -12,7 +12,9 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
       itemName: json['item_name'] as String,
       description: json['description'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
-      initialPrice: json['initial_price'] as int,
+      initialPrice: json['initial_price'] == null
+          ? 0
+          : int.parse(json['initial_price'] as String),
       images: (json['images'] as List<dynamic>)
           .map((e) => ItemImage.fromJson(e as Map<String, dynamic>))
           .toList(),

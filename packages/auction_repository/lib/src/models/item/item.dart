@@ -16,7 +16,7 @@ class Item extends Equatable {
   final String description;
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
-  @JsonKey(name: 'initial_price')
+  @JsonKey(name: 'initial_price', fromJson: int.parse, defaultValue: 0)
   final int initialPrice;
   @JsonKey(name: 'images')
   final List<ItemImage> images;

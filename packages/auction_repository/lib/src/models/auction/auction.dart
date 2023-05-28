@@ -26,9 +26,9 @@ class Auction extends Equatable {
   final DateTime createdAt;
   @JsonKey(name: 'date_completed')
   final DateTime? dateCompleted;
-  @JsonKey(name: 'initial_price')
+  @JsonKey(name: 'initial_price', fromJson: int.parse, defaultValue: 0)
   final int initialPrice;
-  @JsonKey(name: 'final_price')
+  @JsonKey(name: 'final_price', fromJson: int.parse, defaultValue: 0)
   final int? finalPrice;
   @JsonKey(name: 'winner')
   final User? winner;

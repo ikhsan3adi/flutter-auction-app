@@ -18,8 +18,12 @@ Auction _$AuctionFromJson(Map<String, dynamic> json) => Auction(
       dateCompleted: json['date_completed'] == null
           ? null
           : DateTime.parse(json['date_completed'] as String),
-      initialPrice: json['initial_price'] as int,
-      finalPrice: json['final_price'] as int?,
+      initialPrice: json['initial_price'] == null
+          ? 0
+          : int.parse(json['initial_price'] as String),
+      finalPrice: json['final_price'] == null
+          ? 0
+          : int.parse(json['final_price'] as String),
       winner: json['winner'] == null
           ? null
           : User.fromJson(json['winner'] as Map<String, dynamic>),

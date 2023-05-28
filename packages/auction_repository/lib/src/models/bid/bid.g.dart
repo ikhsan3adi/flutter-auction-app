@@ -9,7 +9,9 @@ part of 'bid.dart';
 Bid _$BidFromJson(Map<String, dynamic> json) => Bid(
       id: json['bid_id'] as String,
       auctionId: json['auction_id'] as String,
-      bidPrice: json['bid_price'] as int,
+      bidPrice: json['bid_price'] == null
+          ? 0
+          : int.parse(json['bid_price'] as String),
       bidder: json['bidder'] == null
           ? null
           : User.fromJson(json['bidder'] as Map<String, dynamic>),
