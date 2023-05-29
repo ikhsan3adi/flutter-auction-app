@@ -22,7 +22,7 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _controller.addListener(() => onScroll(context));
-    return RefreshIndicator(
+    return RefreshIndicator.adaptive(
       onRefresh: () async {
         context.read<ExploreBloc>().add(ExploreFetchAuctionEvent());
       },
