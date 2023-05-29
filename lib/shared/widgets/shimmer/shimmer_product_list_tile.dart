@@ -3,12 +3,14 @@ import 'package:flutter_online_auction_app/shared/theme/theme.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerProductListTile extends StatelessWidget {
-  const ShimmerProductListTile({super.key});
+  const ShimmerProductListTile({super.key, this.height = 150});
+
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: height,
       child: Padding(
         padding: const EdgeInsets.all(4),
         child: Row(
