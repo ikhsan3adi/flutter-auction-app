@@ -34,6 +34,8 @@ class Auction extends Equatable {
   final User? winner;
   @JsonKey(name: 'status')
   final AuctionStatus status;
+  @JsonKey(name: 'bid_count', defaultValue: 0)
+  final int? bidCount;
   @JsonKey(name: 'images')
   final List<ItemImage> images;
 
@@ -49,6 +51,7 @@ class Auction extends Equatable {
     required this.finalPrice,
     this.winner,
     required this.status,
+    this.bidCount,
     this.images = const [],
   });
 
@@ -69,6 +72,7 @@ class Auction extends Equatable {
         finalPrice,
         winner,
         status,
+        bidCount,
         images,
       ];
 }
