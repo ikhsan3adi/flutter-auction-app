@@ -25,9 +25,7 @@ class MyBid extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
           children: bidList.where((e) => e.mine).map((bid) {
-        Color priceBgColor = bid.bidPrice >= highestBidPrice
-            ? ColorPalettes.highestBidBg
-            : (bid.bidPrice < auction.initialPrice ? ColorPalettes.errBidBg : ColorPalettes.bidBg);
+        int colorCode = bid.bidPrice >= highestBidPrice ? 0 : (bid.bidPrice < auction.initialPrice ? 2 : 1);
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,15 +52,11 @@ class MyBid extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                          decoration: BoxDecoration(
-                            color: priceBgColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                        TextHighlight(
+                          code: colorCode,
                           child: Text(
                             "Rp${bid.bidPrice}",
-                            style: textTheme.headlineSmall?.copyWith(color: Colors.blue.shade900),
+                            style: textTheme.headlineSmall?.copyWith(color: ColorPalettes.highlightedText),
                           ),
                         ),
                       ],

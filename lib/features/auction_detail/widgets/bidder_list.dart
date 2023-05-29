@@ -28,9 +28,7 @@ class BidderList extends StatelessWidget {
 
         // if (bid.mine) return null;
 
-        Color priceBgColor = bid.bidPrice >= highestBidPrice
-            ? ColorPalettes.highestBidBg
-            : (bid.bidPrice < auction.initialPrice ? ColorPalettes.errBidBg : ColorPalettes.bidBg);
+        int colorCode = bid.bidPrice >= highestBidPrice ? 0 : (bid.bidPrice < auction.initialPrice ? 2 : 1);
 
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -40,15 +38,11 @@ class BidderList extends StatelessWidget {
           ),
           title: Text("${bid.bidder?.username ?? 'Anonymous'}${bid.mine ? '(You)' : ''}", style: textTheme.headlineSmall),
           subtitle: Text(DateFormat("dd MMMM yyyy").format(bid.createdAt).toString(), style: textTheme.bodyMedium),
-          trailing: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-            decoration: BoxDecoration(
-              color: priceBgColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
+          trailing: TextHighlight(
+            code: colorCode,
             child: Text(
               "Rp${bid.bidPrice}",
-              style: textTheme.headlineSmall?.copyWith(color: Colors.blue.shade900),
+              style: textTheme.headlineSmall?.copyWith(color: ColorPalettes.highlightedText),
             ),
           ),
         );
