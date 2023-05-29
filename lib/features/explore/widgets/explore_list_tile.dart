@@ -15,64 +15,55 @@ class ExploreListTile extends StatelessWidget {
       height: 150,
       child: Card(
         clipBehavior: Clip.hardEdge,
-        child: Stack(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: item.images.isNotEmpty
-                      ? Image.network(
-                          item.images[0].url,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => const Center(
-                            child: Text('Image error'),
-                          ),
-                        )
-                      : const ErrorNoImage(),
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 6, 6, 5),
-                        child: Text(item.itemName, style: textTheme.bodyMedium),
+        child: CustomInkWell(
+          onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: item),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: item.images.isNotEmpty
+                    ? Image.network(
+                        item.images[0].url,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const ErrorNoImage(message: 'Image error');
+                        },
+                      )
+                    : const ErrorNoImage(),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 6, 6, 5),
+                      child: Text(item.itemName, style: textTheme.bodyMedium),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 6, 6, 6),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.people, size: 18),
+                          const SizedBox(width: 5),
+                          Text("${item.bidCount ?? 0} Bidder", style: textTheme.bodyMedium),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 6, 6, 6),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.people, size: 18),
-                            const SizedBox(width: 5),
-                            Text("3 Bidder", style: textTheme.bodyMedium),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 4, 6, 0),
-                        child: Text("Starts from:", style: textTheme.bodySmall),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 6, 2),
-                        child: Text("Rp${item.initialPrice}", style: textTheme.headlineSmall),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Positioned.fill(
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: item),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 4, 6, 0),
+                      child: Text("Starts from:", style: textTheme.bodySmall),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 6, 2),
+                      child: Text("Rp${item.initialPrice}", style: textTheme.headlineSmall),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
