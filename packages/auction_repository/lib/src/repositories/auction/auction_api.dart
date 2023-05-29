@@ -10,6 +10,8 @@ abstract class AuctionApiClient extends Equatable {
   Future<void> deleteAuction(String id);
 
   Future<List<Auction>> getMyAuctions();
+  Future<List<BidWithAuction>> getMyBidAuctions();
+
   Future<void> setAuctionWinner(String auctionId, Bid bid);
   Future<void> closeAuction(String auctionId);
 }
@@ -67,6 +69,15 @@ class AuctionApiClientImpl extends AuctionApiClient {
     final List<dynamic> data = response.data['data'];
     final List<Auction> auctions = data.map((json) => Auction.fromJson(json)).toList();
     return auctions;
+  }
+
+  @override
+  Future<List<BidWithAuction>> getMyBidAuctions() async {
+    final response = await _dio.get('/user/bid');
+
+    final List<dynamic> data = response.data['data'];
+    final List<BidWithAuction> auctionWithBids = data.map((json) => BidWithAuction.fromJson(json)).toList();
+    return auctionWithBids;
   }
 
   @override

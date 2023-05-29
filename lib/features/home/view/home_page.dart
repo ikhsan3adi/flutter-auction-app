@@ -2,9 +2,9 @@ import 'package:auction_repository/auction_repository.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
-import 'package:flutter_online_auction_app/features/home/view/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
 
 class HomePage extends StatelessWidget {
   /// '/home'
@@ -35,6 +35,14 @@ class HomePage extends StatelessWidget {
               auctionRepository: auctionRepository,
               authenticationRepository: authenticationRepository,
             )..add(ExploreFetchAuctionEvent());
+          },
+        ),
+        BlocProvider(
+          create: (_) {
+            return MyBidBloc(
+              auctionRepository: auctionRepository,
+              authenticationRepository: authenticationRepository,
+            );
           },
         ),
       ],

@@ -46,6 +46,10 @@ class AuctionRepository {
     return await _apiClient.getMyAuctions();
   }
 
+  Future<List<BidWithAuction>> getMyBidAuctions() async {
+    return await _apiClient.getMyBidAuctions();
+  }
+
   Future<void> setAuctionWinner({required String auctionId, required Bid bid}) async {
     return await _apiClient.setAuctionWinner(auctionId, bid);
   }

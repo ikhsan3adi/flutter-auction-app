@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
+import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
 
 class HomeConstant {
   static List<Widget> screens = [
     const ExplorePage(),
-    const ExplorePage(),
+    const MyBidPage(),
   ];
 
   static List<String> mainPageAppbarTitles = [
