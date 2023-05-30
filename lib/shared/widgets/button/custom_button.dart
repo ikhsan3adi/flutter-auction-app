@@ -7,6 +7,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.width,
     this.height,
+    this.disabled = false,
   });
 
   final String text;
@@ -14,6 +15,8 @@ class CustomButton extends StatelessWidget {
 
   final double? width;
   final double? height;
+
+  final bool? disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +27,15 @@ class CustomButton extends StatelessWidget {
       height: height ?? MediaQuery.of(context).size.width / 7,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          foregroundColor: theme.colorScheme.onPrimary,
-          backgroundColor: theme.colorScheme.primary,
+          foregroundColor: disabled! ? theme.colorScheme.inverseSurface : theme.colorScheme.onPrimary,
+          backgroundColor: disabled! ? theme.disabledColor : theme.colorScheme.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
-        onPressed: onPressed,
+        onPressed: disabled! ? () {} : onPressed,
         child: Text(
           text,
           style: textTheme.headlineSmall?.copyWith(
-            color: theme.colorScheme.onPrimary,
+            color: disabled! ? Colors.white70 : theme.colorScheme.onPrimary,
           ),
         ),
       ),

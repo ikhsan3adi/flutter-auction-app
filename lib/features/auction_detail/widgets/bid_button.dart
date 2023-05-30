@@ -8,10 +8,14 @@ import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class BidButton extends StatelessWidget {
-  const BidButton({super.key});
+  const BidButton({super.key, required this.auction});
+
+  final Auction auction;
 
   @override
   Widget build(BuildContext context) {
+    final Token? token = context.read<TokenRepository>().token;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -22,6 +26,7 @@ class BidButton extends StatelessWidget {
               builder: (context, state) {
                 return CustomButton(
                   text: state is AuctionDetailLoading ? "Loading..." : "Place bid",
+                  disabled: auction.author.username == token?.userData?.username,
                   onPressed: () {
                     if (state is AuctionDetailLoaded) {
                       final BidRepository bidRepository = context.read<BidRepository>();

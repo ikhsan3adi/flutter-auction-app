@@ -69,18 +69,20 @@ class MyBid extends StatelessWidget {
                 ),
               ],
             ),
-            IconButton(
-              onPressed: () async {
-                await _deleteBid(context: context).then((delete) {
-                  if (delete ?? false) {
-                    Fluttertoast.showToast(msg: 'Deleting bid...');
-                    context.read<AuctionDetailBloc>().add(AuctionDetailDeleteBidEvent(bid));
-                  }
-                });
-              },
-              icon: const Icon(Icons.delete),
-              tooltip: 'delete bid',
-            ),
+            auction.status == AuctionStatus.open
+                ? IconButton(
+                    onPressed: () async {
+                      await _deleteBid(context: context).then((delete) {
+                        if (delete ?? false) {
+                          Fluttertoast.showToast(msg: 'Deleting bid...');
+                          context.read<AuctionDetailBloc>().add(AuctionDetailDeleteBidEvent(bid));
+                        }
+                      });
+                    },
+                    icon: const Icon(Icons.delete),
+                    tooltip: 'delete bid',
+                  )
+                : const SizedBox(),
           ],
         );
       }).toList()),
