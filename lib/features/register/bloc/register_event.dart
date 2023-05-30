@@ -8,10 +8,10 @@ abstract class RegisterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class RegisterUser extends RegisterEvent {
-  final User newUser;
+class AttemptRegister extends RegisterEvent {
+  const AttemptRegister({required this.newUser});
 
-  const RegisterUser({required this.newUser});
+  final User newUser;
 
   @override
   List<Object> get props => [newUser];

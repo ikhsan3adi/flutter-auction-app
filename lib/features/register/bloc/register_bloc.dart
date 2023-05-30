@@ -14,12 +14,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     required AuthenticationRepository authenticationRepository,
   })  : _authenticationRepository = authenticationRepository,
         super(RegisterInitial()) {
-    on<RegisterUser>(_registerUser);
+    on<AttemptRegister>(_registerUser);
   }
 
   final AuthenticationRepository _authenticationRepository;
 
-  Future<void> _registerUser(RegisterUser event, Emitter<RegisterState> emit) async {
+  Future<void> _registerUser(AttemptRegister event, Emitter<RegisterState> emit) async {
     try {
       emit(RegisterLoading());
       await _authenticationRepository.register(user: event.newUser);
