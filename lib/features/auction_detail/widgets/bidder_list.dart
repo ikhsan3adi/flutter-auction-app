@@ -18,25 +18,32 @@ class BidderList extends StatelessWidget {
 
     int highestBidPrice = bidList.map((e) => e.bidPrice).reduce(max);
 
+    final List<Bid> sortedBids = bidList
+      ..sort((a, b) {
+        if (auction.winner == null) return 0;
+        return (b.bidder?.username == auction.winner?.username) ? -1 : 1;
+      })
+      ..sort((a, b) => b.bidPrice.compareTo(a.bidPrice));
+
     return ListView.builder(
       padding: const EdgeInsets.all(0),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: bidList.length,
       itemBuilder: (context, index) {
-        final Bid bid = bidList[index];
+        final Bid bid = sortedBids[index];
 
-        // if (bid.mine) return null;
-
+        bool isWinner = bid.bidder?.username == auction.winner?.username;
+        String title = "${bid.bidder?.username ?? 'Anonymous'}${bid.mine ? '(You)' : ''}${isWinner ? '(Winner)' : ''}";
         int colorCode = bid.bidPrice >= highestBidPrice ? 0 : (bid.bidPrice < auction.initialPrice ? 2 : 1);
 
         return ListTile(
-          contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
           leading: CircleAvatar(
             backgroundColor: theme.colorScheme.primary,
             backgroundImage: bid.profileImageUrl != null ? NetworkImage(bid.profileImageUrl!) : null,
           ),
-          title: Text("${bid.bidder?.username ?? 'Anonymous'}${bid.mine ? '(You)' : ''}", style: textTheme.headlineSmall),
+          title: Text(title, style: textTheme.headlineSmall),
           subtitle: Text(DateFormat("dd MMMM yyyy").format(bid.createdAt).toString(), style: textTheme.bodyMedium),
           trailing: TextHighlight(
             code: colorCode,
