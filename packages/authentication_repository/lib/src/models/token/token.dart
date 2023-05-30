@@ -19,7 +19,7 @@ class Token {
   @HiveField(1)
   final DateTime? expiresIn;
   @HiveField(2)
-  final Duration? tokenTime;
+  final DateTime? tokenTime;
   @HiveField(3)
   final User? userData;
 
@@ -34,7 +34,7 @@ class Token {
     return Token(
       accessToken: token,
       expiresIn: JwtDecoder.getExpirationDate(token),
-      tokenTime: JwtDecoder.getTokenTime(token),
+      tokenTime: DateTime.now().subtract(JwtDecoder.getTokenTime(token)),
       userData: User.fromJson(decodedToken..addEntries({'id': Uuid().v4()}.entries)),
     );
   }

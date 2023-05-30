@@ -19,7 +19,7 @@ class TokenAdapter extends TypeAdapter<Token> {
     return Token(
       accessToken: fields[0] as String,
       expiresIn: fields[1] as DateTime?,
-      tokenTime: fields[2] as Duration?,
+      tokenTime: fields[2] as DateTime?,
       userData: fields[3] as User?,
     );
   }
