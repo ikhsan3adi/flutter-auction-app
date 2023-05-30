@@ -44,11 +44,11 @@ run this command below for simplicity:
 
 ```shell
 cd packages/auction_repository
-flutter pub run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 cd ../authentication_repository
-flutter pub run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 cd ../user_repository
-flutter pub run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 cd ../../
 ```
 
