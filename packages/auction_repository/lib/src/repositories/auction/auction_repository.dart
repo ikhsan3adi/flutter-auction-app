@@ -47,7 +47,13 @@ class AuctionRepository {
   }
 
   Future<List<BidWithAuction>> getMyBidAuctions() async {
-    return await _apiClient.getMyBidAuctions();
+    return [...await _apiClient.getMyBidAuctions()]
+        .map((e) => BidWithAuction(
+              auction: e.auction,
+              bids: e.bids..sort((a, b) => b.createdAt.compareTo(a.createdAt)),
+            ))
+        .toList()
+      ..sort((a, b) => b.bids.first.createdAt.compareTo(a.bids.first.createdAt));
   }
 
   Future<void> setAuctionWinner({required String auctionId, required Bid bid}) async {
