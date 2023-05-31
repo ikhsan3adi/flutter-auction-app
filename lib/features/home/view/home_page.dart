@@ -4,6 +4,7 @@ import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/my_auction/my_auction.dart';
 import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
 import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
 
@@ -51,6 +52,14 @@ class HomePage extends StatelessWidget {
           create: (_) {
             return MyItemBloc(
               itemRepository: itemRepository,
+              authenticationRepository: authenticationRepository,
+            );
+          },
+        ),
+        BlocProvider(
+          create: (_) {
+            return MyAuctionBloc(
+              auctionRepository: auctionRepository,
               authenticationRepository: authenticationRepository,
             );
           },
