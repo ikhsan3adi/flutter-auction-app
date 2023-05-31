@@ -18,7 +18,7 @@ class MyItemScreen extends StatelessWidget {
     }
 
     return RefreshIndicator.adaptive(
-      onRefresh: () async {},
+      onRefresh: () async => context.read<MyItemBloc>().add(FetchMyItem()),
       child: SingleChildScrollView(
         child: BlocBuilder<MyItemBloc, MyItemState>(
           builder: (context, state) {
