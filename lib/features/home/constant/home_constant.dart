@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
+import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
 
 class HomeConstant {
   static List<Widget> screens = [
     const ExplorePage(),
     const MyBidPage(),
+    const MyItemPage(),
   ];
 
   static List<String> mainPageAppbarTitles = [
     "E-AUCTION",
     "My Bid",
+    "My Item",
   ];
 
   static List<BottomNavigationBarItem> mainPageNavbarItems = [
@@ -22,7 +25,12 @@ class HomeConstant {
     const BottomNavigationBarItem(
       label: "My Bid",
       tooltip: "My Bid",
-      icon: Icon(Icons.price_change),
+      icon: Icon(Icons.money),
+    ),
+    const BottomNavigationBarItem(
+      label: "My Item",
+      tooltip: "My Item",
+      icon: Icon(Icons.shopping_bag),
     ),
   ];
 }

@@ -5,6 +5,7 @@ import 'package:flutter_online_auction_app/features/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
+import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
 
 class HomePage extends StatelessWidget {
   /// '/home'
@@ -21,8 +22,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuctionRepository auctionRepository = context.read<AuctionRepository>();
     final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+    final AuctionRepository auctionRepository = context.read<AuctionRepository>();
+    final ItemRepository itemRepository = context.read<ItemRepository>();
 
     return MultiBlocProvider(
       providers: [
@@ -41,6 +43,14 @@ class HomePage extends StatelessWidget {
           create: (_) {
             return MyBidBloc(
               auctionRepository: auctionRepository,
+              authenticationRepository: authenticationRepository,
+            );
+          },
+        ),
+        BlocProvider(
+          create: (_) {
+            return MyItemBloc(
+              itemRepository: itemRepository,
               authenticationRepository: authenticationRepository,
             );
           },
