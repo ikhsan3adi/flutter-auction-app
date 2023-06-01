@@ -16,6 +16,17 @@ class MyAuctionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MyAuctionScreen();
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+
+    return Scaffold(
+      appBar: const AuctionFilterChips(),
+      body: const MyAuctionScreen(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {/** TODO goto add auction page */},
+        label: Text("New Auction", style: textTheme.titleMedium),
+        icon: const Icon(Icons.add),
+      ),
+    );
   }
 }

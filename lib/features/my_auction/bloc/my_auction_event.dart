@@ -8,3 +8,12 @@ abstract class MyAuctionEvent extends Equatable {
 }
 
 class FetchMyAuction extends MyAuctionEvent {}
+
+class FilterMyAuction extends MyAuctionEvent {
+  const FilterMyAuction({required this.filter});
+
+  final AuctionFilter filter;
+
+  @override
+  List<Object> get props => [filter];
+}
