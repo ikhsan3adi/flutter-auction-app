@@ -10,10 +10,14 @@ class MyCustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
     return BottomNavigationBar(
       onTap: (index) => context.read<NavigationCubit>().pageChanged(index: index),
       currentIndex: pageIndex,
+      selectedItemColor: theme.colorScheme.primary,
+      unselectedItemColor: theme.colorScheme.secondary,
+      showUnselectedLabels: true,
       selectedFontSize: 14,
       unselectedFontSize: 14,
       selectedLabelStyle: textTheme.titleSmall,
