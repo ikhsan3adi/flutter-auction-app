@@ -18,7 +18,7 @@ class BidList extends StatelessWidget {
       child: Theme(
         data: theme.copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          title: const Text("Your bids"),
+          title: Text("Your bids (${bids.length})", style: textTheme.titleSmall),
           children: bids.map((bid) {
             return ListTile(
               leading: CircleAvatar(

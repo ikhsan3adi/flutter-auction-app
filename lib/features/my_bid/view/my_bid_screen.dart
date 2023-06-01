@@ -21,49 +21,47 @@ class MyBidScreen extends StatelessWidget {
       onRefresh: () async {
         context.read<MyBidBloc>().add(FetchMyBidAuction());
       },
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: BlocBuilder<MyBidBloc, MyBidState>(
-          builder: (context, state) {
-            if (state is MyBidError) return ErrorCommon(message: state.messages.join('\n'));
+      child: BlocBuilder<MyBidBloc, MyBidState>(
+        builder: (context, state) {
+          if (state is MyBidError) return ErrorCommon(message: state.messages.join('\n'));
 
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: (state is MyBidLoaded) ? state.bidWithAuctions.length : 5,
-              itemBuilder: (context, index) {
-                if (state is MyBidLoading || state is MyBidInitial) {
-                  return _myBidShimmerLoading();
-                }
+          return ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: (state is MyBidLoaded) ? state.bidWithAuctions.length : 5,
+            itemBuilder: (context, index) {
+              if (state is MyBidLoading || state is MyBidInitial) {
+                return _myBidShimmerLoading();
+              }
 
-                state as MyBidLoaded;
+              state as MyBidLoaded;
 
-                final auction = state.bidWithAuctions[index].auction;
-                final bids = state.bidWithAuctions[index].bids;
+              final auction = state.bidWithAuctions[index].auction;
+              final bids = state.bidWithAuctions[index].bids;
 
-                final bool winAuction = auction.status == AuctionStatus.closed
-                    ? (auction.winner?.username == context.read<TokenRepository>().token?.userData?.username)
-                    : false;
+              final bool winAuction = auction.status == AuctionStatus.closed
+                  ? (auction.winner?.username == context.read<TokenRepository>().token?.userData?.username)
+                  : false;
 
-                return Card(
-                  color: theme.colorScheme.secondaryContainer,
-                  clipBehavior: Clip.hardEdge,
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      AuctionItemCard(
-                        auction: auction,
-                        bidCount: bids.length,
-                        winAuction: winAuction,
-                      ),
-                      BidList(bids: bids, winAuction: winAuction),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-        ),
+              return Card(
+                color: theme.colorScheme.secondaryContainer,
+                clipBehavior: Clip.hardEdge,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    AuctionItemCard(
+                      auction: auction,
+                      winAuction: winAuction,
+                      bids: bids,
+                    ),
+                    BidList(bids: bids, winAuction: winAuction),
+                  ],
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
