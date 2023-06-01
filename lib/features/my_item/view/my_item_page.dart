@@ -16,6 +16,16 @@ class MyItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MyItemScreen();
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+
+    return Scaffold(
+      body: const MyItemScreen(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {/** TODO goto add item page */},
+        label: Text("New Item", style: textTheme.titleMedium),
+        icon: const Icon(Icons.add),
+      ),
+    );
   }
 }

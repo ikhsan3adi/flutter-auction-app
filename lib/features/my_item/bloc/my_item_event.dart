@@ -8,3 +8,12 @@ abstract class MyItemEvent extends Equatable {
 }
 
 class FetchMyItem extends MyItemEvent {}
+
+class DeleteItem extends MyItemEvent {
+  const DeleteItem({required this.item});
+
+  final Item item;
+
+  @override
+  List<Object> get props => [item];
+}

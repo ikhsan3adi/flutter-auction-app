@@ -16,6 +16,7 @@ class MyItemBloc extends Bloc<MyItemEvent, MyItemState> {
         _authenticationRepository = authenticationRepository,
         super(MyItemInitial()) {
     on<FetchMyItem>(_fetchItem);
+    on<DeleteItem>(_deleteItem);
   }
 
   final ItemRepository _itemRepository;
@@ -32,6 +33,28 @@ class MyItemBloc extends Bloc<MyItemEvent, MyItemState> {
       _authenticationRepository.changeAuthStatus(
         status: Unauthenticated(messages: e.errorsMessages, forced: true),
       );
+      emit(MyItemError(messages: e.errorsMessages));
+    } on DioError catch (e) {
+      emit(MyItemError(messages: e.errorsMessages));
+    } catch (e) {
+      emit(MyItemError(messages: [e.toString()]));
+    }
+  }
+
+  Future<void> _deleteItem(DeleteItem event, Emitter<MyItemState> emit) async {
+    try {
+      await _itemRepository.deleteItem(event.item.id);
+
+      emit(MyItemLoading());
+
+      final List<Item> items = await _itemRepository.getItems();
+
+      emit(MyItemLoaded(items: items));
+    } on UnauthorizedException catch (e) {
+      _authenticationRepository.changeAuthStatus(
+        status: Unauthenticated(messages: e.errorsMessages, forced: true),
+      );
+
       emit(MyItemError(messages: e.errorsMessages));
     } on DioError catch (e) {
       emit(MyItemError(messages: e.errorsMessages));
