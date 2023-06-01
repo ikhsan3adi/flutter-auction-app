@@ -72,7 +72,10 @@ class MyBid extends StatelessWidget {
             auction.status == AuctionStatus.open
                 ? IconButton(
                     onPressed: () async {
-                      await _deleteBid(context: context).then((delete) {
+                      await showDialog<bool>(
+                        context: context,
+                        builder: (context) => const ConfirmDialog(),
+                      ).then((delete) {
                         if (delete ?? false) {
                           Fluttertoast.showToast(msg: 'Deleting bid...');
                           context.read<AuctionDetailBloc>().add(AuctionDetailDeleteBidEvent(bid));
@@ -86,36 +89,6 @@ class MyBid extends StatelessWidget {
           ],
         );
       }).toList()),
-    );
-  }
-
-  Future<bool?> _deleteBid({required BuildContext context}) {
-    ThemeData theme = Theme.of(context);
-    TextTheme textTheme = theme.textTheme;
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Confirm'),
-          content: const Text('Are you sure?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(
-                'Cancel',
-                style: textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
-              ),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(
-                'Yes',
-                style: textTheme.titleMedium?.copyWith(color: theme.colorScheme.primary),
-              ),
-            )
-          ],
-        );
-      },
     );
   }
 }
