@@ -6,3 +6,4 @@ export 'button/button.dart';
 export 'form/form.dart';
 export 'inkwell/inkwell.dart';
 export 'text/text.dart';
+export 'dialog/dialog.dart';
