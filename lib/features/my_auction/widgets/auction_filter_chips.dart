@@ -25,7 +25,7 @@ class AuctionFilterChips extends StatelessWidget implements PreferredSizeWidget 
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: FilterChip(
                         selected: (state is MyAuctionLoaded) ? state.filter == AuctionFilter.all : false,
-                        label: Text("All", style: textTheme.bodySmall),
+                        label: Text(AuctionFilter.all.name, style: textTheme.bodySmall),
                         onSelected: (value) => context.read<MyAuctionBloc>().add(const FilterMyAuction(filter: AuctionFilter.all)),
                       ),
                     ),
@@ -33,7 +33,7 @@ class AuctionFilterChips extends StatelessWidget implements PreferredSizeWidget 
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: FilterChip(
                         selected: (state is MyAuctionLoaded) ? state.filter == AuctionFilter.open : false,
-                        label: Text("Open", style: textTheme.bodySmall),
+                        label: Text(AuctionFilter.open.name, style: textTheme.bodySmall),
                         onSelected: (value) => context.read<MyAuctionBloc>().add(const FilterMyAuction(filter: AuctionFilter.open)),
                       ),
                     ),
@@ -41,7 +41,7 @@ class AuctionFilterChips extends StatelessWidget implements PreferredSizeWidget 
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: FilterChip(
                         selected: (state is MyAuctionLoaded) ? state.filter == AuctionFilter.closed : false,
-                        label: Text("Closed", style: textTheme.bodySmall),
+                        label: Text(AuctionFilter.closed.name, style: textTheme.bodySmall),
                         onSelected: (value) => context.read<MyAuctionBloc>().add(const FilterMyAuction(filter: AuctionFilter.closed)),
                       ),
                     ),
