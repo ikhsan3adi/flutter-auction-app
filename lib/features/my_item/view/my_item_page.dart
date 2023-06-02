@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
+import 'package:flutter_online_auction_app/features/my_item/widgets/item_filter_chips.dart';
 
 class MyItemPage extends StatelessWidget {
   /// '/my_item'
@@ -20,6 +21,7 @@ class MyItemPage extends StatelessWidget {
     TextTheme textTheme = theme.textTheme;
 
     return Scaffold(
+      appBar: const ItemFilterChips(),
       body: const MyItemScreen(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {/** TODO goto add item page */},

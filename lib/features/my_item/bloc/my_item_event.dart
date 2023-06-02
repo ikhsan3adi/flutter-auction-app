@@ -17,3 +17,12 @@ class DeleteItem extends MyItemEvent {
   @override
   List<Object> get props => [item];
 }
+
+class FilterMyItem extends MyItemEvent {
+  const FilterMyItem({required this.filter});
+
+  final ItemFilter filter;
+
+  @override
+  List<Object> get props => [filter];
+}

@@ -22,7 +22,7 @@ class MyItemScreen extends StatelessWidget {
           return ListView.builder(
             shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: (state is MyItemLoaded) ? state.items.length + 1 : 5,
+            itemCount: (state is MyItemLoaded) ? state.filteredItems.length + 1 : 5,
             itemBuilder: (context, index) {
               if (state is MyItemLoading || state is MyItemInitial) {
                 return const Padding(
@@ -33,9 +33,9 @@ class MyItemScreen extends StatelessWidget {
 
               state as MyItemLoaded;
 
-              if (index == state.items.length) return const SizedBox(height: 100);
+              if (index == state.filteredItems.length) return const SizedBox(height: 100);
 
-              final Item item = state.items[index];
+              final Item item = state.filteredItems[index];
 
               return MyItemListTile(item: item);
             },
