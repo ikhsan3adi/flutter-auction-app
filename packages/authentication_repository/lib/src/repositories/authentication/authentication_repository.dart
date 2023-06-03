@@ -13,6 +13,7 @@ class AuthenticationRepository extends Equatable {
   final _controller = StreamController<AuthStatus>();
 
   Stream<AuthStatus> get authStatus async* {
+    await Future<void>.delayed(const Duration(seconds: 1));
     yield AuthUnknown(messages: []);
     yield* _controller.stream;
   }
