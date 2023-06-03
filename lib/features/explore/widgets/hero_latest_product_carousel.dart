@@ -12,6 +12,7 @@ class HeroProductCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -39,6 +40,9 @@ class HeroProductCarousel extends StatelessWidget {
             return BlocBuilder<CarouselCubit, CarouselState>(
               builder: (context, state) {
                 CarouselController controller = context.read<CarouselCubit>().controller;
+
+                final bool selected = state.currentCarouselIndex == entry.key;
+
                 return GestureDetector(
                   onTap: () => controller.animateToPage(entry.key),
                   child: Container(
@@ -48,7 +52,7 @@ class HeroProductCarousel extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.black87, width: 2),
-                      color: state.currentCarouselIndex == entry.key ? Colors.purpleAccent : Colors.white,
+                      color: selected ? theme.colorScheme.primaryContainer : theme.colorScheme.primary,
                     ),
                   ),
                 );
@@ -134,7 +138,8 @@ class _HeroTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -143,10 +148,10 @@ class _HeroTitle extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-            color: Colors.purpleAccent,
+            color: theme.colorScheme.primary,
             child: Text(
               "New",
-              style: textTheme.titleMedium!.copyWith(color: Colors.white),
+              style: textTheme.titleMedium!.copyWith(color: theme.colorScheme.onPrimary),
             ),
           ),
           const SizedBox(height: 3),
