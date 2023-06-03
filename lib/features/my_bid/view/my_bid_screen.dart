@@ -28,7 +28,7 @@ class MyBidScreen extends StatelessWidget {
           return ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: (state is MyBidLoaded) ? state.bidWithAuctions.length : 5,
+            itemCount: (state is MyBidLoaded) ? state.filteredAuctions.length : 5,
             itemBuilder: (context, index) {
               if (state is MyBidLoading || state is MyBidInitial) {
                 return _myBidShimmerLoading();
@@ -36,8 +36,8 @@ class MyBidScreen extends StatelessWidget {
 
               state as MyBidLoaded;
 
-              final auction = state.bidWithAuctions[index].auction;
-              final bids = state.bidWithAuctions[index].bids;
+              final auction = state.filteredAuctions[index].auction;
+              final bids = state.filteredAuctions[index].bids;
 
               final bool winAuction = auction.status == AuctionStatus.closed
                   ? (auction.winner?.username == context.read<TokenRepository>().token?.userData?.username)

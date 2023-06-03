@@ -23,6 +23,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TokenRepository tokenRepository = context.read<TokenRepository>();
     final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
     final AuctionRepository auctionRepository = context.read<AuctionRepository>();
     final ItemRepository itemRepository = context.read<ItemRepository>();
@@ -45,6 +46,7 @@ class HomePage extends StatelessWidget {
             return MyBidBloc(
               auctionRepository: auctionRepository,
               authenticationRepository: authenticationRepository,
+              tokenRepository: tokenRepository,
             );
           },
         ),
