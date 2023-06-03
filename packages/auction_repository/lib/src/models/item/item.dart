@@ -18,6 +18,8 @@ class Item extends Equatable {
   final DateTime createdAt;
   @JsonKey(name: 'initial_price', fromJson: int.parse, defaultValue: 0)
   final int initialPrice;
+  @JsonKey(name: 'auctioned', defaultValue: false)
+  final bool auctioned;
   @JsonKey(name: 'images')
   final List<ItemImage> images;
 
@@ -28,6 +30,7 @@ class Item extends Equatable {
     required this.description,
     required this.createdAt,
     required this.initialPrice,
+    required this.auctioned,
     required this.images,
   });
 
@@ -43,6 +46,7 @@ class Item extends Equatable {
         description,
         createdAt,
         initialPrice,
+        auctioned,
         images,
       ];
 }

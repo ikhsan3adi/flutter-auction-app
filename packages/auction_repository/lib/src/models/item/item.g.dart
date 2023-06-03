@@ -15,6 +15,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
       initialPrice: json['initial_price'] == null
           ? 0
           : int.parse(json['initial_price'] as String),
+      auctioned: json['auctioned'] as bool? ?? false,
       images: (json['images'] as List<dynamic>)
           .map((e) => ItemImage.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -27,5 +28,6 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'description': instance.description,
       'created_at': instance.createdAt.toIso8601String(),
       'initial_price': instance.initialPrice,
+      'auctioned': instance.auctioned,
       'images': instance.images,
     };

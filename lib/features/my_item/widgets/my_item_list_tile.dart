@@ -23,6 +23,7 @@ class MyItemListTile extends StatelessWidget {
         child: Card(
           clipBehavior: Clip.hardEdge,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: CustomInkWell(
@@ -73,21 +74,58 @@ class MyItemListTile extends StatelessWidget {
                   ),
                 ),
               ),
-              const VerticalDivider(),
-              IconButton(
-                padding: const EdgeInsets.all(16),
-                onPressed: () async {
-                  await showDialog<bool>(
-                    context: context,
-                    builder: (context) => const ConfirmDialog(),
-                  ).then((delete) {
-                    if (delete ?? false) {
-                      Fluttertoast.showToast(msg: 'Deleting bid...');
-                      context.read<MyItemBloc>().add(DeleteItem(item: item));
-                    }
-                  });
-                },
-                icon: const Icon(Icons.delete_forever),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(4, 4, 6, 0),
+                    child: TextHighlight(
+                      code: item.auctioned ? 0 : 1,
+                      child: Text(
+                        item.auctioned ? ItemFilter.auctioned.name : ItemFilter.inactive.name,
+                        style: textTheme.titleSmall?.copyWith(
+                          color: ColorPalettes.highlightedText,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(
+                        height: 60,
+                        child: VerticalDivider(),
+                      ),
+                      IconButton(
+                        padding: const EdgeInsets.all(16),
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          if (item.auctioned) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Auctioned item can't be deleted")),
+                            );
+                          } else {
+                            await showDialog<bool>(
+                              context: context,
+                              builder: (context) => const ConfirmDialog(),
+                            ).then((delete) {
+                              if (delete ?? false) {
+                                Fluttertoast.showToast(msg: 'Deleting bid...');
+                                context.read<MyItemBloc>().add(DeleteItem(item: item));
+                              }
+                            });
+                          }
+                        },
+                        tooltip: "Delete",
+                        icon: Icon(
+                          Icons.delete_forever,
+                          color: item.auctioned ? theme.disabledColor : theme.colorScheme.error,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

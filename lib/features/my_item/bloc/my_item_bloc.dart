@@ -54,12 +54,12 @@ class MyItemBloc extends Bloc<MyItemEvent, MyItemState> {
         ));
       case ItemFilter.auctioned:
         return emit(currentState.copyWith(
-          filteredItems: currentState.items, // TODO filter by status
+          filteredItems: currentState.items.where((element) => element.auctioned).toList(),
           filter: ItemFilter.auctioned,
         ));
       case ItemFilter.inactive:
         return emit(currentState.copyWith(
-          filteredItems: currentState.items, // TODO filter by status
+          filteredItems: currentState.items.where((element) => !element.auctioned).toList(),
           filter: ItemFilter.inactive,
         ));
     }
