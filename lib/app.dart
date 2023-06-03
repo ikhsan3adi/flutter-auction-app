@@ -28,21 +28,44 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class _MyApp extends StatelessWidget {
+class _MyApp extends StatefulWidget {
   const _MyApp();
+
+  @override
+  State<_MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<_MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  NavigatorState get _navigator => _navigatorKey.currentState!;
+
+  // splash duration
+  Future<bool> _splash() async => await Future.delayed(const Duration(seconds: 3), () => true);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppThemeCubit, AppThemeState>(
       builder: (context, state) {
         return MaterialApp(
+          navigatorKey: _navigatorKey,
           title: "Online Auction App",
           theme: MyAppTheme.theme(),
           darkTheme: MyAppTheme.darkTheme(),
           themeMode: state.themeMode,
           onGenerateRoute: AppRoute.onGenerateRoute,
           initialRoute: SplashPage.routeName,
-          home: const SplashPage(),
+          builder: (context, child) {
+            return FutureBuilder(
+              future: _splash(),
+              initialData: false,
+              builder: (context, snapshot) {
+                if (snapshot.data ?? false) return AuthPage(navigator: _navigator, child: child);
+
+                return child ?? const SplashLoading();
+              },
+            );
+          },
         );
       },
     );

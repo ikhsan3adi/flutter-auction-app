@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_online_auction_app/features/auth/auth.dart';
 import 'package:flutter_online_auction_app/features/splash/splash.dart';
 
 class SplashPage extends StatelessWidget {
@@ -26,14 +24,7 @@ class SplashPage extends StatelessWidget {
       initialData: false,
       builder: (context, snapshot) {
         if (snapshot.data ?? false) {
-          return BlocListener<AuthBloc, AuthState>(
-            listener: (_, state) {
-              if (state is AuthStateAuthorized || state is AuthStateUnauthorized || state is AuthStateUnknown) {
-                Navigator.pushReplacementNamed(context, AuthPage.routeName);
-              }
-            },
-            child: const SplashLoading(),
-          );
+          return const SplashLoading();
         }
 
         return const SplashScreen();

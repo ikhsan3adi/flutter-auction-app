@@ -23,9 +23,6 @@ class AppRoute {
       case SplashPage.routeName:
         return SplashPage.route();
 
-      case AuthPage.routeName:
-        return AuthPage.route();
-
       case AuthErrorPage.routeName:
         return AuthErrorPage.route();
 
