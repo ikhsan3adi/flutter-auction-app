@@ -39,8 +39,8 @@ class MyAppTheme {
       bodySmall: TextStyle(fontFamily: openSansFont, fontWeight: FontWeight.normal, fontSize: 12),
 
       // for app title, appbar
-      labelLarge: TextStyle(fontFamily: poppinsFont, fontWeight: FontWeight.bold, fontSize: 26),
-      labelMedium: TextStyle(fontFamily: poppinsFont, fontWeight: FontWeight.bold, fontSize: 20),
+      // labelLarge: TextStyle(fontFamily: poppinsFont, fontWeight: FontWeight.bold, fontSize: 26),
+      // labelMedium: TextStyle(fontFamily: poppinsFont, fontWeight: FontWeight.bold, fontSize: 20),
     );
   }
 }

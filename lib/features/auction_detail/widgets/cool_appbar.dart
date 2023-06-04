@@ -14,7 +14,7 @@ class CoolAppBar extends StatelessWidget implements PreferredSizeWidget {
           return AppBar(
             title: Text(
               "Detail",
-              style: textTheme.labelLarge?.copyWith(
+              style: textTheme.headlineMedium?.copyWith(
                 color: state.foregroundColor,
                 shadows: [
                   Shadow(
