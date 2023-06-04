@@ -64,7 +64,7 @@ class MyBidBloc extends Bloc<MyBidEvent, MyBidState> {
           filteredAuctions: currentState.bidWithAuctions.where((e) {
             if (e.auction.winner == null || _tokenRepository.token == null) return false;
 
-            return e.auction.winner?.username == _tokenRepository.token?.userData?.username;
+            return e.auction.winner?.username == _tokenRepository.token?.userData?.username && e.auction.status == AuctionStatus.closed;
           }).toList(),
           filter: MyBidFilter.win,
         ));
@@ -73,7 +73,7 @@ class MyBidBloc extends Bloc<MyBidEvent, MyBidState> {
           filteredAuctions: currentState.bidWithAuctions.where((e) {
             if (e.auction.winner == null || _tokenRepository.token == null) return false;
 
-            return e.auction.winner?.username != _tokenRepository.token?.userData?.username;
+            return e.auction.winner?.username != _tokenRepository.token?.userData?.username && e.auction.status == AuctionStatus.closed;
           }).toList(),
           filter: MyBidFilter.lose,
         ));
