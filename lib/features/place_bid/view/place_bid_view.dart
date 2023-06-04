@@ -57,6 +57,7 @@ class _PlaceBidViewState extends State<PlaceBidView> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: CustomTextFormField(
                         controller: _controller,
+                        isNumberInput: true,
                         prefixText: 'Rp.',
                         helperText: 'Enter bid nominal',
                         hintText: '0',
