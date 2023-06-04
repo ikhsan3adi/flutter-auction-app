@@ -14,7 +14,7 @@ class DioServices {
       baseUrl: dotenv.get('API_BASE_URL'),
     ));
 
-    dio.interceptors.addAll([AppInterceptors(dio: dio)]);
+    dio.interceptors.add(AppInterceptors(dio: dio));
 
     return dio;
   }
