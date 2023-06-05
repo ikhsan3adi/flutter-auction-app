@@ -9,9 +9,14 @@ part 'new_item_state.dart';
 
 class NewItemBloc extends Bloc<NewItemEvent, NewItemState> {
   NewItemBloc() : super(const NewItemState()) {
+    on<ItemImagesChanged>(_itemImagesChanged);
     on<ItemNameChanged>(_onItemNameChanged);
     on<ItemDescChanged>(_onItemDescChanged);
     on<ItemPriceChanged>(_onItemPriceChanged);
+  }
+
+  void _itemImagesChanged(ItemImagesChanged event, Emitter<NewItemState> emit) {
+    emit(state.copyWith(imagesPath: [...state.imagesPath, ...event.imagesPath]));
   }
 
   void _onItemNameChanged(ItemNameChanged event, Emitter<NewItemState> emit) {

@@ -12,6 +12,7 @@ class NewItemScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const _ImageField(),
           const FormFieldTitle(text: "Item name"),
           const _ItemNameField(),
           const FormFieldTitle(text: "Item description"),
@@ -26,6 +27,46 @@ class NewItemScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ImageField extends StatelessWidget {
+  const _ImageField();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: BlocBuilder<NewItemBloc, NewItemState>(
+        builder: (context, state) {
+          if (state.imagesPath.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.all(16),
+              child: Center(child: AddImageCard()),
+            );
+          }
+
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.imagesPath.length + 1,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: index != state.imagesPath.length
+                      ? ImagePreview(
+                          imagePath: state.imagesPath[index],
+                        )
+                      : const AddImageCard(text: "Select more images"),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

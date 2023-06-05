@@ -33,3 +33,12 @@ class ItemPriceChanged extends NewItemEvent {
   @override
   List<Object> get props => [itemPrice];
 }
+
+class ItemImagesChanged extends NewItemEvent {
+  const ItemImagesChanged({required this.imagesPath});
+
+  final List<String> imagesPath;
+
+  @override
+  List<Object> get props => [imagesPath];
+}
