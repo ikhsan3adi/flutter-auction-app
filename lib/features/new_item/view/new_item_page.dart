@@ -1,3 +1,5 @@
+import 'package:auction_repository/auction_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
@@ -18,10 +20,18 @@ class NewItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ItemRepository itemRepository = context.read<ItemRepository>();
+    final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+    final TokenRepository tokenRepository = context.read<TokenRepository>();
+
     return Scaffold(
       appBar: const MyCustomAppbar(title: 'New Item'),
       body: BlocProvider(
-        create: (context) => NewItemBloc(),
+        create: (context) => NewItemBloc(
+          itemRepository: itemRepository,
+          authenticationRepository: authenticationRepository,
+          tokenRepository: tokenRepository,
+        ),
         child: const NewItemScreen(),
       ),
     );

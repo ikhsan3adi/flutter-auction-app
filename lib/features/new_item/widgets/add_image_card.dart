@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart' as picker;
 
 class AddImageCard extends StatelessWidget {
@@ -16,6 +17,10 @@ class AddImageCard extends StatelessWidget {
       aspectRatio: 1,
       child: CustomInkWell(
         onTap: () async {
+          if (context.read<NewItemBloc>().state.imagesPath.length >= 10) {
+            return Fluttertoast.showToast(msg: 'Maximum number of images is 10').ignore();
+          }
+
           picker.ImagePicker imagePicker = picker.ImagePicker();
           List<picker.XFile?> images = await imagePicker.pickMultiImage();
 

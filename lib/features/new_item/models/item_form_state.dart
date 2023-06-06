@@ -2,8 +2,8 @@ import 'package:formz/formz.dart';
 
 import 'package:flutter_online_auction_app/shared/shared.dart';
 
-class NewItemFormState with FormzMixin {
-  const NewItemFormState({
+class ItemFormState with FormzMixin {
+  const ItemFormState({
     this.status = FormzSubmissionStatus.initial,
     required this.itemName,
     required this.itemDesc,
@@ -15,13 +15,13 @@ class NewItemFormState with FormzMixin {
   final ItemDesc itemDesc;
   final ItemPrice itemPrice;
 
-  NewItemFormState copyWith({
+  ItemFormState copyWith({
     FormzSubmissionStatus? status,
     ItemName? itemName,
     ItemDesc? itemDesc,
     ItemPrice? itemPrice,
   }) {
-    return NewItemFormState(
+    return ItemFormState(
       status: status ?? this.status,
       itemName: itemName ?? this.itemName,
       itemDesc: itemDesc ?? this.itemDesc,

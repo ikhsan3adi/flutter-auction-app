@@ -1,11 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/new_item/bloc/new_item_bloc.dart';
 
 class ImagePreview extends StatelessWidget {
-  const ImagePreview({super.key, required this.imagePath});
+  const ImagePreview({
+    super.key,
+    required this.imagePath,
+    required this.index,
+  });
 
   final String imagePath;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,7 @@ class ImagePreview extends StatelessWidget {
           width: 40,
           height: 40,
           child: IconButton.filled(
-            onPressed: () {},
+            onPressed: () => context.read<NewItemBloc>().add(ItemImageDelete(index: index)),
             icon: const Icon(Icons.delete),
             style: IconButton.styleFrom(backgroundColor: theme.colorScheme.error),
           ),

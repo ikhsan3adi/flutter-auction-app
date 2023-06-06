@@ -22,7 +22,7 @@ class NewItemScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: CustomButton(
-              onPressed: () {},
+              onPressed: () => context.read<NewItemBloc>().add(CreateNewItem()),
               text: "Create",
             ),
           ),
@@ -49,17 +49,27 @@ class _ImageField extends StatelessWidget {
           }
 
           return Padding(
-            padding: const EdgeInsets.fromLTRB(12, 12, 0, 12),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: state.imagesPath.length + 1,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
+                EdgeInsets edgeInsets;
+                if (index == 0) {
+                  edgeInsets = const EdgeInsets.fromLTRB(16, 4, 4, 4);
+                } else if (index == state.imagesPath.length) {
+                  edgeInsets = const EdgeInsets.fromLTRB(4, 4, 16, 4);
+                } else {
+                  edgeInsets = const EdgeInsets.all(4);
+                }
+
                 return Padding(
-                  padding: const EdgeInsets.all(4),
+                  padding: edgeInsets,
                   child: index != state.imagesPath.length
                       ? ImagePreview(
                           imagePath: state.imagesPath[index],
+                          index: index,
                         )
                       : const AddImageCard(text: "Select more images"),
                 );

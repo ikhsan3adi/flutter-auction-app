@@ -7,6 +7,24 @@ abstract class NewItemEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ItemImagesChanged extends NewItemEvent {
+  const ItemImagesChanged({required this.imagesPath});
+
+  final List<String> imagesPath;
+
+  @override
+  List<Object> get props => [imagesPath];
+}
+
+class ItemImageDelete extends NewItemEvent {
+  const ItemImageDelete({required this.index});
+
+  final int index;
+
+  @override
+  List<Object> get props => [index];
+}
+
 class ItemNameChanged extends NewItemEvent {
   const ItemNameChanged({required this.itemName});
 
@@ -34,11 +52,4 @@ class ItemPriceChanged extends NewItemEvent {
   List<Object> get props => [itemPrice];
 }
 
-class ItemImagesChanged extends NewItemEvent {
-  const ItemImagesChanged({required this.imagesPath});
-
-  final List<String> imagesPath;
-
-  @override
-  List<Object> get props => [imagesPath];
-}
+class CreateNewItem extends NewItemEvent {}
