@@ -6,7 +6,7 @@ abstract class ItemApiClient extends Equatable {
   Future<List<Item>> getItems();
   Future<Item> getItem(String id);
   Future<void> createItem(Item item);
-  Future<void> updateItem(Item item);
+  Future<void> updateItem(Item item, List<String> formerImageIds);
   Future<void> deleteItem(String id);
 }
 
@@ -37,20 +37,50 @@ class ItemApiClientImpl extends ItemApiClient {
 
   @override
   Future<void> createItem(Item item) async {
+    FormData formData = FormData();
+
+    for (ItemImage image in item.images) {
+      formData.files.add(MapEntry(
+        "images[]",
+        await MultipartFile.fromFile(image.url, filename: image.url.split('/').last),
+      ));
+    }
+
+    formData.fields.addAll(item.toJson().cast<String, String>().entries);
+
     await _dio.post(
       '/item',
-      data: item.toJson(),
+      data: formData,
     );
-    // TODO handle image uploading
   }
 
   @override
-  Future<void> updateItem(Item item) async {
+  Future<void> updateItem(Item item, List<String> formerImageIds) async {
     await _dio.patch(
       '/item/${item.id}',
       data: item.toJson(),
+      options: Options(contentType: Headers.formUrlEncodedContentType),
     );
-    // TODO handle image uploading
+
+    FormData formData = FormData();
+
+    if (item.images.isNotEmpty) {
+      for (ItemImage image in item.images) {
+        formData.files.add(MapEntry(
+          "images",
+          await MultipartFile.fromFile(image.url, filename: image.url.split('/').last),
+        ));
+      }
+    }
+
+    if (formerImageIds.isNotEmpty) {
+      formData.fields.add(MapEntry('former_images_id', formerImageIds.toString()));
+    }
+
+    await _dio.post(
+      '/item/${item.id}/images/update',
+      data: formData,
+    );
   }
 
   @override

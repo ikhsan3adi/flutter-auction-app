@@ -16,13 +16,11 @@ class ItemRepository {
   }
 
   Future<void> createItem(Item item) async {
-    // TODO image upload
     return _apiClient.createItem(item);
   }
 
-  Future<void> updateItem(Item item) async {
-    // TODO image upload
-    return _apiClient.updateItem(item);
+  Future<void> updateItem(Item item, List<String> formerImageIds) async {
+    return _apiClient.updateItem(item, formerImageIds);
   }
 
   Future<void> deleteItem(String id) async {
