@@ -57,7 +57,7 @@ class NewItemBloc extends Bloc<NewItemEvent, NewItemState> {
   }
 
   void _onItemPriceChanged(ItemPriceChanged event, Emitter<NewItemState> emit) {
-    final itemPrice = ItemPrice.dirty(event.itemPrice);
+    final itemPrice = ItemPrice.dirty(int.tryParse(event.itemPrice) ?? 0);
     emit(state.copyWith(
       formState: state.formState.copyWith(itemPrice: itemPrice),
       isValid: Formz.validate([state.formState.itemName, state.formState.itemDesc, itemPrice]),

@@ -46,7 +46,7 @@ class ItemDescChanged extends NewItemEvent {
 class ItemPriceChanged extends NewItemEvent {
   const ItemPriceChanged({required this.itemPrice});
 
-  final int itemPrice;
+  final dynamic itemPrice;
 
   @override
   List<Object> get props => [itemPrice];

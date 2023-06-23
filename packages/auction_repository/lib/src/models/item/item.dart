@@ -16,7 +16,7 @@ class Item extends Equatable {
   final String description;
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
-  @JsonKey(name: 'initial_price', fromJson: int.parse, defaultValue: 0)
+  @JsonKey(name: 'initial_price', fromJson: int.parse, toJson: intToString, defaultValue: 0)
   final int initialPrice;
   @JsonKey(name: 'auctioned', defaultValue: false)
   final bool auctioned;
@@ -33,6 +33,8 @@ class Item extends Equatable {
     required this.auctioned,
     required this.images,
   });
+
+  static String intToString(int value) => value.toString();
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 

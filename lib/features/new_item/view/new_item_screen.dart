@@ -143,7 +143,7 @@ class _ItemPriceField extends StatelessWidget {
             isNumberInput: true,
             prefixText: 'Rp.',
             onChanged: (value) {
-              context.read<NewItemBloc>().add(ItemPriceChanged(itemPrice: int.tryParse(value ?? '') ?? 0));
+              context.read<NewItemBloc>().add(ItemPriceChanged(itemPrice: value ?? 0));
             },
             errorText: state.formState.itemPrice.displayError?.text,
           );
