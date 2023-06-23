@@ -19,7 +19,7 @@ class UserApiClientImpl extends UserApiClient {
 
   @override
   Future<List<User>> getUsers() async {
-    final response = await _dio.get('/user');
+    final response = await _dio.get('/users');
 
     final List<dynamic> data = response.data['data'];
     final List<User> users = data.map((json) => User.fromJson(json)).toList();
@@ -28,7 +28,7 @@ class UserApiClientImpl extends UserApiClient {
 
   @override
   Future<User> getUser(String id) async {
-    final response = await _dio.get('/user/$id');
+    final response = await _dio.get('/users/$id');
 
     final User user = User.fromJson(response.data['data']);
     return user;
@@ -37,11 +37,11 @@ class UserApiClientImpl extends UserApiClient {
   @override
   Future<void> updateUser(User user) async {
     // TODO image upload
-    await _dio.patch('/user/${user.id}');
+    await _dio.patch('/users/${user.id}');
   }
 
   @override
   Future<void> deleteUser(User user) async {
-    await _dio.delete('/user/${user.id}');
+    await _dio.delete('/users/${user.id}');
   }
 }

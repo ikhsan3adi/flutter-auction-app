@@ -20,7 +20,7 @@ class ItemApiClientImpl extends ItemApiClient {
 
   @override
   Future<List<Item>> getItems() async {
-    final response = await _dio.get('/item');
+    final response = await _dio.get('/items');
 
     final List<dynamic> data = response.data['data'];
     final List<Item> items = data.map((json) => Item.fromJson(json)).toList();
@@ -29,7 +29,7 @@ class ItemApiClientImpl extends ItemApiClient {
 
   @override
   Future<Item> getItem(String id) async {
-    final response = await _dio.get('/item/$id');
+    final response = await _dio.get('/items/$id');
 
     final Item item = Item.fromJson(response.data['data']);
     return item;
@@ -49,7 +49,7 @@ class ItemApiClientImpl extends ItemApiClient {
     formData.fields.addAll(item.toJson().cast<String, String>().entries);
 
     await _dio.post(
-      '/item',
+      '/items',
       data: formData,
     );
   }
@@ -57,7 +57,7 @@ class ItemApiClientImpl extends ItemApiClient {
   @override
   Future<void> updateItem(Item item, List<String> formerImageIds) async {
     await _dio.patch(
-      '/item/${item.id}',
+      '/items/${item.id}',
       data: item.toJson(),
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
@@ -78,13 +78,13 @@ class ItemApiClientImpl extends ItemApiClient {
     }
 
     await _dio.post(
-      '/item/${item.id}/images/update',
+      '/items/${item.id}/images/update',
       data: formData,
     );
   }
 
   @override
   Future<void> deleteItem(String id) async {
-    await _dio.delete('/item/$id');
+    await _dio.delete('/items/$id');
   }
 }

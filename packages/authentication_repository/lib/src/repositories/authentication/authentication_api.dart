@@ -23,7 +23,7 @@ class AuthenticationApiClientImpl extends AuthenticationApiClient {
   @override
   Future<void> authenticationCheck() async {
     await _dio.get(
-      '/item',
+      '/items',
       data: {},
     );
   }
@@ -32,7 +32,7 @@ class AuthenticationApiClientImpl extends AuthenticationApiClient {
   Future<void> register(User user) async {
     // TODO image upload
     await _dio.post(
-      '/user',
+      '/users',
       data: user.toJson(),
       options: Options(
         headers: {'Authorization': 'Bearer $_secretKey'},

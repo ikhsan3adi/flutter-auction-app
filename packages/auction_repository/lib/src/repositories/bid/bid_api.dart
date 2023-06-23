@@ -16,7 +16,7 @@ class BidApiClientImpl extends BidApiClient {
 
   @override
   Future<List<Bid>> getAuctionBids(String auctionId) async {
-    final response = await _dio.get('/auction/$auctionId/bid');
+    final response = await _dio.get('/auctions/$auctionId/bids');
 
     final List<dynamic> data = response.data['data'];
     final List<Bid> bids = data.map((json) => Bid.fromJson(json)).toList();
@@ -25,7 +25,7 @@ class BidApiClientImpl extends BidApiClient {
 
   @override
   Future<Bid> getBid(String id) async {
-    final response = await _dio.get('/bid/$id');
+    final response = await _dio.get('/bids/$id');
 
     final Bid bid = Bid.fromJson(response.data['data']);
     return bid;
@@ -34,7 +34,7 @@ class BidApiClientImpl extends BidApiClient {
   @override
   Future<void> placeBid(Bid bid) async {
     await _dio.post(
-      '/bid',
+      '/bids',
       data: bid.toJson(),
     );
   }
@@ -42,13 +42,13 @@ class BidApiClientImpl extends BidApiClient {
   @override
   Future<void> updateBid(Bid bid) async {
     await _dio.patch(
-      '/bid',
+      '/bids',
       data: bid.toJson(),
     );
   }
 
   @override
   Future<void> deleteBid(Bid bid) async {
-    await _dio.delete('/bid/${bid.id}');
+    await _dio.delete('/bids/${bid.id}');
   }
 }

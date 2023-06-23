@@ -26,7 +26,7 @@ class AuctionApiClientImpl extends AuctionApiClient {
 
   @override
   Future<List<Auction>> getAuctions(int page) async {
-    final response = await _dio.get('/auction', queryParameters: {'page': page});
+    final response = await _dio.get('/auctions', queryParameters: {'page': page});
 
     final List<dynamic> data = response.data['data'];
     final List<Auction> auctions = data.map((json) => Auction.fromJson(json)).toList();
@@ -35,7 +35,7 @@ class AuctionApiClientImpl extends AuctionApiClient {
 
   @override
   Future<Auction> getAuction(String id) async {
-    final response = await _dio.get('/auction/$id');
+    final response = await _dio.get('/auctions/$id');
 
     final Auction auction = Auction.fromJson(response.data['data']);
     return auction;
@@ -44,7 +44,7 @@ class AuctionApiClientImpl extends AuctionApiClient {
   @override
   Future<void> createAuction(Auction auction) async {
     await _dio.post(
-      '/auction',
+      '/auctions',
       data: auction.toJson(),
     );
   }
@@ -52,19 +52,19 @@ class AuctionApiClientImpl extends AuctionApiClient {
   @override
   Future<void> updateAuction(Auction auction) async {
     await _dio.patch(
-      '/auction/${auction.id}',
+      '/auctions/${auction.id}',
       data: auction.toJson(),
     );
   }
 
   @override
   Future<void> deleteAuction(String id) async {
-    await _dio.delete('/auction/$id');
+    await _dio.delete('/auctions/$id');
   }
 
   @override
   Future<List<Auction>> getMyAuctions() async {
-    final response = await _dio.get('/user/auction');
+    final response = await _dio.get('/user/auctions');
 
     final List<dynamic> data = response.data['data'];
     final List<Auction> auctions = data.map((json) => Auction.fromJson(json)).toList();
@@ -83,13 +83,13 @@ class AuctionApiClientImpl extends AuctionApiClient {
   @override
   Future<void> setAuctionWinner(String auctionId, Bid bid) async {
     await _dio.patch(
-      '/auction/$auctionId/winner',
+      '/auctions/$auctionId/winner',
       data: {'bidId': bid.id},
     );
   }
 
   @override
   Future<void> closeAuction(String auctionId) async {
-    await _dio.patch('/auction/$auctionId/close');
+    await _dio.patch('/auctions/$auctionId/close');
   }
 }
