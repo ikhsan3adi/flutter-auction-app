@@ -27,7 +27,7 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'item_name': instance.itemName,
       'description': instance.description,
       'created_at': instance.createdAt.toIso8601String(),
-      'initial_price': Item.intToString(instance.initialPrice),
-      'auctioned': instance.auctioned,
-      'images': instance.images,
+      'initial_price': Item.valueToString(instance.initialPrice),
+      'auctioned': Item.valueToString(instance.auctioned),
+      'images': Item.valueToString(instance.images),
     };

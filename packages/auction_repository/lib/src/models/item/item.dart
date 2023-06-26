@@ -16,11 +16,11 @@ class Item extends Equatable {
   final String description;
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
-  @JsonKey(name: 'initial_price', fromJson: int.parse, toJson: intToString, defaultValue: 0)
+  @JsonKey(name: 'initial_price', fromJson: int.parse, toJson: valueToString, defaultValue: 0)
   final int initialPrice;
-  @JsonKey(name: 'auctioned', defaultValue: false)
+  @JsonKey(name: 'auctioned', toJson: valueToString, defaultValue: false)
   final bool auctioned;
-  @JsonKey(name: 'images')
+  @JsonKey(name: 'images', toJson: valueToString)
   final List<ItemImage> images;
 
   const Item({
@@ -34,7 +34,7 @@ class Item extends Equatable {
     required this.images,
   });
 
-  static String intToString(int value) => value.toString();
+  static String valueToString(value) => value.toString();
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
