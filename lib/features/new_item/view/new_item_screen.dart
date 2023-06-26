@@ -2,31 +2,71 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
+import 'package:formz/formz.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NewItemScreen extends StatelessWidget {
   const NewItemScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _ImageField(),
-          const FormFieldTitle(text: "Item name"),
-          const _ItemNameField(),
-          const FormFieldTitle(text: "Item description"),
-          const _ItemDescField(),
-          const FormFieldTitle(text: "Initial price"),
-          const _ItemPriceField(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: CustomButton(
-              onPressed: () => context.read<NewItemBloc>().add(CreateNewItem()),
-              text: "Create",
-            ),
-          ),
+          _MessageBlock(),
+          _ImageField(),
+          FormFieldTitle(text: "Item name"),
+          _ItemNameField(),
+          FormFieldTitle(text: "Item description"),
+          _ItemDescField(),
+          FormFieldTitle(text: "Initial price"),
+          _ItemPriceField(),
+          _CreateButton(),
         ],
+      ),
+    );
+  }
+}
+
+class _MessageBlock extends StatelessWidget {
+  const _MessageBlock();
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: BlocBuilder<NewItemBloc, NewItemState>(
+        builder: (context, state) {
+          if (state.formState.status != FormzSubmissionStatus.success) {
+            if (state.errorMessage != null) {
+              return TextHighlight(
+                code: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Error: ${state.errorMessage!}",
+                    style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+                  ),
+                ),
+              );
+            }
+          } else {
+            return TextHighlight(
+              code: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Create item successful",
+                  style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+                ),
+              ),
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
   }
@@ -146,6 +186,48 @@ class _ItemPriceField extends StatelessWidget {
               context.read<NewItemBloc>().add(ItemPriceChanged(itemPrice: value ?? 0));
             },
             errorText: state.formState.itemPrice.displayError?.text,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _CreateButton extends StatelessWidget {
+  const _CreateButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      child: BlocConsumer<NewItemBloc, NewItemState>(
+        listenWhen: (previous, current) => current.formState.status == FormzSubmissionStatus.success,
+        listener: (context, state) {
+          if (state.formState.status == FormzSubmissionStatus.success) {
+            Fluttertoast.cancel();
+            Fluttertoast.showToast(msg: '');
+            Navigator.of(context).pop();
+          }
+        },
+        builder: (context, state) {
+          String btnText = '';
+
+          switch (state.formState.status) {
+            case FormzSubmissionStatus.success:
+              btnText = 'Success';
+              break;
+            case FormzSubmissionStatus.inProgress:
+              btnText = 'Processing...';
+              break;
+            case FormzSubmissionStatus.initial:
+            default:
+              btnText = 'Create';
+          }
+
+          return CustomButton(
+            onPressed: () => context.read<NewItemBloc>().add(CreateNewItem()),
+            text: btnText,
+            disabled: state.formState.status == FormzSubmissionStatus.success || state.formState.status == FormzSubmissionStatus.inProgress,
           );
         },
       ),

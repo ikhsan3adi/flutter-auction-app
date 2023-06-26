@@ -84,6 +84,10 @@ class NewItemBloc extends Bloc<NewItemEvent, NewItemState> {
       );
 
       await _itemRepository.createItem(newItem);
+
+      emit(state.copyWith(
+        formState: state.formState.copyWith(status: FormzSubmissionStatus.success),
+      ));
     } on UnauthorizedException catch (e) {
       _authenticationRepository.changeAuthStatus(
         status: Unauthenticated(messages: e.errorsMessages, forced: true),

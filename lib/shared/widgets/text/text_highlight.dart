@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_online_auction_app/shared/theme/theme.dart';
 
+/// [code]
+/// 0 = green
+/// 1 = amber
+/// 2 = red
 class TextHighlight extends StatelessWidget {
   const TextHighlight({super.key, this.child, this.code});
 
