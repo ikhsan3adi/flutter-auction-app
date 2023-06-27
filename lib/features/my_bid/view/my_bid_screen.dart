@@ -28,13 +28,20 @@ class MyBidScreen extends StatelessWidget {
           return ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: (state is MyBidLoaded) ? state.filteredAuctions.length : 5,
+            itemCount: (state is MyBidLoaded) ? (state.filteredAuctions.isEmpty ? 1 : state.filteredAuctions.length) : 5,
             itemBuilder: (context, index) {
               if (state is MyBidLoading || state is MyBidInitial) {
                 return _myBidShimmerLoading();
               }
 
               state as MyBidLoaded;
+
+              if (state.filteredAuctions.isEmpty) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: const Center(child: ErrorNoBid()),
+                );
+              }
 
               final auction = state.filteredAuctions[index].auction;
               final bids = state.filteredAuctions[index].bids;

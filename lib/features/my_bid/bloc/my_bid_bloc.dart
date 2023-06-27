@@ -46,6 +46,8 @@ class MyBidBloc extends Bloc<MyBidEvent, MyBidState> {
   }
 
   Future<void> _filterBid(FilterMyBid event, Emitter<MyBidState> emit) async {
+    if (state is! MyBidLoaded) return;
+
     final currentState = state as MyBidLoaded;
 
     switch (event.filter) {
