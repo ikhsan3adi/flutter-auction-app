@@ -36,7 +36,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: disabled! ? theme.disabledColor : (backgroundColor ?? theme.colorScheme.primary),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
-        onPressed: disabled! ? () {} : onPressed,
+        onPressed: onPressed,
         child: Text(
           text,
           style: textTheme.headlineSmall?.copyWith(

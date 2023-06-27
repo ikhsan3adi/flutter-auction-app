@@ -39,8 +39,12 @@ class CustomIconButton extends StatelessWidget {
                 backgroundColor: disabled! ? theme.disabledColor : (backgroundColor ?? theme.colorScheme.primary),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
               ),
-              onPressed: disabled! ? () {} : onPressed,
-              icon: icon,
+              onPressed: onPressed,
+              icon: Icon(
+                icon.icon,
+                size: icon.size,
+                color: disabled! ? Colors.white70 : (foregroundColor ?? theme.colorScheme.onPrimary),
+              ),
               label: Text(
                 text!,
                 style: textTheme.headlineSmall?.copyWith(
@@ -54,8 +58,12 @@ class CustomIconButton extends StatelessWidget {
                 backgroundColor: disabled! ? theme.disabledColor : (backgroundColor ?? theme.colorScheme.primary),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
               ),
-              onPressed: disabled! ? () {} : onPressed,
-              icon: icon,
+              onPressed: onPressed,
+              icon: Icon(
+                icon.icon,
+                size: icon.size,
+                color: disabled! ? Colors.white70 : (foregroundColor ?? theme.colorScheme.onPrimary),
+              ),
             ),
     );
   }
