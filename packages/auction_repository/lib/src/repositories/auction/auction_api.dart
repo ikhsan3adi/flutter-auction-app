@@ -64,7 +64,7 @@ class AuctionApiClientImpl extends AuctionApiClient {
 
   @override
   Future<List<Auction>> getMyAuctions() async {
-    final response = await _dio.get('/user/auctions');
+    final response = await _dio.get('/users/auctions');
 
     final List<dynamic> data = response.data['data'];
     final List<Auction> auctions = data.map((json) => Auction.fromJson(json)).toList();
@@ -73,7 +73,7 @@ class AuctionApiClientImpl extends AuctionApiClient {
 
   @override
   Future<List<BidWithAuction>> getMyBidAuctions() async {
-    final response = await _dio.get('/user/bid');
+    final response = await _dio.get('/users/bids');
 
     final List<dynamic> data = response.data['data'];
     final List<BidWithAuction> auctionWithBids = data.map((json) => BidWithAuction.fromJson(json)).toList();
