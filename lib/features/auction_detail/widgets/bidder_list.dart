@@ -34,7 +34,7 @@ class BidderList extends StatelessWidget {
         final Bid bid = sortedBids[index];
 
         bool isWinner = bid.bidder?.username == auction.winner?.username;
-        String title = "${bid.bidder?.username ?? 'Anonymous'}${bid.mine ? '(You)' : ''}${isWinner ? '(Winner)' : ''}";
+        String title = "${bid.bidder?.username ?? 'Anonymous'}${bid.mine ? '\n(You)' : ''}${isWinner ? '\n(Winner)' : ''}";
         int colorCode = bid.bidPrice >= highestBidPrice ? 0 : (bid.bidPrice < auction.initialPrice ? 2 : 1);
 
         return ListTile(
