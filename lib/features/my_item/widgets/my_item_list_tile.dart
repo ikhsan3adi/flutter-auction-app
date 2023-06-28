@@ -1,6 +1,7 @@
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/item_detail/view/views.dart';
 import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,7 +28,7 @@ class MyItemListTile extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomInkWell(
-                  onTap: () {/** TODO: goto item detail page */},
+                  onTap: () => Navigator.of(context).pushNamed(ItemDetailPage.routeName, arguments: item),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
