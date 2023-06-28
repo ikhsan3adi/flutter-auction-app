@@ -100,11 +100,9 @@ class MyItemListTile extends StatelessWidget {
                       IconButton(
                         padding: const EdgeInsets.all(16),
                         onPressed: () async {
-                          ScaffoldMessenger.of(context).clearSnackBars();
+                          Fluttertoast.cancel();
                           if (item.auctioned) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Auctioned item can't be deleted")),
-                            );
+                            Fluttertoast.showToast(msg: "Auctioned item can't be deleted");
                           } else {
                             await showDialog<bool>(
                               context: context,

@@ -205,8 +205,8 @@ class _CreateButton extends StatelessWidget {
         listener: (context, state) {
           if (state.formState.status == FormzSubmissionStatus.success) {
             Fluttertoast.cancel();
-            Fluttertoast.showToast(msg: '');
-            Navigator.of(context).pop();
+            Fluttertoast.showToast(msg: 'Item created successfully');
+            Navigator.of(context).pop(true);
           }
         },
         builder: (context, state) {

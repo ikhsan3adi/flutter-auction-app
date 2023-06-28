@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
 import 'package:flutter_online_auction_app/features/my_item/widgets/item_filter_chips.dart';
 import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
@@ -25,7 +26,11 @@ class MyItemPage extends StatelessWidget {
       appBar: const ItemFilterChips(),
       body: const MyItemScreen(),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, NewItemPage.routeName),
+        onPressed: () {
+          Navigator.pushNamed(context, NewItemPage.routeName).then((_) {
+            return context.read<MyItemBloc>().add(FetchMyItem());
+          });
+        },
         label: Text("New Item", style: textTheme.titleMedium),
         icon: const Icon(Icons.add),
       ),
