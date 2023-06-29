@@ -1,6 +1,5 @@
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
-import 'package:flutter_online_auction_app/features/auction_history/auction_history.dart';
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
@@ -58,9 +57,6 @@ class AppRoute {
 
       case MyAuctionPage.routeName:
         return MyAuctionPage.route();
-
-      case AuctionHistoryPage.routeName:
-        return AuctionHistoryPage.route();
 
       default:
         return _errorRoute();
