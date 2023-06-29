@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/item_detail/item_detail.dart';
+import 'package:flutter_online_auction_app/features/update_item/update_item.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -67,7 +68,13 @@ class _ActionButton extends StatelessWidget {
           Expanded(
             flex: 4,
             child: CustomIconButton(
-              onPressed: () {/* TODO: go to Update item page */},
+              onPressed: () {
+                Navigator.of(context).pushNamed<bool?>(UpdateItemPage.routeName, arguments: item).then((value) {
+                  if ((value ?? false) && context.read<ItemDetailBloc>().state is ItemDetailLoaded) {
+                    context.read<ItemDetailBloc>().add(ItemDetailGetItemEvent(item));
+                  }
+                });
+              },
               icon: const Icon(Icons.edit),
               text: 'Edit',
             ),

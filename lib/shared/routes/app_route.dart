@@ -11,6 +11,7 @@ import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
 import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
 import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
 import 'package:flutter_online_auction_app/features/splash/splash.dart';
+import 'package:flutter_online_auction_app/features/update_item/update_item.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,9 @@ class AppRoute {
 
       case ItemDetailPage.routeName:
         return ItemDetailPage.route(item: settings.arguments as Item);
+
+      case UpdateItemPage.routeName:
+        return UpdateItemPage.route(item: settings.arguments as Item);
 
       case NewItemPage.routeName:
         return NewItemPage.route();
