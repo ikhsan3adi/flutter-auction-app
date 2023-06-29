@@ -12,10 +12,7 @@ class ShimmerBasic extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: ColorPalettes.shimmerBg,
       highlightColor: ColorPalettes.shimmer,
-      child: Container(
-        color: ColorPalettes.shimmerBg,
-        child: child,
-      ),
+      child: child ?? Container(color: ColorPalettes.shimmerBg),
     );
   }
 }
