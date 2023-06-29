@@ -18,9 +18,12 @@ class ItemDetailScreen extends StatelessWidget {
       },
       child: RefreshIndicator.adaptive(
         onRefresh: () async {
-          context.read<ItemDetailBloc>().add(ItemDetailGetItemEvent(item));
+          if (context.read<ItemDetailBloc>().state is ItemDetailLoaded) {
+            context.read<ItemDetailBloc>().add(ItemDetailGetItemEvent(item));
+          }
         },
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
