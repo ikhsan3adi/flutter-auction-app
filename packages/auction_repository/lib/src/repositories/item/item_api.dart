@@ -67,7 +67,7 @@ class ItemApiClientImpl extends ItemApiClient {
     if (item.images.isNotEmpty) {
       for (ItemImage image in item.images) {
         formData.files.add(MapEntry(
-          "images",
+          "images[]",
           await MultipartFile.fromFile(image.url, filename: image.url.split('/').last),
         ));
       }
