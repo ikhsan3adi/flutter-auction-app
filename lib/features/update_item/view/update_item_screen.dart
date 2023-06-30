@@ -298,6 +298,8 @@ class _Button extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: BlocBuilder<UpdateItemBloc, UpdateItemState>(
         builder: (context, state) {
+          bool isSubmitting = state is UpdateItemLoaded ? (state.formState.status == FormzSubmissionStatus.inProgress) : false;
+
           return Row(
             children: [
               Expanded(
@@ -316,8 +318,8 @@ class _Button extends StatelessWidget {
                   onPressed: () {
                     if (state is UpdateItemLoaded) context.read<UpdateItemBloc>().add(UpdateItem());
                   },
-                  text: "Confirm",
-                  disabled: state is! UpdateItemLoaded,
+                  text: isSubmitting ? "Loading..." : "Confirm",
+                  disabled: state is! UpdateItemLoaded || isSubmitting,
                 ),
               ),
             ],
