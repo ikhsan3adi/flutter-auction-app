@@ -6,6 +6,7 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     TextEditingController? controller,
     this.validator,
+    this.onTap,
     this.helperText,
     this.prefixText,
     this.hintText,
@@ -14,14 +15,20 @@ class CustomTextFormField extends StatelessWidget {
     this.errorText,
     this.maxLines,
     this.minLines,
+    this.prefixIcon,
+    this.readOnly = false,
   }) : _controller = controller;
 
   final TextEditingController? _controller;
   final void Function(String?)? onChanged;
   final String? Function(String?)? validator;
+  final VoidCallback? onTap;
   final String? helperText, prefixText, hintText, errorText;
   final int? maxLines, minLines;
   final bool isNumberInput;
+  final bool readOnly;
+
+  final Widget? prefixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +50,8 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines,
       minLines: minLines,
+      onTap: onTap,
+      readOnly: readOnly,
       decoration: InputDecoration(
         border: inputBorder,
         enabledBorder: inputBorder,
@@ -53,6 +62,7 @@ class CustomTextFormField extends StatelessWidget {
         isDense: true,
         focusedErrorBorder: inputBorder,
         prefixText: prefixText,
+        prefixIcon: prefixIcon,
         helperText: helperText,
         hintText: hintText,
         errorText: errorText,
