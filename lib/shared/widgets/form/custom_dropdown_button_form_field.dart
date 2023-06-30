@@ -13,6 +13,8 @@ class CustomDropdownButtonField<T> extends StatelessWidget {
     this.onChanged,
     this.errorText,
     this.prefixIcon,
+    this.itemHeight,
+    this.style,
   });
 
   final List<DropdownMenuItem<T>> items;
@@ -23,6 +25,8 @@ class CustomDropdownButtonField<T> extends StatelessWidget {
   final VoidCallback? onTap;
   final String? helperText, prefixText, hintText, errorText;
 
+  final TextStyle? style;
+  final double? itemHeight;
   final Widget? prefixIcon;
 
   @override
@@ -41,11 +45,14 @@ class CustomDropdownButtonField<T> extends StatelessWidget {
     );
 
     return DropdownButtonFormField<T>(
+      itemHeight: itemHeight,
+      isExpanded: true,
       items: items,
       value: value,
       onChanged: onChanged,
       onTap: onTap,
       icon: const Icon(Icons.keyboard_arrow_down),
+      style: style,
       decoration: InputDecoration(
         border: inputBorder,
         enabledBorder: inputBorder,
