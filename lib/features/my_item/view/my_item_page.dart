@@ -27,8 +27,10 @@ class MyItemPage extends StatelessWidget {
       body: const MyItemScreen(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.pushNamed(context, NewItemPage.routeName).then((_) {
-            return context.read<MyItemBloc>().add(FetchMyItem());
+          Navigator.pushNamed<bool?>(context, NewItemPage.routeName).then((value) {
+            if ((value ?? false) && context.read<MyItemBloc>().state is MyItemLoaded) {
+              context.read<MyItemBloc>().add(FetchMyItem());
+            }
           });
         },
         label: Text("New Item", style: textTheme.titleMedium),

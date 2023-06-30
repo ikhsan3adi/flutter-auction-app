@@ -11,8 +11,8 @@ class NewItemPage extends StatelessWidget {
 
   const NewItemPage({super.key});
 
-  static Route<void> route() {
-    return MaterialPageRoute<void>(
+  static Route<bool?> route() {
+    return MaterialPageRoute<bool?>(
       settings: const RouteSettings(name: routeName),
       builder: (_) => const NewItemPage(),
     );

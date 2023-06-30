@@ -13,8 +13,8 @@ class UpdateItemPage extends StatelessWidget {
 
   final Item item;
 
-  static Route<void> route({required Item item}) {
-    return MaterialPageRoute<void>(
+  static Route<bool?> route({required Item item}) {
+    return MaterialPageRoute<bool?>(
       settings: const RouteSettings(name: routeName),
       builder: (_) => UpdateItemPage(item: item),
     );
