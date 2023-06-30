@@ -22,7 +22,6 @@ class NewItemPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ItemRepository itemRepository = context.read<ItemRepository>();
     final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
-    final TokenRepository tokenRepository = context.read<TokenRepository>();
 
     return Scaffold(
       appBar: const MyCustomAppbar(title: 'New Item'),
@@ -30,7 +29,6 @@ class NewItemPage extends StatelessWidget {
         create: (context) => NewItemBloc(
           itemRepository: itemRepository,
           authenticationRepository: authenticationRepository,
-          tokenRepository: tokenRepository,
         ),
         child: const NewItemScreen(),
       ),

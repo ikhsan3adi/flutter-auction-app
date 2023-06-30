@@ -15,10 +15,8 @@ class NewItemBloc extends Bloc<NewItemEvent, NewItemState> {
   NewItemBloc({
     required ItemRepository itemRepository,
     required AuthenticationRepository authenticationRepository,
-    required TokenRepository tokenRepository,
   })  : _itemRepository = itemRepository,
         _authenticationRepository = authenticationRepository,
-        _tokenRepository = tokenRepository,
         super(const NewItemState()) {
     on<ItemImagesChanged>(_itemImagesChanged);
     on<ItemImageDelete>(_deleteItemImage);
@@ -30,7 +28,6 @@ class NewItemBloc extends Bloc<NewItemEvent, NewItemState> {
 
   final ItemRepository _itemRepository;
   final AuthenticationRepository _authenticationRepository;
-  final TokenRepository _tokenRepository;
 
   void _itemImagesChanged(ItemImagesChanged event, Emitter<NewItemState> emit) {
     emit(state.copyWith(imagesPath: [...state.imagesPath, ...event.imagesPath]));
@@ -74,7 +71,7 @@ class NewItemBloc extends Bloc<NewItemEvent, NewItemState> {
 
       final Item newItem = Item(
         id: 'id',
-        userId: _tokenRepository.token?.userData?.id ?? '',
+        userId: '-',
         itemName: state.formState.itemName.value,
         description: state.formState.itemDesc.value,
         createdAt: DateTime.now(),
