@@ -8,6 +8,7 @@ import 'package:flutter_online_auction_app/features/login/login.dart';
 import 'package:flutter_online_auction_app/features/my_auction/my_auction.dart';
 import 'package:flutter_online_auction_app/features/my_bid/my_bid.dart';
 import 'package:flutter_online_auction_app/features/my_item/my_item.dart';
+import 'package:flutter_online_auction_app/features/new_auction/new_auction.dart';
 import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
 import 'package:flutter_online_auction_app/features/splash/splash.dart';
 import 'package:flutter_online_auction_app/features/update_item/update_item.dart';
@@ -57,6 +58,9 @@ class AppRoute {
 
       case MyAuctionPage.routeName:
         return MyAuctionPage.route();
+
+      case NewAuctionPage.routeName:
+        return NewAuctionPage.route();
 
       default:
         return _errorRoute();
