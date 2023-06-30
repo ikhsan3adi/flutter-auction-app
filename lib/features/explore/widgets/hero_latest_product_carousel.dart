@@ -1,5 +1,6 @@
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
+import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,13 @@ class HeroProductCarousel extends StatelessWidget {
     return latestAuctionList.map((element) {
       return Builder(builder: (context) {
         return InkWell(
-          onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: element),
+          onTap: () {
+            Navigator.pushNamed<bool?>(context, AuctionDetailPage.routeName, arguments: element).then((value) {
+              if ((value ?? false) && context.read<ExploreBloc>().state is ExploreLoaded) {
+                context.read<ExploreBloc>().add(ExploreFetchAuctionEvent());
+              }
+            });
+          },
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [

@@ -14,8 +14,8 @@ class AuctionDetailPage extends StatelessWidget {
 
   final Auction auction;
 
-  static Route<void> route({required Auction auction}) {
-    return MaterialPageRoute<void>(
+  static Route<bool?> route({required Auction auction}) {
+    return MaterialPageRoute<bool?>(
       settings: const RouteSettings(name: routeName),
       builder: (_) => AuctionDetailPage(auction: auction),
     );

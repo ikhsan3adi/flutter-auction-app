@@ -15,6 +15,7 @@ class BidButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Token? token = context.read<TokenRepository>().token;
+    ThemeData theme = Theme.of(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -22,42 +23,73 @@ class BidButton extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: BlocBuilder<AuctionDetailBloc, AuctionDetailState>(
+            child: BlocConsumer<AuctionDetailBloc, AuctionDetailState>(
+              listener: (_, state) {
+                if (state is AuctionDeleted) {
+                  Navigator.of(context).pop(true);
+                }
+              },
               builder: (context, state) {
-                return CustomButton(
-                  text: state is AuctionDetailLoading ? "Loading..." : "Place bid",
-                  disabled: auction.author.username == token?.userData?.username,
-                  onPressed: () {
-                    if (state is AuctionDetailLoaded) {
-                      final BidRepository bidRepository = context.read<BidRepository>();
-                      final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
+                return Row(
+                  children: [
+                    Expanded(
+                      child: CustomButton(
+                        text: state is AuctionDetailLoading ? "Loading..." : "Place bid",
+                        disabled: auction.author.username == token?.userData?.username,
+                        onPressed: () {
+                          if (state is AuctionDetailLoaded) {
+                            final BidRepository bidRepository = context.read<BidRepository>();
+                            final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
 
-                      showModalBottomSheet<bool>(
-                        context: context,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                        ),
-                        isScrollControlled: true,
-                        builder: (_) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider(
-                              create: (context) => PlaceBidBloc(
-                                bidRepository: bidRepository,
-                                authenticationRepository: authenticationRepository,
+                            showModalBottomSheet<bool>(
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                               ),
+                              isScrollControlled: true,
+                              builder: (_) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider(
+                                    create: (context) => PlaceBidBloc(
+                                      bidRepository: bidRepository,
+                                      authenticationRepository: authenticationRepository,
+                                    ),
+                                  ),
+                                  BlocProvider.value(value: context.read<AuctionDetailBloc>()),
+                                ],
+                                child: const PlaceBidView(),
+                              ),
+                            ).then((changed) {
+                              if (changed ?? false) {
+                                Fluttertoast.showToast(msg: 'Place bid successful');
+                                context.read<AuctionDetailBloc>().add(AuctionDetailGetAuctionEvent(state.auction));
+                              }
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                    auction.author.username == token?.userData?.username ? const SizedBox(width: 8) : const SizedBox(),
+                    auction.author.username == token?.userData?.username
+                        ? Expanded(
+                            child: CustomButton(
+                              backgroundColor: theme.colorScheme.error,
+                              onPressed: () async {
+                                await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => const ConfirmDialog(),
+                                ).then((delete) {
+                                  if (delete ?? false) {
+                                    Fluttertoast.showToast(msg: 'Deleting auction...');
+                                    context.read<AuctionDetailBloc>().add(AuctionDetailDeleteAuction());
+                                  }
+                                });
+                              },
+                              text: "Delete",
                             ),
-                            BlocProvider.value(value: context.read<AuctionDetailBloc>()),
-                          ],
-                          child: const PlaceBidView(),
-                        ),
-                      ).then((changed) {
-                        if (changed ?? false) {
-                          Fluttertoast.showToast(msg: 'Place bid successful');
-                          context.read<AuctionDetailBloc>().add(AuctionDetailGetAuctionEvent(state.auction));
-                        }
-                      });
-                    }
-                  },
+                          )
+                        : const SizedBox(),
+                  ],
                 );
               },
             ),

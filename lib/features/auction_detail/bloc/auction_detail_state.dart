@@ -27,3 +27,7 @@ class AuctionDetailError extends AuctionDetailState {
   @override
   List<Object> get props => [messages];
 }
+
+class AuctionDeleted extends AuctionDetailLoaded {
+  const AuctionDeleted({required super.auction, required super.bidList});
+}

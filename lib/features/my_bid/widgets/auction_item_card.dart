@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
+import 'package:flutter_online_auction_app/features/my_bid/bloc/my_bid_bloc.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 
 class AuctionItemCard extends StatelessWidget {
@@ -31,7 +33,13 @@ class AuctionItemCard extends StatelessWidget {
       child: SizedBox(
         height: 120,
         child: CustomInkWell(
-          onTap: () => Navigator.pushNamed(context, AuctionDetailPage.routeName, arguments: auction),
+          onTap: () {
+            Navigator.pushNamed<bool?>(context, AuctionDetailPage.routeName, arguments: auction).then((value) {
+              if ((value ?? false) && context.read<MyBidBloc>().state is MyBidLoaded) {
+                context.read<MyBidBloc>().add(FetchMyBidAuction());
+              }
+            });
+          },
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

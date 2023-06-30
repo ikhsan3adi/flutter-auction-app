@@ -19,6 +19,7 @@ class AuctionDetailBloc extends Bloc<AuctionDetailEvent, AuctionDetailState> {
         super(AuctionDetailLoading()) {
     on<AuctionDetailGetAuctionEvent>(_fetchAuction);
     on<AuctionDetailDeleteBidEvent>(_deleteBid);
+    on<AuctionDetailDeleteAuction>(_deleteAuction);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -58,6 +59,28 @@ class AuctionDetailBloc extends Bloc<AuctionDetailEvent, AuctionDetailState> {
       emit(AuctionDetailLoading());
 
       emit(AuctionDetailLoaded(auction: auction, bidList: bids));
+    } on UnauthorizedException catch (e) {
+      _authenticationRepository.changeAuthStatus(
+        status: Unauthenticated(messages: e.errorsMessages, forced: true),
+      );
+
+      emit(AuctionDetailError(messages: e.errorsMessages));
+    } on DioError catch (e) {
+      emit(AuctionDetailError(messages: e.errorsMessages));
+    } catch (e) {
+      emit(AuctionDetailError(messages: [e.toString()]));
+    }
+  }
+
+  Future<void> _deleteAuction(AuctionDetailDeleteAuction event, Emitter<AuctionDetailState> emit) async {
+    try {
+      final currentState = state as AuctionDetailLoaded;
+
+      emit(AuctionDetailLoading());
+
+      await _auctionRepository.deleteAuction(currentState.auction.id);
+
+      emit(AuctionDeleted(auction: currentState.auction, bidList: currentState.bidList));
     } on UnauthorizedException catch (e) {
       _authenticationRepository.changeAuthStatus(
         status: Unauthenticated(messages: e.errorsMessages, forced: true),
