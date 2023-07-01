@@ -17,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
     this.minLines,
     this.prefixIcon,
     this.readOnly = false,
+    this.obscureText = false,
   }) : _controller = controller;
 
   final TextEditingController? _controller;
@@ -27,6 +28,7 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines, minLines;
   final bool isNumberInput;
   final bool readOnly;
+  final bool obscureText;
 
   final Widget? prefixIcon;
 
@@ -48,8 +50,9 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: _controller,
       onChanged: onChanged,
-      maxLines: maxLines,
+      maxLines: obscureText ? 1 : maxLines,
       minLines: minLines,
+      obscureText: obscureText,
       onTap: onTap,
       readOnly: readOnly,
       decoration: InputDecoration(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/login/login.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
-import 'package:flutter_online_auction_app/shared/widgets/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 
@@ -105,6 +104,7 @@ class _PasswordField extends StatelessWidget {
             onChanged: (value) {
               context.read<LoginBloc>().add(PasswordChanged(password: value ?? ''));
             },
+            obscureText: true,
             errorText: state.formState.password.displayError?.text,
           );
         },
