@@ -766,6 +766,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  regexpattern:
+    dependency: "direct main"
+    description:
+      name: regexpattern
+      sha256: "64cd0915b55990a9906b42e3038370b820139a4c0e8804343de96c0fee11aed0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
   shelf:
     dependency: transitive
     description:
