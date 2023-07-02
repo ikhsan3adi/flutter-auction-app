@@ -1,5 +1,4 @@
 import 'package:formz/formz.dart';
-import 'package:regexpattern/regexpattern.dart';
 
 enum NameValidationError { empty, wrongLength, invalid }
 
@@ -13,8 +12,6 @@ class Name extends FormzInput<String, NameValidationError> {
       return NameValidationError.empty;
     } else if (value.length > 64) {
       return NameValidationError.wrongLength;
-    } else if (!value.isAlphabetNumeric()) {
-      return NameValidationError.invalid;
     }
     return null;
   }

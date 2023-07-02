@@ -16,7 +16,6 @@ class UserRepository {
   }
 
   Future<void> updateUser(User user) async {
-    // TODO image upload
     return _apiClient.updateUser(user);
   }
 

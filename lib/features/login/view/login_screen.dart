@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/login/login.dart';
+import 'package:flutter_online_auction_app/features/register/view/register_page.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
@@ -195,7 +196,12 @@ class _RegisterText extends StatelessWidget {
         const Text("Don't have an account?"),
         TextButton(
             onPressed: () {
-              // TODO : goto register page
+              Navigator.of(context).pushNamed<LoginFormState?>(RegisterPage.routeName).then((value) {
+                if (value != null) {
+                  context.read<LoginBloc>().add(UsernameChanged(username: value.username.value));
+                  context.read<LoginBloc>().add(PasswordChanged(password: value.password.value));
+                }
+              });
             },
             style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
             child: const Text("Sign up")),

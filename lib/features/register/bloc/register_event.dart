@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'register_bloc.dart';
 
 abstract class RegisterEvent extends Equatable {
@@ -8,11 +7,58 @@ abstract class RegisterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AttemptRegister extends RegisterEvent {
-  const AttemptRegister({required this.newUser});
+class ProfileImageChanged extends RegisterEvent {
+  const ProfileImageChanged({required this.imagePath});
 
-  final User newUser;
+  final String imagePath;
 
   @override
-  List<Object> get props => [newUser];
+  List<Object> get props => [imagePath];
 }
+
+class UsernameChanged extends RegisterEvent {
+  const UsernameChanged({required this.username});
+
+  final String username;
+
+  @override
+  List<Object> get props => [username];
+}
+
+class PasswordChanged extends RegisterEvent {
+  const PasswordChanged({required this.password});
+
+  final String password;
+
+  @override
+  List<Object> get props => [password];
+}
+
+class NameChanged extends RegisterEvent {
+  const NameChanged({required this.name});
+
+  final String name;
+
+  @override
+  List<Object> get props => [name];
+}
+
+class EmailChanged extends RegisterEvent {
+  const EmailChanged({required this.email});
+
+  final String email;
+
+  @override
+  List<Object> get props => [email];
+}
+
+class PhoneChanged extends RegisterEvent {
+  const PhoneChanged({required this.phone});
+
+  final String phone;
+
+  @override
+  List<Object> get props => [phone];
+}
+
+class AttemptRegister extends RegisterEvent {}
