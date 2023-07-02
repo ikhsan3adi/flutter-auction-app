@@ -162,12 +162,13 @@ class UpdateItemBloc extends Bloc<UpdateItemEvent, UpdateItemState> {
       _authenticationRepository.changeAuthStatus(
         status: Unauthenticated(messages: e.errorsMessages, forced: true),
       );
-    } on DioError catch (_) {
+    } on DioError catch (e) {
       emit(currentState.copyWith(
         formState: currentState.formState.copyWith(status: FormzSubmissionStatus.failure),
         formerImages: currentState.formerImages,
         isValid: currentState.isValid,
         newImagesPath: currentState.newImagesPath,
+        message: e.errorsMessages[0],
       ));
     } catch (e) {
       emit(currentState.copyWith(
@@ -175,6 +176,7 @@ class UpdateItemBloc extends Bloc<UpdateItemEvent, UpdateItemState> {
         formerImages: currentState.formerImages,
         isValid: currentState.isValid,
         newImagesPath: currentState.newImagesPath,
+        message: e.toString(),
       ));
     }
   }

@@ -34,6 +34,7 @@ class UpdateItemScreen extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const _MessageBlock(),
               const _ImageField(),
               const FormFieldTitle(text: "Item name"),
               const _ItemNameField(),
@@ -62,6 +63,49 @@ class UpdateItemScreen extends StatelessWidget {
             label: const Text('Reload'),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _MessageBlock extends StatelessWidget {
+  const _MessageBlock();
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: BlocBuilder<UpdateItemBloc, UpdateItemState>(
+        builder: (context, state) {
+          if (state is UpdateItemLoaded && state.formState.status != FormzSubmissionStatus.success) {
+            if (state.message != null) {
+              return TextHighlight(
+                code: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Error: ${state.message!}",
+                    style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+                  ),
+                ),
+              );
+            }
+          } else {
+            return TextHighlight(
+              code: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Update item successful",
+                  style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+                ),
+              ),
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
   }
