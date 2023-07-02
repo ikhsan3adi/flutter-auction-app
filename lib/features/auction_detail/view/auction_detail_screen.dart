@@ -77,7 +77,7 @@ class AuctionDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: auction.status == AuctionStatus.open ? BidButton(auction: auction) : null,
+      bottomNavigationBar: BidButton(auction: auction),
     );
   }
 }

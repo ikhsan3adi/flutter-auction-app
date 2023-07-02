@@ -26,6 +26,8 @@ class BidButton extends StatelessWidget {
             child: BlocConsumer<AuctionDetailBloc, AuctionDetailState>(
               listener: (_, state) {
                 if (state is AuctionDeleted) {
+                  Fluttertoast.cancel();
+                  Fluttertoast.showToast(msg: 'Auction deleted');
                   Navigator.of(context).pop(true);
                 }
               },
@@ -37,6 +39,8 @@ class BidButton extends StatelessWidget {
                         text: state is AuctionDetailLoading ? "Loading..." : "Place bid",
                         disabled: auction.author.username == token?.userData?.username,
                         onPressed: () {
+                          if (auction.author.username == token?.userData?.username) return;
+
                           if (state is AuctionDetailLoaded) {
                             final BidRepository bidRepository = context.read<BidRepository>();
                             final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
