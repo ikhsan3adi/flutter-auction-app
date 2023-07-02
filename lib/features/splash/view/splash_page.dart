@@ -15,7 +15,7 @@ class SplashPage extends StatelessWidget {
   }
 
   // splash duration
-  Future<bool> _splash() async => await Future.delayed(const Duration(seconds: 3), () => true);
+  Future<bool> _splash() async => await Future.delayed(const Duration(seconds: 2), () => true);
 
   @override
   Widget build(BuildContext context) {

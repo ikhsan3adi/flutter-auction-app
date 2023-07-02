@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_online_auction_app/features/splash/splash.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -7,7 +8,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('This is splash screen'),
+        child: SplashLogo(),
       ),
     );
   }

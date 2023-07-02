@@ -41,7 +41,7 @@ class _MyAppState extends State<_MyApp> {
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
   // splash duration
-  Future<bool> _splash() async => await Future.delayed(const Duration(seconds: 3), () => true);
+  Future<bool> _splash() async => await Future.delayed(const Duration(seconds: 4), () => true);
 
   @override
   Widget build(BuildContext context) {
