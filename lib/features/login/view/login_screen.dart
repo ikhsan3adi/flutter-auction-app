@@ -10,19 +10,30 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _Head(),
-          FormFieldTitle(text: "Username"),
-          _UsernameField(),
-          FormFieldTitle(text: "Password"),
-          _PasswordField(),
-          _LoginButton(),
-          _RegisterText(),
-        ],
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: const Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _Head(),
+              _MessageBlock(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FormFieldTitle(text: "Username"),
+                  _UsernameField(),
+                  FormFieldTitle(text: "Password"),
+                  _PasswordField(),
+                  _LoginButton(),
+                  _RegisterText(),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -37,32 +48,51 @@ class _Head extends StatelessWidget {
 
     return SizedBox(
       height: MediaQuery.of(context).size.height / 8,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Center(
-                child: Text("LOGIN", style: theme.textTheme.headlineLarge),
-              ),
-              SizedBox(
-                height: 36,
-                child: BlocBuilder<LoginBloc, LoginState>(
-                  builder: (context, state) {
-                    if (state.formState.status == FormzSubmissionStatus.failure) {
-                      return Text(
-                        state.errorMessage ?? 'Unknown error',
-                        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
+      child: Center(
+        child: Text("LOGIN", style: theme.textTheme.headlineLarge),
+      ),
+    );
+  }
+}
+
+class _MessageBlock extends StatelessWidget {
+  const _MessageBlock();
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
+      child: BlocBuilder<LoginBloc, LoginState>(
+        builder: (context, state) {
+          if (state.formState.status != FormzSubmissionStatus.success) {
+            if (state.errorMessage != null) {
+              return TextHighlight(
+                code: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Error: ${state.errorMessage!}",
+                    style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+                  ),
+                ),
+              );
+            }
+          } else {
+            return TextHighlight(
+              code: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Login successful",
+                  style: textTheme.bodyMedium?.copyWith(color: Colors.white),
                 ),
               ),
-            ],
-          ),
-        ],
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
   }
