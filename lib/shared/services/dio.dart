@@ -12,6 +12,7 @@ class DioServices {
     final Dio dio = Dio(BaseOptions(
       headers: {'Authorization': 'Bearer $accessToken'},
       baseUrl: dotenv.get('API_BASE_URL'),
+      receiveDataWhenStatusError: true,
     ));
 
     dio.interceptors.add(AppInterceptors(dio: dio));

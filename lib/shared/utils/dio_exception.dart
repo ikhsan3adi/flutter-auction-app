@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
 
 class CustomDioException extends DioError {
-  CustomDioException(RequestOptions r) : super(requestOptions: r);
+  CustomDioException({
+    required RequestOptions requestOptions,
+    Response? response,
+  }) : super(requestOptions: requestOptions, response: response);
 }
 
 class BadRequestException extends CustomDioException {
-  BadRequestException(super.r);
+  BadRequestException({required super.requestOptions, super.response});
 
   @override
   String toString() {
@@ -14,7 +17,7 @@ class BadRequestException extends CustomDioException {
 }
 
 class InternalServerErrorException extends CustomDioException {
-  InternalServerErrorException(super.r);
+  InternalServerErrorException({required super.requestOptions, super.response});
 
   @override
   String toString() {
@@ -23,7 +26,7 @@ class InternalServerErrorException extends CustomDioException {
 }
 
 class ConflictException extends CustomDioException {
-  ConflictException(super.r);
+  ConflictException({required super.requestOptions, super.response});
 
   @override
   String toString() {
@@ -32,7 +35,7 @@ class ConflictException extends CustomDioException {
 }
 
 class UnauthorizedException extends CustomDioException {
-  UnauthorizedException(super.r);
+  UnauthorizedException({required super.requestOptions, super.response});
 
   @override
   String toString() {
@@ -41,7 +44,7 @@ class UnauthorizedException extends CustomDioException {
 }
 
 class NotFoundException extends CustomDioException {
-  NotFoundException(super.r);
+  NotFoundException({required super.requestOptions, super.response});
 
   @override
   String toString() {
@@ -50,7 +53,7 @@ class NotFoundException extends CustomDioException {
 }
 
 class NoInternetConnectionException extends CustomDioException {
-  NoInternetConnectionException(super.r);
+  NoInternetConnectionException({required super.requestOptions, super.response});
 
   @override
   String toString() {
@@ -59,7 +62,7 @@ class NoInternetConnectionException extends CustomDioException {
 }
 
 class DeadlineExceededException extends CustomDioException {
-  DeadlineExceededException(super.r);
+  DeadlineExceededException({required super.requestOptions, super.response});
 
   @override
   String toString() {

@@ -10,23 +10,23 @@ class AppInterceptors extends Interceptor {
       case DioErrorType.connectionTimeout:
       case DioErrorType.sendTimeout:
       case DioErrorType.receiveTimeout:
-        throw DeadlineExceededException(err.requestOptions);
+        throw DeadlineExceededException(requestOptions: err.requestOptions, response: err.response);
       case DioErrorType.badResponse:
         switch (err.response?.statusCode) {
           case 400:
-            throw BadRequestException(err.requestOptions);
+            throw BadRequestException(requestOptions: err.requestOptions, response: err.response);
           case 401:
-            throw UnauthorizedException(err.requestOptions);
+            throw UnauthorizedException(requestOptions: err.requestOptions, response: err.response);
           case 404:
-            throw NotFoundException(err.requestOptions);
+            throw NotFoundException(requestOptions: err.requestOptions, response: err.response);
           case 409:
-            throw ConflictException(err.requestOptions);
+            throw ConflictException(requestOptions: err.requestOptions, response: err.response);
           case 500:
-            throw InternalServerErrorException(err.requestOptions);
+            throw InternalServerErrorException(requestOptions: err.requestOptions, response: err.response);
         }
         break;
       case DioErrorType.connectionError:
-        throw NoInternetConnectionException(err.requestOptions);
+        throw NoInternetConnectionException(requestOptions: err.requestOptions, response: err.response);
       case DioErrorType.badCertificate:
       case DioErrorType.unknown:
         throw DioError;
