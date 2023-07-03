@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ikhsan3adi.auction_app">
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="E-AUCTION"
         android:name="${applicationName}"
