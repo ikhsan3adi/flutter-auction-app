@@ -47,6 +47,7 @@ See also: <a href="https://github.com/ikhsan3adi/ci4_online_auction_api">Online 
 
 - Flutter SDK >=3.7: [Install Flutter](https://flutter.dev/docs/get-started/install)
 - Code Editor: [Choose an editor](https://flutter.dev/docs/get-started/editor)
+- Internet connection
 
 ### How to run the App
 
@@ -80,6 +81,8 @@ cd ../user_repository
 dart run build_runner build --delete-conflicting-outputs
 cd ../../
 ```
+
+4. Hit `F5` on your keyboard to debug.
 
 ## Contributing
 
