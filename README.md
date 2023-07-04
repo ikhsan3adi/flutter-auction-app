@@ -1,25 +1,54 @@
+<p align="center">
+  <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/banner.png" title="Online Auction App">
+</p>
 
-# Online Auction App
+<h1 align="center">Online Auction App</h1>
 
-![GitHub forks](https://img.shields.io/github/forks/ikhsan3adi/Flutter-Auction-App?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/ikhsan3adi/Flutter-Auction-App?style=social)
+<p align="center">
+  <img src="https://img.shields.io/github/forks/ikhsan3adi/Flutter-Auction-App?style=for-the-badge" title="GitHub forks">
+  <img src="https://img.shields.io/github/stars/ikhsan3adi/Flutter-Auction-App?style=for-the-badge" title="GitHub Repo stars">
+  <img src="https://img.shields.io/github/downloads/ikhsan3adi/Flutter-Auction-App/total?style=for-the-badge" title="GitHub all releases">
+</p>
 
+<p align="center">
+  Flutter Online Auction App is a mobile application built with Flutter. It allows users to participate in online auctions, browse products, place bids, and manage their account.
+</p>
 
-## Features
-
+## Key Features
 - Login & Register
 - Explore
 - Auction Detail
 - Place Bid
 - My Bid
 - My Auction
-- Bid History
-- Item
-- User Profile
+- My Item
 - Switch Dark & Light Theme
+- User Profile :soon:
+
+See also: <a href="https://github.com/ikhsan3adi/ci4_online_auction_api">Online Auction App Backend</a>
+
 ## Screenshots
-- Coming Soon :soon:
-## How to run the App
+
+|               | <p align="center">Light Theme</p> | <p align="center"> Dark Theme</p> |
+|---------------|-----------------------------------|-----------------------------------|
+| Explore page  | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/explore-gif.gif">    | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/explore-dark.png">  |
+| Auction Detail| <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/auction-detail-light.png"> | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/auction-detail-dark.png"> |
+| Login page    | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/login-light.png">    | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/login-dark.png">    |
+| Register page | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/register-light.png"> | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/register-dark.png"> |
+| My Bid        | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-bid-light.png">   | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-bid-dark.png">   |
+| My Item       | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-item-light.png">  | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-item-dark.png">  |
+| My Auction    |<img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-auction-light.png">|<img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-auction-dark.png">|
+
+<a href="https://github.com/ikhsan3adi/Flutter-Auction-App/tree/master/images">More images</a>
+
+## Getting Started
+
+### Prerequisites
+
+- Flutter SDK >=3.7: [Install Flutter](https://flutter.dev/docs/get-started/install)
+- Code Editor: [Choose an editor](https://flutter.dev/docs/get-started/editor)
+
+### How to run the App
 
 1. Run `flutter pub get` on main project
 
@@ -27,15 +56,15 @@
 flutter pub get
 ```
 
-2. Run `flutter pub get` on each packages, or copy & run this command for simplicity:
+2. Run `dart pub get` on each packages, or copy & run this command for simplicity:
 
 ```shell
 cd packages/auction_repository
-flutter pub get
+dart pub get
 cd ../authentication_repository
-flutter pub get
+dart pub get
 cd ../user_repository
-flutter pub get
+dart pub get
 cd ../../
 ```
 
@@ -52,11 +81,22 @@ dart run build_runner build --delete-conflicting-outputs
 cd ../../
 ```
 
-## Authors
+## Contributing
 
-- [@ikhsan3adi](https://www.github.com/ikhsan3adi)
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
+
+## Donation
+
+[![Donate paypal](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/xannxett?country.x=ID&locale.x=en_US)
+[![Donate saweria](https://img.shields.io/badge/Donate-Saweria-red?style=for-the-badge&link=https%3A%2F%2Fsaweria.co%2Fxiboxann)](https://saweria.co/xiboxann)
+
+## License
+
+![GitHub license](https://img.shields.io/github/license/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)
 
 ## Contributors
+
+- [@ikhsan3adi](https://www.github.com/ikhsan3adi)
 
 - [@asyncguy](https://www.github.com/asyncguy)
 
