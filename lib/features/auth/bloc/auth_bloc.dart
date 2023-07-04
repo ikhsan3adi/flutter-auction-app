@@ -13,8 +13,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required AuthenticationRepository authenticationRepository,
     required TokenRepository tokenRepository,
+    required DioServices dioServices,
   })  : _authenticationRepository = authenticationRepository,
         _tokenRepository = tokenRepository,
+        _dioServices = dioServices,
         super(AuthStateInitial()) {
     _authStatusSubscription = _authenticationRepository.authStatus.listen(
       (event) => add(_AuthStatusChangedEvent(status: event)),
@@ -27,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   final AuthenticationRepository _authenticationRepository;
   final TokenRepository _tokenRepository;
+  final DioServices _dioServices;
 
   late final StreamSubscription<AuthStatus> _authStatusSubscription;
 
@@ -56,9 +59,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onAuthStatusChanged(_AuthStatusChangedEvent event, Emitter<AuthState> emit) async {
     switch (event.status.runtimeType) {
       case Authenticated:
+        _dioServices.addAccessToken(accessToken: (event.status as Authenticated).accessToken);
         await _tokenRepository.setToken(accessToken: (event.status as Authenticated).accessToken);
         return emit(AuthStateAuthorized());
       case Unauthenticated:
+        _dioServices.deleteAccessToken();
         await _tokenRepository.removeToken();
         return emit(AuthStateUnauthorized(
           messages: (event.status as Unauthenticated).messages,

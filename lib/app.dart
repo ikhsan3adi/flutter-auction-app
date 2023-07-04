@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthenticationRepository authenticationRepository = context.read<AuthenticationRepository>();
     final TokenRepository tokenRepository = context.read<TokenRepository>();
+    final DioServices dioServices = context.read<DioServices>();
 
     return MultiBlocProvider(
       providers: [
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
           create: (_) => AuthBloc(
             authenticationRepository: authenticationRepository,
             tokenRepository: tokenRepository,
+            dioServices: dioServices,
           )..add(AuthAppStartedEvent()),
         )
       ],
