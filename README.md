@@ -31,13 +31,13 @@ See also: <a href="https://github.com/ikhsan3adi/ci4_online_auction_api">Online 
 
 |               | <p align="center">Light Theme</p> | <p align="center"> Dark Theme</p> |
 |---------------|-----------------------------------|-----------------------------------|
-| Explore page  | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/explore-gif.gif">    | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/explore-dark.png">  |
-| Auction Detail| <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/auction-detail-light.png"> | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/auction-detail-dark.png"> |
-| Login page    | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/login-light.png">    | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/login-dark.png">    |
-| Register page | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/register-light.png"> | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/register-dark.png"> |
-| My Bid        | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-bid-light.png">   | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-bid-dark.png">   |
-| My Item       | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-item-light.png">  | <img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-item-dark.png">  |
-| My Auction    |<img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-auction-light.png">|<img height="500" src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-auction-dark.png">|
+| Explore page  | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/explore-gif.gif">    | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/explore-dark.png">  |
+| Auction Detail| <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/auction-detail-light.png"> | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/auction-detail-dark.png"> |
+| Login page    | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/login-light.png">    | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/login-dark.png">    |
+| Register page | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/register-light.png"> | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/register-dark.png"> |
+| My Bid        | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-bid-light.png">   | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-bid-dark.png">   |
+| My Item       | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-item-light.png">  | <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-item-dark.png">  |
+| My Auction    |<img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-auction-light.png">|<img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/screenshots/my-auction-dark.png">|
 
 <a href="https://github.com/ikhsan3adi/Flutter-Auction-App/tree/master/images">More images</a>
 
