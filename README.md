@@ -95,7 +95,7 @@ Contributions are welcome! If you have any suggestions, bug reports, or feature 
 
 ## License
 
-![GitHub license](https://img.shields.io/github/license/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)
+[![GitHub license](https://img.shields.io/github/license/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)](https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/LICENSE)
 
 ## Contributors
 
