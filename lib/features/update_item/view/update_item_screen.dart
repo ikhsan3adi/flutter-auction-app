@@ -79,7 +79,7 @@ class _MessageBlock extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: BlocBuilder<UpdateItemBloc, UpdateItemState>(
         builder: (context, state) {
-          if (state is UpdateItemLoaded && state.formState.status != FormzSubmissionStatus.success) {
+          if (state is UpdateItemLoaded) {
             if (state.message != null) {
               return TextHighlight(
                 code: 2,
@@ -91,18 +91,18 @@ class _MessageBlock extends StatelessWidget {
                   ),
                 ),
               );
-            }
-          } else {
-            return TextHighlight(
-              code: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Update item successful",
-                  style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+            } else {
+              return TextHighlight(
+                code: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Update item successful",
+                    style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           }
           return const SizedBox();
         },
