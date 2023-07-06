@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/register/register.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
+import 'package:formz/formz.dart';
 
 import 'package:image_picker/image_picker.dart' as picker;
 
@@ -17,35 +18,36 @@ class ProfileImagePicker extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomInkWell(
-          onTap: () async {
-            picker.ImageSource? imageSource = await _showImageSourceDialog(context);
+        BlocBuilder<RegisterBloc, RegisterState>(
+          buildWhen: (previous, current) => previous.profileImagePath != current.profileImagePath,
+          builder: (context, state) {
+            bool isset = state.profileImagePath != null && (state.profileImagePath ?? '').isNotEmpty;
+            return CustomInkWell(
+              onTap: () async {
+                if (state.formState.status == FormzSubmissionStatus.inProgress || state.formState.status == FormzSubmissionStatus.success) return;
 
-            if (imageSource == null) return;
+                picker.ImageSource? imageSource = await _showImageSourceDialog(context);
 
-            picker.ImagePicker imagePicker = picker.ImagePicker();
-            picker.XFile? image = await imagePicker.pickImage(source: imageSource);
+                if (imageSource == null) return;
 
-            if (image == null) return;
+                picker.ImagePicker imagePicker = picker.ImagePicker();
+                picker.XFile? image = await imagePicker.pickImage(source: imageSource);
 
-            if (context.mounted) {
-              context.read<RegisterBloc>().add(ProfileImageChanged(imagePath: image.path));
-            }
-          },
-          child: BlocBuilder<RegisterBloc, RegisterState>(
-            buildWhen: (previous, current) => previous.profileImagePath != current.profileImagePath,
-            builder: (context, state) {
-              bool isset = state.profileImagePath != null && (state.profileImagePath ?? '').isNotEmpty;
+                if (image == null) return;
 
-              return CircleAvatar(
+                if (context.mounted) {
+                  context.read<RegisterBloc>().add(ProfileImageChanged(imagePath: image.path));
+                }
+              },
+              child: CircleAvatar(
                 radius: 100,
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,
                 backgroundImage: isset ? FileImage(File(state.profileImagePath!)) : null,
                 child: !isset ? const Center(child: Text('Select profile image')) : null,
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ],
     );
