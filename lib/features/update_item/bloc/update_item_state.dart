@@ -1,6 +1,6 @@
 part of 'update_item_bloc.dart';
 
-class UpdateItemState extends Equatable {
+abstract class UpdateItemState extends Equatable {
   const UpdateItemState();
 
   @override
