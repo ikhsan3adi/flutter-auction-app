@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:user_repository/user_repository.dart';
 
 import 'app.dart';
 import 'bloc_observer.dart';
@@ -21,11 +22,13 @@ Future<void> bootstrap() async {
   final DioServices dioServices = DioServices(tokenRepository: tokenRepository);
 
   final authApiClient = AuthenticationApiClientImpl(dio: dioServices.getDio());
+  final userAuthClient = UserApiClientImpl(dio: dioServices.getDio());
   final auctionApiClient = AuctionApiClientImpl(dio: dioServices.getDio());
   final bidApiClient = BidApiClientImpl(dio: dioServices.getDio());
   final itemApiClient = ItemApiClientImpl(dio: dioServices.getDio());
 
   final AuthenticationRepository authenticationRepository = AuthenticationRepository(apiClient: authApiClient);
+  final UserRepository userRepository = UserRepository(apiClient: userAuthClient);
   final AuctionRepository auctionRepository = AuctionRepository(apiClient: auctionApiClient);
   final BidRepository bidRepository = BidRepository(apiClient: bidApiClient);
   final ItemRepository itemRepository = ItemRepository(apiClient: itemApiClient);
@@ -36,6 +39,7 @@ Future<void> bootstrap() async {
         providers: [
           RepositoryProvider(create: (_) => dioServices),
           RepositoryProvider(create: (_) => authenticationRepository),
+          RepositoryProvider(create: (_) => userRepository),
           RepositoryProvider(create: (_) => tokenRepository),
           RepositoryProvider(create: (_) => auctionRepository),
           RepositoryProvider(create: (_) => bidRepository),

@@ -28,6 +28,8 @@ class Token {
     return 'Token {accessToken: $accessToken, expiresIn: $expiresIn, tokenTime: $tokenTime, userData: ${userData?.toJson()}}';
   }
 
+  User getUserInfo() => User.fromJson(JwtDecoder.decode(accessToken));
+
   factory Token.fromEncodedToken({required String token}) {
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
@@ -36,6 +38,20 @@ class Token {
       expiresIn: JwtDecoder.getExpirationDate(token),
       tokenTime: DateTime.now().subtract(JwtDecoder.getTokenTime(token)),
       userData: User.fromJson(decodedToken..addEntries({'id': Uuid().v4()}.entries)),
+    );
+  }
+
+  Token copyWith({
+    String? accessToken,
+    DateTime? expiresIn,
+    DateTime? tokenTime,
+    User? userData,
+  }) {
+    return Token(
+      accessToken: accessToken ?? this.accessToken,
+      expiresIn: expiresIn ?? this.expiresIn,
+      tokenTime: tokenTime ?? this.tokenTime,
+      userData: userData ?? this.userData,
     );
   }
 }

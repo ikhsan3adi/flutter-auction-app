@@ -13,9 +13,11 @@ import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
 import 'package:flutter_online_auction_app/features/register/register.dart';
 import 'package:flutter_online_auction_app/features/splash/splash.dart';
 import 'package:flutter_online_auction_app/features/update_item/update_item.dart';
+import 'package:flutter_online_auction_app/features/user_profile/user_profile.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:user_repository/user_repository.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -65,6 +67,9 @@ class AppRoute {
 
       case NewAuctionPage.routeName:
         return NewAuctionPage.route();
+
+      case UserProfilePage.routeName:
+        return UserProfilePage.route();
 
       default:
         return _errorRoute();

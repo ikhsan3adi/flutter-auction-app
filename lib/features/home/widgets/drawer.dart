@@ -1,8 +1,11 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
+import 'package:flutter_online_auction_app/features/user_profile/user_profile.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:user_repository/user_repository.dart';
 
 class MyCustomDrawer extends StatelessWidget {
   const MyCustomDrawer({super.key});
@@ -10,11 +13,27 @@ class MyCustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    User? user = context.watch<TokenRepository>().token?.userData;
+
     return Drawer(
       child: SafeArea(
         child: Material(
           child: ListView(
             children: [
+              ListTile(
+                leading: CircleAvatar(
+                  radius: 32,
+                  backgroundImage: user?.profileImageUrl != null ? NetworkImage(user?.profileImageUrl ?? '') : null,
+                  child: user?.profileImageUrl == null ? Text(user?.name.split('')[0] ?? 'U') : null,
+                ),
+                title: Text(user?.name ?? 'Unknown user', style: textTheme.headlineSmall),
+                subtitle: Text(user?.username ?? ''),
+                onTap: () {
+                  Navigator.of(context).pushNamed(UserProfilePage.routeName);
+                },
+              ),
+              const Divider(),
               ListTile(
                 leading: const Icon(Icons.dark_mode),
                 title: const Text("Dark theme"),
@@ -48,8 +67,8 @@ class MyCustomDrawer extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("E-AUCTION", style: textTheme.labelMedium),
-                  Text("@2023 v0.0.1", style: textTheme.bodySmall),
+                  Text("E-AUCTION by @ikhsan3adi", style: textTheme.labelMedium),
+                  Text("@2023", style: textTheme.bodySmall),
                 ],
               ),
             ],

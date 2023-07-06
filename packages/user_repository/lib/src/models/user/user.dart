@@ -8,6 +8,7 @@ part 'user.g.dart';
 @HiveType(typeId: 1)
 class User extends Equatable {
   @HiveField(0)
+  @JsonKey(name: 'user_id')
   final String id;
   @HiveField(1)
   final String username;
