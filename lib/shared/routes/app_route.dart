@@ -13,6 +13,7 @@ import 'package:flutter_online_auction_app/features/new_item/new_item.dart';
 import 'package:flutter_online_auction_app/features/register/register.dart';
 import 'package:flutter_online_auction_app/features/splash/splash.dart';
 import 'package:flutter_online_auction_app/features/update_item/update_item.dart';
+import 'package:flutter_online_auction_app/features/update_profile/update_profile.dart';
 import 'package:flutter_online_auction_app/features/user_profile/user_profile.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 import 'package:flutter/foundation.dart';
@@ -70,6 +71,9 @@ class AppRoute {
 
       case UserProfilePage.routeName:
         return UserProfilePage.route();
+
+      case UpdateProfilePage.routeName:
+        return UpdateProfilePage.route(user: settings.arguments as User);
 
       default:
         return _errorRoute();

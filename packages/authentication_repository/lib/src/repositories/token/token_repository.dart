@@ -1,5 +1,6 @@
 import 'package:authentication_repository/src/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:user_repository/user_repository.dart';
 
 class TokenRepository {
   TokenRepository({this.token, required Box<Token> box}) : _box = box {
@@ -25,6 +26,15 @@ class TokenRepository {
   Future<void> setToken({required String accessToken}) async {
     try {
       token = Token.fromEncodedToken(token: accessToken);
+      await _box.put('apiToken', token!);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> updateUserData({required User user}) async {
+    try {
+      token = token?.copyWith(userData: user);
       await _box.put('apiToken', token!);
     } catch (e) {
       throw Exception(e);

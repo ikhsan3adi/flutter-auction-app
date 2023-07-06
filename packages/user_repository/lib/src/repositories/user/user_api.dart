@@ -36,8 +36,29 @@ class UserApiClientImpl extends UserApiClient {
 
   @override
   Future<void> updateUser(User user) async {
-    // TODO image upload
-    await _dio.patch('/users/${user.id}');
+    await _dio.patch(
+      '/users/${user.id}',
+      data: user.toJson(),
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+
+    if (user.profileImageUrl == null) return;
+
+    FormData formData = FormData();
+
+    if (user.profileImageUrl != null && user.profileImageUrl!.isNotEmpty) {
+      formData.files.add(MapEntry(
+        "profile_image",
+        await MultipartFile.fromFile(user.profileImageUrl!, filename: user.profileImageUrl!.split('/').last),
+      ));
+    }
+
+    formData.fields.add(MapEntry('username', user.username));
+
+    print(await _dio.post(
+      '/users/images/update',
+      data: formData,
+    ));
   }
 
   @override

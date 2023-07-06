@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_auction_app/features/update_profile/update_profile.dart';
 import 'package:flutter_online_auction_app/features/user_profile/user_profile.dart';
 import 'package:flutter_online_auction_app/shared/shared.dart';
 
@@ -138,6 +139,10 @@ class _EditButton extends StatelessWidget {
             icon: const Icon(Icons.edit),
             onPressed: () {
               if (state is! UserProfileLoaded) return;
+
+              Navigator.of(context).pushNamed(UpdateProfilePage.routeName, arguments: state.user).then((_) {
+                context.read<UserProfileBloc>().add(FetchUserProfile());
+              });
             },
             disabled: state is! UserProfileLoaded,
           );
