@@ -85,6 +85,7 @@ class AppRoute {
       settings: const RouteSettings(name: '/error'),
       builder: (_) => const Scaffold(
         appBar: MyCustomAppbar(title: 'Error'),
+        body: ErrorCommon(message: "Error"),
       ),
     );
   }
