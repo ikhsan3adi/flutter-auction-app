@@ -1,6 +1,7 @@
 import 'package:auction_repository/auction_repository.dart';
 import 'package:flutter_online_auction_app/features/auction_detail/auction_detail.dart';
 import 'package:flutter_online_auction_app/features/auth/auth.dart';
+import 'package:flutter_online_auction_app/features/change_password/change_password.dart';
 import 'package:flutter_online_auction_app/features/explore/explore.dart';
 import 'package:flutter_online_auction_app/features/home/home.dart';
 import 'package:flutter_online_auction_app/features/item_detail/item_detail.dart';
@@ -74,6 +75,9 @@ class AppRoute {
 
       case UpdateProfilePage.routeName:
         return UpdateProfilePage.route(user: settings.arguments as User);
+
+      case ChangePasswordPage.routeName:
+        return ChangePasswordPage.route();
 
       default:
         return _errorRoute();

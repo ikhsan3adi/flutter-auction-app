@@ -6,6 +6,7 @@ abstract class UserApiClient extends Equatable {
   Future<List<User>> getUsers();
   Future<User> getUser(String id);
   Future<void> updateUser(User user);
+  Future<void> changePassword(String oldPassword, String newPassword);
   Future<void> deleteUser(User user);
 }
 
@@ -59,6 +60,17 @@ class UserApiClientImpl extends UserApiClient {
       '/users/images/update',
       data: formData,
     ));
+  }
+
+  @override
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    await _dio.post(
+      '/users/password',
+      data: {
+        'old_password': oldPassword,
+        'new_password': newPassword,
+      },
+    );
   }
 
   @override

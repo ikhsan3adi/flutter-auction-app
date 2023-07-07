@@ -19,6 +19,10 @@ class UserRepository {
     return _apiClient.updateUser(user);
   }
 
+  Future<void> changePassword({required String oldPassword, required String newPassword}) async {
+    return _apiClient.changePassword(oldPassword, newPassword);
+  }
+
   Future<void> deleteUser(User user) async {
     return _apiClient.deleteUser(user);
   }
