@@ -23,7 +23,7 @@
 - My Auction
 - My Item
 - Switch Dark & Light Theme
-- User Profile :soon:
+- User Profile
 
 See also: <a href="https://github.com/ikhsan3adi/ci4_online_auction_api">Online Auction App Backend</a>
 
