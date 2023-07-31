@@ -2,17 +2,13 @@
   <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/banner.png" title="Online Auction App">
 </p>
 
-<h1 align="center">Online Auction App</h1>
+# Online Auction App
 
-<p align="center">
-  <img src="https://img.shields.io/github/forks/ikhsan3adi/Flutter-Auction-App?style=for-the-badge" title="GitHub forks">
-  <img src="https://img.shields.io/github/stars/ikhsan3adi/Flutter-Auction-App?style=for-the-badge" title="GitHub Repo stars">
-  <img src="https://img.shields.io/github/downloads/ikhsan3adi/Flutter-Auction-App/total?style=for-the-badge" title="GitHub all releases">
-</p>
+[![GitHub forks](https://img.shields.io/github/forks/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)](https://github.com/ikhsan3adi/flutter-auction-app/fork)
+![GitHub Repo stars](https://img.shields.io/github/stars/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)
+[![GitHub all releases](https://img.shields.io/github/downloads/ikhsan3adi/Flutter-Auction-App/total?style=for-the-badge)](https://github.com/ikhsan3adi/flutter-auction-app/releases)
 
-<p align="center">
-  Flutter Online Auction App is a mobile application built with Flutter. It allows users to participate in online auctions, browse products, place bids, and manage their account.
-</p>
+Flutter Online Auction App is a mobile application built with Flutter. It allows users to participate in online auctions, browse products, place bids, and manage their account.
 
 ## Key Features
 - Login & Register
@@ -25,7 +21,7 @@
 - Switch Dark & Light Theme
 - User Profile
 
-See also: <a href="https://github.com/ikhsan3adi/ci4_online_auction_api">Online Auction App Backend</a>
+See also: [Online Auction App Backend](https://github.com/ikhsan3adi/ci4_online_auction_api)
 
 ## Screenshots
 
