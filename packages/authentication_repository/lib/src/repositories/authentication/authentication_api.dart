@@ -36,7 +36,9 @@ class AuthenticationApiClientImpl extends AuthenticationApiClient {
       ));
     }
 
-    formData.fields.addAll(user.toJson().cast<String, String>().entries);
+    Map<String, dynamic> newUser = user.toJson().map((key, value) => MapEntry(key, value ?? 'null'));
+
+    formData.fields.addAll(newUser.cast<String, String>().entries);
     formData.fields.add(MapEntry('password', password));
 
     await _dio.post(
