@@ -2,7 +2,7 @@
   <img src="https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/banner.png" title="Online Auction App">
 </p>
 
-# Online Auction App
+# Flutter Online Auction App
 
 [![GitHub forks](https://img.shields.io/github/forks/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)](https://github.com/ikhsan3adi/flutter-auction-app/fork)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ikhsan3adi/Flutter-Auction-App?style=for-the-badge)
@@ -99,5 +99,9 @@ Contributions are welcome! If you have any suggestions, bug reports, or feature 
 
 - [@asyncguy](https://www.github.com/asyncguy)
 
+## Support us
+
+[![Donate paypal](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/xannxett?country.x=ID&locale.x=en_US)
+[![Donate saweria](https://img.shields.io/badge/Donate-Saweria-red?style=for-the-badge&link=https%3A%2F%2Fsaweria.co%2Fxiboxann)](https://saweria.co/xiboxann)
 
 Don't forget to follow :ok_hand:
